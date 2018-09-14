@@ -69,18 +69,19 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+//            'api_token'=>$data['api_token'],
         ]);
     }
 
-    protected function registered(Request $request, $user)
-    {
-//        $users=new Users();
-        $user->generateToken();
-
-//        $input=$request->all();
-
-        return response()->json(['data'=>$user->toArray()],201);
-//        return $input;
-    }
+//    protected function registered(Request $request, $user)
+//    {
+////        $users=new Users();
+//
+//
+////        $input=$request->all();
+//
+//
+////        return $input;
+//    }
 
 }

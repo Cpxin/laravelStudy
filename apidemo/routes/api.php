@@ -3,7 +3,7 @@
 use App\Article;
 use function foo\func;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -20,13 +20,24 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('articles','ArticleController@index');
-Route::get('articles/{id}','ArticleController@show');
-Route::post('articles','ArticleController@store');
-Route::put('articles/{id}','ArticleController@update');
-Route::delete('articles/{id}','ArticleController@delete');
 
 Route::post('register','Auth\RegisterController@register');
+Route::post('login','Auth\LoginController@login');
+Route::post('logout','Auth\LoginController@logout');
+Route::middleware('auth:api')->get('/user',function (Request $request){
+   return $request->user();
+});
+Auth::guard('api')->user();
+Auth::guard('api')->check();
+Auth::guard('api')->id();
+
+Route::group(['middleware'=>'auth:api'],function (){
+    Route::get('articles','ArticleController@index');
+    Route::get('articles/{id}','ArticleController@show');
+    Route::post('articles','ArticleController@store');
+    Route::put('articles/{id}','ArticleController@update');
+    Route::delete('articles/{id}','ArticleController@delete');
+});
 //Route::get('articles',function (){
 //   return Article::all();
 //});
