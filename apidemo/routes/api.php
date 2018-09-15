@@ -38,6 +38,8 @@ Route::group(['middleware'=>'auth:api'],function (){
     Route::put('articles/{id}','ArticleController@update');
     Route::delete('articles/{id}','ArticleController@delete');
 });
+
+Route::post('auth/register','AuthController@register');
 //Route::get('articles',function (){
 //   return Article::all();
 //});
