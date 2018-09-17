@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterFormRequest;
 use App\User;
+use App\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -30,7 +31,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        if ( ! $token = \Tymon\JWTAuth\Facades\JWTAuth::attempt($credentials)) {
+        if ( ! $token = JWTAuth::attempt($credentials)) {
             return response([
                 'status' => 'error',
                 'error' => 'invalid.credentials',
@@ -42,11 +43,12 @@ class AuthController extends Controller
     }
     public function user(Request $request)
     {
-        $user = User::find(Auth::user()->id);
+        $user = User::find(JWTAuth::user());
         return response([
             'status' => 'success',
             'data' => $user
         ]);
+//        return dd(Auth::user()->id);
     }
     public function refresh()
     {
