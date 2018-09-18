@@ -1,0 +1,2 @@
+vue.js生命周期被执行了两次?在重置了项目后无法从数据库中读取数据?
+GET http://localhost/apidemo/public/api/auth/user 500 (Internal Server Error)
