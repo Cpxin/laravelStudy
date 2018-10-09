@@ -26,3 +26,5 @@ Route::get('staff/detail/{id}',['uses'=>'StaffController@detail']);
 Route::post('staff/save_detail/{id}',['uses'=>'StaffController@save_detail']);
 Route::post('staff/delete/{id}',['uses'=>'StaffController@delete']);
 Route::post('staff/update',['uses'=>'StaffController@update']);
+
+Route::get('project/over',['uses'=>'ProjectController@over']);

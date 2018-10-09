@@ -20,7 +20,7 @@ class StaffController extends Controller
     public function over()
     {
 //        $staff=new Staff();
-        $staff=Staff::paginate(10);
+        $staff=Staff::paginate(5);
 //        $arr=$staff->toArray();
         return view('staff.staff_over',['staff'=>$staff]);
     }

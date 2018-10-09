@@ -19,7 +19,7 @@ class CreateStaffTable extends Migration
             $table->integer('age')->default(0);
             $table->integer('sex')->default(10);
             $table->string('position')->default('实习');
-            $table->integer('state')->default(0);
+            $table->integer('state')->default(0);  //状态 0：空闲 1：忙碌 2：...
             $table->timestamps();
 //            $table->dateTime('created_at');
 //            $table->dateTime('updated_at');

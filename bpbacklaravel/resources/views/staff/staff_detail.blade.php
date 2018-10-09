@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">基本信息</div>
                 <div class="panel-body">
-                    <img src="img/me.png" class="img-responsive img-rounded img-thumbnail" alt="Me">
+                    <img src="{{asset('img/me.png')}}" class="img-responsive img-rounded img-thumbnail" alt="Me">
                     <p class="text-center text-primary">{{$staff->name}}</p>
                     <address>
                         {{--<strong>中国</strong><br>--}}
@@ -19,7 +19,7 @@
             </div>
 
         <div class="panel panel-info">
-            <div class="panel panel-heading">Personal Skill</div>
+            <div class="panel panel-heading">技能</div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-3">
@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="panel panel-primary">
-            <div class="panel panel-heading">ContactMe</div>
+            <div class="panel panel-heading">发送邮件</div>
             <div class="panel-body">
                 <form class="form-horizontal">
                     <div class="form-group">
@@ -103,6 +103,7 @@
                 </form>
             </div>
         </div>
+
     </div>
 
         <!--右边-->
@@ -118,42 +119,52 @@
                     <div class="panel-body">
                         <form class="form-horizontal" method="post" action="{{url('staff/save_detail/'.$staff->id)}}">
                         {{csrf_field()}} <!--生成隐藏input表单-->
+
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">邮箱</label>
                                 <div class="col-sm-5">
-                                    <input type="text" name="Vitae[email]" value="{{old('Vitae')['email']?old('Staff')['email']:''}}" class="form-control" id="email" placeholder="请输入邮箱">
+                                <label for="hobby">爱好:</label>
+                                <textarea id="hobby" name="Vitae[hobby]" value="{{old('Vitae')['hobby']?old('Vitae')['hobby']:''}}" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label for="age" class="col-sm-2 control-label">住址</label>
-                                <div class="col-sm-5">
-                                    <input type="text" name="Vitae[adress]" value="{{old('Vitae')['adress']?old('Vitae')['adress']:''}}" class="form-control" id="adress" placeholder="请输入员工住址">
+                                <div class="input-group col-sm-5">
+                                    <div class="input-group-addon" >邮箱</div>
+                                    <input type="text" name="Vitae[email]" value="{{old('Vitae')['email']?old('Vitae')['email']:''}}" class="form-control " id="email" placeholder="未填写..">
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label for="age" class="col-sm-2 control-label">教育情况</label>
-                                <div class="col-sm-5">
-                                    <input type="text" name="Vitae[education]" value="{{old('Vitae')['education']?old('Vitae')['education']:''}}" class="form-control" id="experience" placeholder="请输入员工教育情况">
+                                <div class="input-group col-sm-5">
+                                    <div class="input-group-addon" >住址</div>
+                                    <input type="text" name="Vitae[adress]" value="{{old('Vitae')['adrss']?old('Vitae')['adress']:''}}" class="form-control " id="adress" placeholder="未填写..">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="age" class="col-sm-2 control-label">技能</label>
-                                <div class="col-sm-5">
-                                    <input type="text" name="Vitae[skill]" value="{{old('Vitae')['skill']?old('Vitae')['skill']:''}}" class="form-control" id="skill" placeholder="请输入员工技能">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="age" class="col-sm-2 control-label">爱好</label>
-                                <div class="col-sm-5">
-                                    <input type="text" name="Vitae[hobby]" value="{{old('Vitae')['hobby']?old('Vitae')['hobby']:''}}" class="form-control" id="hobby" placeholder="请输入员工爱好">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="age" class="col-sm-2 control-label">项目经验</label>
-                                <div class="col-sm-5">
-                                    <input type="text" name="Vitae[experience]" value="{{old('Vitae')['experience']?old('Vitae')['experience']:''}}" class="form-control" id="experience" placeholder="请输入员工教育情况">
-                                </div>
-                            </div>
+
+                            {{--<div class="form-group">--}}
+                                {{--<label for="age" class="col-sm-2 control-label">教育情况</label>--}}
+                                {{--<div class="col-sm-5">--}}
+                                    {{--<input type="text" name="Vitae[education]" value="{{old('Vitae')['education']?old('Vitae')['education']:''}}" class="form-control" id="experience" placeholder="请输入员工教育情况">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<label for="age" class="col-sm-2 control-label">技能</label>--}}
+                                {{--<div class="col-sm-5">--}}
+                                    {{--<input type="text" name="Vitae[skill]" value="{{old('Vitae')['skill']?old('Vitae')['skill']:''}}" class="form-control" id="skill" placeholder="请输入员工技能">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<label for="age" class="col-sm-2 control-label">爱好</label>--}}
+                                {{--<div class="col-sm-5">--}}
+                                    {{--<input type="text" name="Vitae[hobby]" value="{{old('Vitae')['hobby']?old('Vitae')['hobby']:''}}" class="form-control" id="hobby" placeholder="请输入员工爱好">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<label for="age" class="col-sm-2 control-label">项目经验</label>--}}
+                                {{--<div class="col-sm-5">--}}
+                                    {{--<input type="text" name="Vitae[experience]" value="{{old('Vitae')['experience']?old('Vitae')['experience']:''}}" class="form-control" id="experience" placeholder="请输入员工教育情况">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-primary" >保存</button>
@@ -169,21 +180,7 @@
 
                     <div class="panel-heading">
                         <div class="panel-title">
-                            <a href="#detail" data-toggle="collapse" data-parent="#accoradion">附加信息</a>
-                        </div>
-                        <div id="detail" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <ul class="">
-                                    <li><b>邮箱</b></li>
-                                    <li>12000</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            <a href="#collapseOne" data-toggle="collapse" data-parent="#accoradion">工作经验</a>
+                            <a href="#collapseOne" data-toggle="collapse" data-parent="#accoradion">项目经历</a>
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse">
                             <div class="panel-body">
@@ -220,8 +217,6 @@
                         <div class="panel-title">
                             <a href="#collapseTwo" data-toggle="collapse" data-parent="#accoradion">教育经历</a>
                         </div>
-
-
                         <div id="collapseTwo" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul class="list-group">
@@ -252,8 +247,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
         </div>
-
+    </div>
     </div>
 
     @stop

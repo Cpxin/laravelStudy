@@ -74,7 +74,6 @@
                         {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">详情</button>--}}
                         <a class="btn btn-success btn-xs" href="{{url('staff/detail',['id'=>$sta->id])}}">详情</a>
                         <a class="btn btn-info btn-xs"   onclick="editInfo('{{$sta->id}}','{{$sta->name}}','{{$sta->age}}','{{$sta->sex}}','{{$sta->position}}')">修改</a>
-
                         <a class="btn btn-danger btn-xs" href="{{url('staff/delete',['id'=>$sta->id])}}" onclick="if(confirm('确定要删除吗?')==false) return false;">删除</a>
                     </div>
                 </div>
@@ -82,37 +81,12 @@
             </div>
 
         </div>
-        <!--页码块-->
-        <footer class="footer">
-            <ul class="pagination">
-                <li>
-                    <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                    </select>
-                    页
-                </li>
-                <li class="gray">
-                    共20页
-                </li>
-                <li>
-                    <i class="glyphicon glyphicon-menu-left">
-                    </i>
-                </li>
-                <li>
-                    <i class="glyphicon glyphicon-menu-right">
-                    </i>
-                </li>
-            </ul>
-        </footer>
+    <!--分页-->
+        <div>
+            <div class="pull-right">
+                {{$staff->render()}}
+            </div>
+        </div>
 
         <!--弹出添加用户窗口-->
         <div class="modal fade" id="addUser" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true" style="display: none;">
@@ -297,6 +271,7 @@
         <!-- /.modal -->
 
     </div>
+
 @stop
 
 @section('javascript')

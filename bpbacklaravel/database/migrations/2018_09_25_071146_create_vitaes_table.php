@@ -18,10 +18,10 @@ class CreateVitaesTable extends Migration
             $table->integer('staff_id');
             $table->string('image');
             $table->string('email');
-            $table->string('experience');
+            $table->string('experience'); //项目经历
             $table->string('skill');
             $table->string('adress');
-            $table->string('education');
+            $table->string('education');  //教育经历
             $table->string('hobby');
             $table->timestamps();
         });
