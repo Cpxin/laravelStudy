@@ -22,7 +22,7 @@ class CreateProjectsTable extends Migration
             $table->integer('cost')->default(0);  //预期成本
             $table->integer('profit')->default(0); //预期利润
             $table->integer('rank')->default(0); //项目等级 0<1<2<3...
-            $table->integer('state')->defult(0); //项目状态 0：未启动 1：启动 2：..
+            $table->integer('state')->default(0); //项目状态 0：未启动 1：启动 2：..
             $table->timestamps();
         });
     }

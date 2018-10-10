@@ -28,3 +28,6 @@ Route::post('staff/delete/{id}',['uses'=>'StaffController@delete']);
 Route::post('staff/update',['uses'=>'StaffController@update']);
 
 Route::get('project/over',['uses'=>'ProjectController@over']);
+Route::get('project/detail/{id}',['uses'=>'ProjectController@detail']); //项目详情
+Route::get('project/add',['uses'=>'ProjectController@add']);
+Route::post('project/save',['uses'=>'ProjectController@save']);

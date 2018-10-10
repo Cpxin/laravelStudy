@@ -4,7 +4,7 @@
     <div role="tabpanel" class="tab-pane active" id="user">
         <div class="check-div form-inline">
             <div class="col-xs-3">
-                <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addUser">添加项目 </button>
+                <a class="btn btn-yellow btn-xs" href="{{url('project/add')}}">添加项目 </a>
             </div>
             <div class="col-xs-4">
                 <input type="text" class="form-control input-sm" placeholder="输入文字搜索" >
@@ -33,13 +33,13 @@
                 <div class="col-xs-2">
                     项目预期成本
                 </div>
-                <div class="col-xs-2">
+                <div class="col-xs-1">
                     项目等级
                 </div>
                 <div class="col-xs-2">
                     项目状态
                 </div>
-                <div class="col-xs-1">
+                <div class="col-xs-2">
                     项目创建时间
                 </div>
                 <div class="col-xs-2">
@@ -60,18 +60,18 @@
                         <div class="col-xs-2" id="age">
                             {{$pro->cost}}
                         </div>
-                        <div class="col-xs-2" id="sex">
+                        <div class="col-xs-1" id="sex">
                             {{$pro->rank}}
                         </div>
                         <div class="col-xs-2" id="position">
                             {{$pro->state}}
                         </div>
-                        <div class="col-xs-1" >
+                        <div class="col-xs-2" >
                             {{$pro->created_at}}
                         </div>
                         <div class="col-xs-2">
                             {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">详情</button>--}}
-                            <a class="btn btn-success btn-xs" href="{{url('staff/detail',['id'=>$pro->id])}}">详情</a>
+                            <a class="btn btn-success btn-xs" href="{{url('project/detail',['id'=>$pro->id])}}">详情</a>
                             <a class="btn btn-info btn-xs">修改</a>
                             <a class="btn btn-danger btn-xs" href="{{url('staff/delete',['id'=>$pro->id])}}" onclick="if(confirm('确定要删除吗?')==false) return false;">删除</a>
                         </div>
