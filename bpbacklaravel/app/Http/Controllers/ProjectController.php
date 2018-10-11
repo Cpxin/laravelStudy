@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Staff;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -39,6 +40,13 @@ class ProjectController extends Controller
         }else{
             return redirect()->back()->with('fail','添加失败');
         }
+    }
+
+    //人员安排
+    public function arrange($id)
+    {
+        $staff=Staff::paginate(5);
+        return view('project.project_arrange',['staff'=>$staff]);
     }
 
 

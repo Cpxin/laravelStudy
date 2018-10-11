@@ -1,46 +1,116 @@
 @extends('common.layouts')
 
 @section('content')
-    <div class="row">
-        <div class="col-sm-6">
+    <div class="row col-sm-offset-3">
+        <div class="col-sm-8">
             <form class="form-horizontal" method="post" action="{{url('project/save')}}">
                 {{csrf_field()}}
+                <!--基本信息-->
                 <div class="panel panel-default">
                     <div class="panel-heading" >基本信息</div>
                     <div class="panel-body">
 
+                        <div class="row">
                         <h1 align="center">{{$project->name}}</h1>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-2 col-sm-offset-3">
+                                <p><strong>编号：</strong>{{$project->id}}</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p><strong>等级：</strong>{{$project->rank}}</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p><strong>状态：</strong>{{$project->state}}</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-5 col-sm-offset-2">
+                                <p><strong>创建时间：</strong>{{$project->created_at}}</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p><strong>期限：</strong>{{$project->term}}</p>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
 
+                <!--项目内容-->
                 <div class="panel panel-info">
                     <div class="panel panel-heading">项目内容</div>
                     <div class="panel-body">
 
                         <div class="row">
-                            <div class="form-group">
-                                <textarea id="pContent" name="Project[content]" value="{{old('Project')['content']?old('Project')['content']:''}}" class="form-control" rows="3" placeholder="未填写.."></textarea>
+                            <div class="col-sm-5">
+                                <p>{{$project->content}}</p>
                             </div>
                         </div>
 
                     </div>
                 </div>
 
+                <!--详细信息-->
                 <div class="panel panel-primary">
-                    <div class="panel panel-heading ">详细信息</div>
+                    <div class="panel panel-heading ">人员需求</div>
                     <div class="panel-body">
 
-
-                        <div class="form-group">
-                            <div class="input-group col-sm-5">
-                                <div class="input-group-addon" >项目人员需求</div>
-                                <input type="text" id="pPersonnel" name="Project[personnel]" value="{{old('Project')['personnel']?old('Project')['personnel']:''}}" class="form-control" placeholder="未填写..">
+                        <div class="row">
+                            <div class="form-inline col-sm-7">
+                                <div class="col-sm-offset-1">
+                                    <p>{{$project->personnel}}</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-green" href="{{url('project/arrange/'.$project->id)}}">
+                                        选择员工
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-sm-3 ">
+                                <div class="form-inline">
+                                    <p>职位：
+                                    <select class="form-control">
+                                        <option>程序员</option>
+                                        <option>项目主管</option>
+                                        <option>项目经理</option>
+                                    </select>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group  col-sm-4">
+                                <div class="input-group">
+                                    <div class="input-group-addon" >人数：</div>
+                                    <input type="text" style="width: 50px" id="num" name="Project[personnel]" value="{{old('Project')['personnel']?old('Project')['personnel']:''}}" class="form-control" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-green">
+                                    <strong>+</strong>
+                                </button>
+                            </div>
 
+                        </div>
 
+                    </div>
+                </div>
+
+                <div class="panel panel-info">
+                    <div class="panel panel-heading">项目资金</div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <p><strong>预期成本：</strong>{{$project->cost}}</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p><strong>预期利润：</strong>{{$project->profit}}</p>
+                            </div>
+                        </div>
 
                     </div>
                 </div>

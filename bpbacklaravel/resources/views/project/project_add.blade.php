@@ -44,6 +44,13 @@
                             </div>
                         </div>
 
+                    <div class="form-group">
+                        <div class="input-group col-sm-5">
+                            <div class="input-group-addon" >项目期限</div>
+                            <input type="text" id="pTerm" name="Project[term]" value="{{old('Project')['term']?old('Project')['term']:''}}" class="form-control" placeholder="未填写..">
+                        </div>
+                    </div>
+
                         <div class="form-group">
                             <div class="input-group col-sm-5">
                                 <div class="input-group-addon" >项目预期成本</div>

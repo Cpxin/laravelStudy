@@ -21,6 +21,7 @@ class CreateProjectsTable extends Migration
             $table->string('staffId')->default(''); //参与员工
             $table->integer('cost')->default(0);  //预期成本
             $table->integer('profit')->default(0); //预期利润
+            $table->integer('term')->default(100); //项目期限
             $table->integer('rank')->default(0); //项目等级 0<1<2<3...
             $table->integer('state')->default(0); //项目状态 0：未启动 1：启动 2：..
             $table->timestamps();
