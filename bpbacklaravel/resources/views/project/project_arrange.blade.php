@@ -1,5 +1,11 @@
 @extends('common.layouts')
 
+@section('style')
+    @parent
+    <link href="{{asset('static/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link  href="{{asset('static/bootstrap-table/dist/bootstrap-table.css')}}" rel="stylesheet">
+    @stop
+
 @section('content')
 
     <div role="tabpanel" class="tab-pane active" id="user">
@@ -25,54 +31,72 @@
         </div>
 
         <div class="row">
+
         <div class="data-div col-xs-8">
-            <div class="row tableHeader">
-                <div class="col-xs-1 ">
-                    Id
-                </div>
-                <div class="col-xs-2">
-                    姓名
-                </div>
-                <div class="col-xs-1">
-                    性别
-                </div>
-                <div class="col-xs-3">
-                    职位
-                </div>
-                <div class="col-xs-1">
-                    状态
-                </div>
-                <div class="col-xs-2">
-                    操作
-                </div>
-            </div>
-            @include('common.vaildator')
-            @include('common.message')
-            <div class="tablebody" id="table">
-                @foreach($staff as $sta)
-                    <div class="row">
-                        <div class="col-xs-1 " id="id">
-                            {{$sta->id}}
-                        </div>
-                        <div class="col-xs-2" id="name">
-                            {{$sta->name}}
-                        </div>
-                        <div class="col-xs-1" id="sex">
-                            {{$sta->sex}}
-                        </div>
-                        <div class="col-xs-3" id="position">
-                            {{$sta->position}}
-                        </div>
-                        <div class="col-xs-1" >
-                            {{$sta->state}}
-                        </div>
-                        <div class="col-xs-2">
-                            {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">详情</button>--}}
-                            <a class="btn btn-success btn-xs" href="{{url('staff/detail',['id'=>$sta->id])}}">详情</a>
-                        </div>
+            {{--{{csrf_field()}}--}}
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-1" style="margin-right: -20px"><strong >职位：</strong></div>
+                    <div class="col-sm-2">
+                        <ul class="list-inline" >
+                            <a class="btn btn-dark" onclick="edit('后端工程师')">后端工程师</a>
+                            <li>2</li>
+                        </ul>
                     </div>
-                @endforeach
+                </div>
             </div>
+
+            {{--<div class="row tableHeader">--}}
+                {{--<div class="col-xs-1 ">--}}
+                    {{--Id--}}
+                {{--</div>--}}
+                {{--<div class="col-xs-2">--}}
+                    {{--姓名--}}
+                {{--</div>--}}
+                {{--<div class="col-xs-1">--}}
+                    {{--性别--}}
+                {{--</div>--}}
+                {{--<div class="col-xs-3">--}}
+                    {{--职位--}}
+                {{--</div>--}}
+                {{--<div class="col-xs-1">--}}
+                    {{--状态--}}
+                {{--</div>--}}
+                {{--<div class="col-xs-2">--}}
+                    {{--操作--}}
+                {{--</div>--}}
+            {{--</div>--}}
+            {{--@include('common.vaildator')--}}
+            {{--@include('common.message')--}}
+            {{--<div class="tablebody" id="itable">--}}
+                {{--@foreach($staff as $sta)--}}
+                    {{--<div class="row">--}}
+                        {{--<div class="col-xs-1 " id="id">--}}
+                            {{--{{$sta->id}}--}}
+                        {{--</div>--}}
+                        {{--<div class="col-xs-2" id="name">--}}
+                            {{--{{$sta->name}}--}}
+                        {{--</div>--}}
+                        {{--<div class="col-xs-1" id="sex">--}}
+                            {{--{{$sta->sex}}--}}
+                        {{--</div>--}}
+                        {{--<div class="col-xs-3" id="position">--}}
+                            {{--{{$sta->position}}--}}
+                        {{--</div>--}}
+                        {{--<div class="col-xs-1" >--}}
+                            {{--{{$sta->state}}--}}
+                        {{--</div>--}}
+                        {{--<div class="col-xs-2">--}}
+                            {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">详情</button>--}}
+                            {{--<a class="btn btn-success btn-xs" href="{{url('staff/detail',['id'=>$sta->id])}}">详情</a>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--@endforeach--}}
+            {{--</div>--}}
+
+            <table class="table" id="table1">
+
+            </table>
 
             <!--分页-->
             <div>
@@ -94,5 +118,76 @@
         </div>
 
     </div>
+@stop
 
+@section('javascript')
+    @parent
+    <script src="{{asset('static/bootstrap-table/dist/bootstrap-table.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('static/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js')}}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                contentType:"application/x-www-form-urlencoded",
+                // headers:{'X-CSRF-Token':$('meta[name=_token]').attr('content')},
+                method:'get',
+                url : '{{url('project/arrange_search')}}',
+                dataType:"json",
+                json:'callback',
+                success : function (res) {
+                    load(res);
+                }
+            });
+        });
+        // function edit($val) {
+        //     $.ajax({
+        //         contentType:"application/x-www-form-urlencoded",
+        //         method:'post',
+        //         url : "project/arrange_search/"+$val,
+        //         dataType:"json",
+        //         json:'callback',
+        //         success : function (res) {
+        //             load(res);
+        //         }
+        //     });
+            function load(res) {
+                $('#table1').bootstrapTable({
+                    data:res,
+                    toolbar:'#toolbar',
+                    singleSelect:true,
+                    clickToSelect:true,
+                    sortName: "created_at",
+                    sortOrder: "desc",
+                    pageSize: 5,
+                    pageNumber: 1,
+
+                    showToggle: true,
+                    showRefresh: true,
+                    showColumns: true,
+                    search: true,
+                    pagination: true,
+                    columns: [{
+                        field: "id",
+                        title: 'ID',
+                        switchable: true
+                    },{
+                        field: 'name',
+                        title: '姓名',
+                        switchable: true
+                    }, {
+                        field: 'sex',
+                        title: '性别',
+                        switchable: true
+                    }, {
+                        field: 'position',
+                        title: '职位',
+                        switchable: true
+                    },{
+                        field: 'state',
+                        title: '状态',
+                        switchable: true
+                    }]
+                })
+            }
+
+    </script>
 @stop

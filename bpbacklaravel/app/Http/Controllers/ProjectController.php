@@ -49,5 +49,17 @@ class ProjectController extends Controller
         return view('project.project_arrange',['staff'=>$staff]);
     }
 
+    public function arrange_search($val=null)
+    {
+        if($val!=null){
+            $sta=Staff::where('position',$val)->paginate(5);
+            $staff=json_encode($sta,JSON_UNESCAPED_UNICODE);
+        }else{
+            $sta=Staff::paginate(5);
+            $staff=json_encode($sta,JSON_UNESCAPED_UNICODE);
+        }
+        echo $staff;
+        exit;
+    }
 
 }

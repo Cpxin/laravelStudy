@@ -2,6 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
+    {{--<meta content="text/html; charset=UTF-8"  http-equiv="Content-Type">  --}}
+    {{--<meta name="_token" content="{!! csrf_token() !!}" >--}}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>企业管理-@yield('title')</title>
