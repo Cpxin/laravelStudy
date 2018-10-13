@@ -2,6 +2,7 @@
 
 @section('style')
     @parent
+    {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
     <link href="{{asset('static/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link  href="{{asset('static/bootstrap-table/dist/bootstrap-table.css')}}" rel="stylesheet">
     @stop
@@ -125,30 +126,43 @@
     <script src="{{asset('static/bootstrap-table/dist/bootstrap-table.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('static/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js')}}" type="text/javascript"></script>
     <script>
+        // $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
         $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
-                contentType:"application/x-www-form-urlencoded",
+                // contentType:"application/x-www-form-urlencoded",
                 // headers:{'X-CSRF-Token':$('meta[name=_token]').attr('content')},
-                method:'get',
+                method:'post',
                 url : '{{url('project/arrange_search')}}',
-                dataType:"json",
-                json:'callback',
+                // dataType:"json",
+                // json:'callback',
                 success : function (res) {
+                    // console.log(res.sta);
                     load(res);
                 }
             });
         });
-        // function edit($val) {
-        //     $.ajax({
-        //         contentType:"application/x-www-form-urlencoded",
-        //         method:'post',
-        //         url : "project/arrange_search/"+$val,
-        //         dataType:"json",
-        //         json:'callback',
-        //         success : function (res) {
-        //             load(res);
-        //         }
-        //     });
+
+        {{--function edit($val) {--}}
+            {{--$.ajax({--}}
+                {{--method:'post',--}}
+                {{--url : "{{url('project/arrange_search')}}",--}}
+                {{--dataType:"json",--}}
+                {{--json:'callback',--}}
+                {{--traditional:true,--}}
+                {{--data:{position:$val},--}}
+                {{--headers: {--}}
+                    {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+                {{--},--}}
+                {{--success : function (res) {--}}
+                    {{--console.log(data.msg);--}}
+                {{--}--}}
+            {{--});--}}
+        // }
             function load(res) {
                 $('#table1').bootstrapTable({
                     data:res,
@@ -173,6 +187,10 @@
                         field: 'name',
                         title: '姓名',
                         switchable: true
+                    },{
+                        field: 'age',
+                        title: '年龄',
+                        switchable: true
                     }, {
                         field: 'sex',
                         title: '性别',
@@ -185,7 +203,15 @@
                         field: 'state',
                         title: '状态',
                         switchable: true
-                    }]
+                    },{
+                        field: 'created_at',
+                        title: '创建时间',
+                        switchable: true
+                    },{
+                    field: 'updated_at',
+                        title: '更新时间',
+                        switchable: true
+                }]
                 })
             }
 

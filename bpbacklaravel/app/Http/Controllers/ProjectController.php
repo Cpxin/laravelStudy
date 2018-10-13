@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Project;
 use App\Staff;
 use Illuminate\Http\Request;
+use function MongoDB\BSON\toJSON;
 
 class ProjectController extends Controller
 {
@@ -46,20 +47,28 @@ class ProjectController extends Controller
     public function arrange($id)
     {
         $staff=Staff::paginate(5);
+//        $staff=$staff->items();
+//        foreach ($staff as $k=>$v){
+//            $arr[$k]=$v;
+//        }
+//        dd($arr);
         return view('project.project_arrange',['staff'=>$staff]);
     }
 
-    public function arrange_search($val=null)
+    public function arrange_search()
     {
-        if($val!=null){
-            $sta=Staff::where('position',$val)->paginate(5);
-            $staff=json_encode($sta,JSON_UNESCAPED_UNICODE);
-        }else{
+//        if($val!=null){
+//        $val=$_POST['id'];
+//        $sta=new Staff();
             $sta=Staff::paginate(5);
-            $staff=json_encode($sta,JSON_UNESCAPED_UNICODE);
-        }
-        echo $staff;
-        exit;
+            $sta=$sta->items();
+            foreach ($sta as $k=>$v){
+                $arr[$k]=$v;
+            }
+//        return response()->json($arr)->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+//            return view('project.project_arrange')->with(['sta'=>$arr]);
+        return [csrf_token(),'sta'=>$arr];
+
     }
 
 }
