@@ -5,6 +5,7 @@
     {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
     <link href="{{asset('static/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link  href="{{asset('static/bootstrap-table/dist/bootstrap-table.css')}}" rel="stylesheet">
+    <link href="{{asset('static/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
     @stop
 
 @section('content')
@@ -96,6 +97,35 @@
             {{--</div>--}}
 
             <table class="table" id="table1">
+                {{--<thead>--}}
+                    {{--<tr>--}}
+                        {{--<th >id</th>--}}
+                        {{--<th >姓名</th>--}}
+                        {{--<th >年龄</th>--}}
+                        {{--<th >性别</th>--}}
+                        {{--<th >职位</th>--}}
+                        {{--<th >状态</th>--}}
+                        {{--<th >创建时间</th>--}}
+                        {{--<th >更新时间</th>--}}
+                    {{--</tr>--}}
+                {{--</thead>--}}
+                <tbody>
+                @foreach($staff as $sta)
+                    <tr>
+                        <td>{{$sta->id}}</td>
+                        <td>{{$sta->name}}</td>
+                        <td>{{$sta->age}}</td>
+                        <td>{{$sta->sex}}</td>
+                        <td>{{$sta->position}}</td>
+                        <td>{{$sta->state}}</td>
+                        <td>
+                            <a class="btn btn-success btn-xs" href="{{url('staff/detail',['id'=>$sta->id])}}">详情</a>
+                            <a class="btn btn-info btn-xs">修改</a>
+                            <a class="btn btn-danger btn-xs" href="{{url('staff/delete',['id'=>$sta->id])}}" onclick="if(confirm('确定要删除吗?')==false) return false;">删除</a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
 
             </table>
 
@@ -110,9 +140,15 @@
 
         <div class="col-xs-4">
             <div class="panel-body">
-                <select multiple class="form-control">
-                    <option>1</option>
-                </select>
+                {{--<select multiple class="selectpicker show-tick" id="select1" data-style="btn-success">--}}
+                    {{--<option>1</option>--}}
+                {{--</select>--}}
+                @foreach($personnel as $k=>$v)
+                    <ul class="list-group" id="{{$k}}">
+                        <li class="list-group-item list-group-item-success">职位：{{$k}} 人数：{{$v}}</li>
+                    </ul>
+                @endforeach
+
             </div>
         </div>
 
@@ -125,26 +161,30 @@
     @parent
     <script src="{{asset('static/bootstrap-table/dist/bootstrap-table.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('static/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js')}}" type="text/javascript"></script>
+    <script src="{{asset('static/bootstrap-select/dist/js/bootstrap-select.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('static/bootstrap-select/dist/js/i18n/defaults-zh_CN.min.js')}}"></script>
+
     <script>
         // $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
         $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                // contentType:"application/x-www-form-urlencoded",
-                // headers:{'X-CSRF-Token':$('meta[name=_token]').attr('content')},
-                method:'post',
-                url : '{{url('project/arrange_search')}}',
-                // dataType:"json",
-                // json:'callback',
-                success : function (res) {
-                    // console.log(res.sta);
-                    load(res);
-                }
-            });
+            {{--$.ajaxSetup({--}}
+                {{--headers: {--}}
+                    {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+                {{--}--}}
+            {{--});--}}
+            {{--$.ajax({--}}
+                {{--// contentType:"application/x-www-form-urlencoded",--}}
+                {{--// headers:{'X-CSRF-Token':$('meta[name=_token]').attr('content')},--}}
+                {{--method:'post',--}}
+                {{--url : '{{url('project/arrange_search')}}',--}}
+                {{--// dataType:"json",--}}
+                {{--// json:'callback',--}}
+                {{--success : function (res) {--}}
+                    {{--// console.log(res.sta);--}}
+                    {{--load(res);--}}
+                {{--}--}}
+            {{--});--}}
+            load();
         });
 
         {{--function edit($val) {--}}
@@ -163,9 +203,8 @@
                 {{--}--}}
             {{--});--}}
         // }
-            function load(res) {
+            function load() {
                 $('#table1').bootstrapTable({
-                    data:res,
                     toolbar:'#toolbar',
                     singleSelect:true,
                     clickToSelect:true,
@@ -204,16 +243,24 @@
                         title: '状态',
                         switchable: true
                     },{
-                        field: 'created_at',
-                        title: '创建时间',
-                        switchable: true
-                    },{
-                    field: 'updated_at',
-                        title: '更新时间',
-                        switchable: true
+                    field: 'operate',
+                    title: '操作'
                 }]
                 })
             }
+        $("#table1").on("click-row.bs.table",function(e, row,index){
+
+            var li=document.createElement('li');             //创建li元素
+            li.setAttribute('class','list-group-item');     //在li中添加属性class='list-group-item'
+            li.innerHTML=row['id']+' '+row['name'];          //li中的值为 职员id+职员名
+            // console.log(row['position']);
+            // var u1=document.getElementById('ul1');
+            // u1.appendChild(li);
+            if(document.getElementById(row['position'])){        //如果表格中点击行的员工的职位存在与之对应的ul 的id
+                var u1=document.getElementById(row['position']);
+                u1.appendChild(li);                            //对应ul 添加li元素
+            }
+        })
 
     </script>
 @stop

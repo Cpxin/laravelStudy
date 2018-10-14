@@ -52,7 +52,17 @@ class ProjectController extends Controller
 //            $arr[$k]=$v;
 //        }
 //        dd($arr);
-        return view('project.project_arrange',['staff'=>$staff]);
+        $project=Project::find($id);
+        $need=$project->personnel;
+        $have=$project->staffId;
+        for($i=0;$need!=null;$i++){
+            $str1= substr($need,0,strpos($need,';'));
+            $need=substr($need,strpos($need,';')+1);
+            $key=substr($str1,0,strpos($str1,'*'));
+            $value=substr($str1,strpos($str1,'*')+1);
+            $data[$key]=$value;
+        }
+        return view('project.project_arrange',['staff'=>$staff,'personnel'=>$data]);
     }
 
     public function arrange_search()
