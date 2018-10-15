@@ -6,6 +6,11 @@
     <link href="{{asset('static/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link  href="{{asset('static/bootstrap-table/dist/bootstrap-table.css')}}" rel="stylesheet">
     <link href="{{asset('static/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
+    <style>
+        .clickColor{
+            background-color: #31b0d5;
+        }
+    </style>
     @stop
 
 @section('content')
@@ -130,11 +135,11 @@
             </table>
 
             <!--分页-->
-            <div>
-                <div class="pull-right">
-                    {{$staff->render()}}
-                </div>
-            </div>
+            {{--<div>--}}
+                {{--<div class="pull-right">--}}
+                    {{--{{$staff->render()}}--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
         </div>
 
@@ -145,7 +150,7 @@
                 {{--</select>--}}
                 @foreach($personnel as $k=>$v)
                     <ul class="list-group" id="{{$k}}">
-                        <li class="list-group-item list-group-item-success">职位：{{$k}} 人数：{{$v}}</li>
+                        <li class="list-group-item list-group-item-success" id="i{{$k}}" value="{{$v}}">职位：{{$k}}    剩余可选人数：{{$v}}</li>
                     </ul>
                 @endforeach
 
@@ -167,6 +172,7 @@
     <script>
         // $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
         $(document).ready(function () {
+            window.arr=[];
             {{--$.ajaxSetup({--}}
                 {{--headers: {--}}
                     {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
@@ -248,19 +254,63 @@
                 }]
                 })
             }
-        $("#table1").on("click-row.bs.table",function(e, row,index){
+        $("#table1").on("click-row.bs.table",function(e, row,$element){
 
-            var li=document.createElement('li');             //创建li元素
-            li.setAttribute('class','list-group-item');     //在li中添加属性class='list-group-item'
-            li.innerHTML=row['id']+' '+row['name'];          //li中的值为 职员id+职员名
-            // console.log(row['position']);
-            // var u1=document.getElementById('ul1');
-            // u1.appendChild(li);
-            if(document.getElementById(row['position'])){        //如果表格中点击行的员工的职位存在与之对应的ul 的id
-                var u1=document.getElementById(row['position']);
-                u1.appendChild(li);                            //对应ul 添加li元素
+            if(!isInArray(arr,row['id'])){           //如果数组中不存在某元素
+                arr.push(row['id']);                   //将职员id放入数组中
+                var li=document.createElement('li');             //创建li元素
+                li.setAttribute('class','list-group-item');     //在li中添加属性class='list-group-item'
+                li.setAttribute('id',row['id']);               //该li id 为职员Id
+                li.innerHTML=row['id']+' '+row['name'];          //li中的值为 职员id+职员名
+
+                if(document.getElementById(row['position'])){        //如果表格中点击行的员工的职位存在与之对应的ul 的id
+
+                    var u1=document.getElementById(row['position']);
+
+                    // var num= ul.getElementsByTagName('li').length-1;
+                    var addfirst= document.getElementById("i"+row['position']);
+                    if(addfirst.value>0){
+                        $($element).addClass('clickColor');  //为点击行添加背景色
+                        addfirst.value--;
+                        u1.appendChild(li);                            //对应ul 添加li元素
+                        addfirst.innerHTML="职位："+row['position']+"    剩余可选人数："+addfirst.value+"";
+                    }else {
+                        if(addfirst.value<=0){
+                            u1.setAttribute('class','clickColor');
+                        }
+                    }
+                }
+
+            }else{
+                deleteInArray(arr,row['id']);                     //数组中删除职员Id
+                $($element).removeClass('clickColor');
+                if(document.getElementById(row['position'])){        //如果表格中点击行的员工的职位存在与之对应的ul 的id
+                    var l=document.getElementById(row['id']);
+                    u=document.getElementById(row['position']);
+                    u.removeChild(l);                            //除去对应ul 添加li元素
+
+                    var subfirst= document.getElementById("i"+row['position']);
+                    subfirst.value++;
+                    subfirst.innerHTML="职位："+row['position']+"    剩余可选人数："+subfirst.value+"";
+                }
             }
-        })
+
+        });
+        function isInArray(arr,value){          //数组中是否存在某元素
+            for(var i = 0; i < arr.length; i++){
+                if(value === arr[i]){
+                    return true;
+                }
+            }
+            return false;
+        }
+        function deleteInArray(arr,value) {       //数组中删除某元素
+            for(var j=0;j<arr.length;j++){
+                if(value===arr[j]){
+                    arr.splice(j,1);
+                }
+            }
+        }
 
     </script>
 @stop

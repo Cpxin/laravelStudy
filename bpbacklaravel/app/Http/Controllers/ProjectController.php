@@ -46,7 +46,7 @@ class ProjectController extends Controller
     //人员安排
     public function arrange($id)
     {
-        $staff=Staff::paginate(5);
+        $staff=Staff::paginate(10);
 //        $staff=$staff->items();
 //        foreach ($staff as $k=>$v){
 //            $arr[$k]=$v;
@@ -70,7 +70,7 @@ class ProjectController extends Controller
 //        if($val!=null){
 //        $val=$_POST['id'];
 //        $sta=new Staff();
-            $sta=Staff::paginate(5);
+            $sta=Staff::paginate(10);
             $sta=$sta->items();
             foreach ($sta as $k=>$v){
                 $arr[$k]=$v;
