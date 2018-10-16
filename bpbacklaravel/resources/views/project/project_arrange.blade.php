@@ -153,8 +153,11 @@
                         <li class="list-group-item list-group-item-success" id="i{{$k}}" value="{{$v}}">职位：{{$k}}    剩余可选人数：{{$v}}</li>
                     </ul>
                 @endforeach
-
+                <div>
+                    <a class="btn btn-success"  onclick="set()">保存</a>
+                </div>
             </div>
+
         </div>
 
         </div>
@@ -170,45 +173,10 @@
     <script src="{{asset('static/bootstrap-select/dist/js/i18n/defaults-zh_CN.min.js')}}"></script>
 
     <script>
-        // $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
         $(document).ready(function () {
             window.arr=[];
-            {{--$.ajaxSetup({--}}
-                {{--headers: {--}}
-                    {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-                {{--}--}}
-            {{--});--}}
-            {{--$.ajax({--}}
-                {{--// contentType:"application/x-www-form-urlencoded",--}}
-                {{--// headers:{'X-CSRF-Token':$('meta[name=_token]').attr('content')},--}}
-                {{--method:'post',--}}
-                {{--url : '{{url('project/arrange_search')}}',--}}
-                {{--// dataType:"json",--}}
-                {{--// json:'callback',--}}
-                {{--success : function (res) {--}}
-                    {{--// console.log(res.sta);--}}
-                    {{--load(res);--}}
-                {{--}--}}
-            {{--});--}}
             load();
         });
-
-        {{--function edit($val) {--}}
-            {{--$.ajax({--}}
-                {{--method:'post',--}}
-                {{--url : "{{url('project/arrange_search')}}",--}}
-                {{--dataType:"json",--}}
-                {{--json:'callback',--}}
-                {{--traditional:true,--}}
-                {{--data:{position:$val},--}}
-                {{--headers: {--}}
-                    {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-                {{--},--}}
-                {{--success : function (res) {--}}
-                    {{--console.log(data.msg);--}}
-                {{--}--}}
-            {{--});--}}
-        // }
             function load() {
                 $('#table1').bootstrapTable({
                     toolbar:'#toolbar',
@@ -288,7 +256,7 @@
                     var l=document.getElementById(row['id']);
                     u=document.getElementById(row['position']);
                     u.removeChild(l);                            //除去对应ul 添加li元素
-
+                    
                     var subfirst= document.getElementById("i"+row['position']);
                     subfirst.value++;
                     subfirst.innerHTML="职位："+row['position']+"    剩余可选人数："+subfirst.value+"";
@@ -310,6 +278,10 @@
                     arr.splice(j,1);
                 }
             }
+        }
+        function set() {
+            var a="{{$data[0]}}";
+            console.log(a);
         }
 
     </script>

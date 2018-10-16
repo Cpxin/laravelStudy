@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Project;
 use App\Staff;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use function MongoDB\BSON\toJSON;
 
 class ProjectController extends Controller
@@ -46,6 +47,7 @@ class ProjectController extends Controller
     //人员安排
     public function arrange($id)
     {
+
         $staff=Staff::paginate(10);
 //        $staff=$staff->items();
 //        foreach ($staff as $k=>$v){
@@ -67,6 +69,7 @@ class ProjectController extends Controller
 
     public function arrange_search()
     {
+           $redis=new Redis();
 //        if($val!=null){
 //        $val=$_POST['id'];
 //        $sta=new Staff();
