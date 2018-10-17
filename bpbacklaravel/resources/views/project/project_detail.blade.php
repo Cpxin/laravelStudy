@@ -94,6 +94,9 @@
                                 </button>
                             </div>
 
+                            <div class="col-sm-2"><p>{{$project->staffId}}</p></div>
+
+
                         </div>
 
                     </div>

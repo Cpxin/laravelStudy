@@ -2,7 +2,7 @@
 
 @section('style')
     @parent
-    {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
+
     <link href="{{asset('static/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link  href="{{asset('static/bootstrap-table/dist/bootstrap-table.css')}}" rel="stylesheet">
     <link href="{{asset('static/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
@@ -145,7 +145,7 @@
 
         <div class="col-xs-4">
             <div class="panel-body">
-                {{--<select multiple class="selectpicker show-tick" id="select1" data-style="btn-success">--}}
+                    {{--<select multiple class="selectpicker show-tick" id="select1" data-style="btn-success">--}}
                     {{--<option>1</option>--}}
                 {{--</select>--}}
                 @foreach($personnel as $k=>$v)
@@ -153,12 +153,21 @@
                         <li class="list-group-item list-group-item-success" id="i{{$k}}" value="{{$v}}">职位：{{$k}}    剩余可选人数：{{$v}}</li>
                     </ul>
                 @endforeach
-                <div>
-                    <a class="btn btn-success"  onclick="set()">保存</a>
-                </div>
+
             </div>
 
+            <form class="form-horizontal" method="post" action="{{url('project/detail',['id'=>$projectId])}}">
+                {{ csrf_field() }}
+                <div class="input-group col-sm-5">
+                    <input type="text" id="pId" name="Personnel[Id]" value="" class="form-control" placeholder="未填写..">
+                </div>
+                <div class="panel">
+                    <button type="submit" class="btn btn-xs btn-green" onclick="set()">保 存</button>
+                </div>
+            </form>
+
         </div>
+
 
         </div>
 
@@ -229,6 +238,7 @@
                 var li=document.createElement('li');             //创建li元素
                 li.setAttribute('class','list-group-item');     //在li中添加属性class='list-group-item'
                 li.setAttribute('id',row['id']);               //该li id 为职员Id
+                li.setAttribute('name','Staff['+row["id"]+']');
                 li.innerHTML=row['id']+' '+row['name'];          //li中的值为 职员id+职员名
 
                 if(document.getElementById(row['position'])){        //如果表格中点击行的员工的职位存在与之对应的ul 的id
@@ -279,10 +289,16 @@
                 }
             }
         }
+
         function set() {
-            var a="{{$data[0]}}";
-            console.log(a);
+            var i=document.getElementById('pId');
+            var str='';
+            for(var j=0;j<arr.length;j++){
+                str+=arr[j]+';';
+            }
+            i.value=str;
         }
+
 
     </script>
 @stop

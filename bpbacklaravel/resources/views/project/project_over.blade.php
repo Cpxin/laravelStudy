@@ -86,6 +86,6 @@
                 {{$project->render()}}
             </div>
         </div>
-    </div>
+
 
 @stop

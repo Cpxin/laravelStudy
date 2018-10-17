@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Project;
 use App\Staff;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
-use function MongoDB\BSON\toJSON;
+//use Illuminate\Support\Facades\Redis;
+//use function MongoDB\BSON\toJSON;
 
 class ProjectController extends Controller
 {
@@ -17,9 +17,25 @@ class ProjectController extends Controller
         return view('project.project_over',['project'=>$project]);
     }
     //项目详情
-    public function detail($id)
+    public function detail(Request $request,$id)
     {
+
         $project=Project::find($id);
+        $pId=$request->input('Personnel');
+        $str=$pId['Id'];
+        if(isset($pId)){
+            for($i=0;$str!=null;$i++){
+                $str1= substr($str,0,strpos($str,';'));
+                $str=substr($str,strpos($str,';')+1);
+//                $key=substr($str1,0,strpos($str1,'*'));
+//                $value=substr($str1,strpos($str1,'*')+1);
+                $data[]=$str1;
+            }
+            $project->staffId=$pId['Id'];
+            $project->save();
+            return view('project.project_detail',['project'=>$project]);
+        }
+
         return view('project.project_detail',['project'=>$project]);
     }
     //项目添加页面
@@ -64,24 +80,24 @@ class ProjectController extends Controller
             $value=substr($str1,strpos($str1,'*')+1);
             $data[$key]=$value;
         }
-        return view('project.project_arrange',['staff'=>$staff,'personnel'=>$data]);
+        return view('project.project_arrange',['staff'=>$staff,'personnel'=>$data,'projectId'=>$id]);
     }
 
-    public function arrange_search()
-    {
-           $redis=new Redis();
-//        if($val!=null){
-//        $val=$_POST['id'];
-//        $sta=new Staff();
-            $sta=Staff::paginate(10);
-            $sta=$sta->items();
-            foreach ($sta as $k=>$v){
-                $arr[$k]=$v;
-            }
-//        return response()->json($arr)->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-//            return view('project.project_arrange')->with(['sta'=>$arr]);
-        return [csrf_token(),'sta'=>$arr];
-
-    }
+//    public function arrange_search()
+//    {
+//           $redis=new Redis();
+////        if($val!=null){
+////        $val=$_POST['id'];
+////        $sta=new Staff();
+//            $sta=Staff::paginate(10);
+//            $sta=$sta->items();
+//            foreach ($sta as $k=>$v){
+//                $arr[$k]=$v;
+//            }
+////        return response()->json($arr)->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+////            return view('project.project_arrange')->with(['sta'=>$arr]);
+//        return [csrf_token(),'sta'=>$arr];
+//
+//    }
 
 }

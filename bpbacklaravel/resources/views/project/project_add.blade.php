@@ -12,8 +12,8 @@
                     <div class="form-group">
                         <div class="input-group col-sm-5">
                             <div class="input-group-addon" >项目名称</div>
-                            <input type="text" id="pName" name="Project[name]" value="{{old('Project')['name']?old('Project')['name']:''}}" class="form-control" placeholder="未填写..">
-                        </div>
+                        <input type="text" id="pName" name="Project[name]" value="{{old('Project')['name']?old('Project')['name']:''}}" class="form-control" placeholder="未填写..">
+                    </div>
                     </div>
 
                 </div>

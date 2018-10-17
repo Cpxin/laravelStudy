@@ -28,7 +28,7 @@ Route::post('staff/delete/{id}',['uses'=>'StaffController@delete']);
 Route::post('staff/update',['uses'=>'StaffController@update']);
 
 Route::get('project/over',['uses'=>'ProjectController@over']);
-Route::get('project/detail/{id}',['uses'=>'ProjectController@detail']); //项目详情
+Route::any('project/detail/{id}',['uses'=>'ProjectController@detail']); //项目详情
 Route::get('project/add',['uses'=>'ProjectController@add']);
 Route::post('project/save',['uses'=>'ProjectController@save']);
 Route::get('project/arrange/{id}',['uses'=>'ProjectController@arrange']); //安排人员
