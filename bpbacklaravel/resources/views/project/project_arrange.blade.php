@@ -120,9 +120,9 @@
                         <td>{{$sta->id}}</td>
                         <td>{{$sta->name}}</td>
                         <td>{{$sta->age}}</td>
-                        <td>{{$sta->sex}}</td>
+                        <td>{{$sta->sex($sta->sex)}}</td>
                         <td>{{$sta->position}}</td>
-                        <td>{{$sta->state}}</td>
+                        <td>{{$sta->state($sta->state)}}</td>
                         <td>
                             <a class="btn btn-success btn-xs" href="{{url('staff/detail',['id'=>$sta->id])}}">详情</a>
                             <a class="btn btn-info btn-xs">修改</a>
@@ -160,6 +160,9 @@
                 {{ csrf_field() }}
                 <div class="input-group col-sm-5">
                     <input type="text" id="pId" name="Personnel[Id]" value="" class="form-control" placeholder="未填写..">
+                </div>
+                <div class="input-group col-sm-5">
+                    <input type="text" id="pNum" name="Personnel[Num]" value="" class="form-control" placeholder="未填写..">
                 </div>
                 <div class="panel">
                     <button type="submit" class="btn btn-xs btn-green" onclick="set()">保 存</button>
@@ -246,7 +249,7 @@
                     var u1=document.getElementById(row['position']);
 
                     // var num= ul.getElementsByTagName('li').length-1;
-                    var addfirst= document.getElementById("i"+row['position']);
+                    var addfirst= document.getElementById("i"+row['position']);  //获得第一个li显示的剩余值
                     if(addfirst.value>0){
                         $($element).addClass('clickColor');  //为点击行添加背景色
                         addfirst.value--;
@@ -292,11 +295,14 @@
 
         function set() {
             var i=document.getElementById('pId');
+            var n=document.getElementById('pNum');
             var str='';
+            var num='';
             for(var j=0;j<arr.length;j++){
                 str+=arr[j]+';';
             }
             i.value=str;
+
         }
 
 

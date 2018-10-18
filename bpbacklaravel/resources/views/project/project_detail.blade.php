@@ -22,7 +22,7 @@
                                 <p><strong>等级：</strong>{{$project->rank}}</p>
                             </div>
                             <div class="col-sm-2">
-                                <p><strong>状态：</strong>{{$project->state}}</p>
+                                <p><strong>状态：</strong>{{$project->state($project->state)}}</p>
                             </div>
                         </div>
 
@@ -119,10 +119,14 @@
                 </div>
 
                 <div class="panel">
-                    <button type="submit" class="btn btn-xs btn-green">保 存</button>
+                    <button  class="btn btn-xs btn-green">保 存</button>
                 </div>
 
             </form>
+            <div class="panel">
+                <a class="btn btn-xs btn-green" href="{{url('project/start',['id'=>$project->id])}}">启动</a>
+            </div>
+
         </div>
 
         <!--右边-->

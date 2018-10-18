@@ -83,6 +83,40 @@ class ProjectController extends Controller
         return view('project.project_arrange',['staff'=>$staff,'personnel'=>$data,'projectId'=>$id]);
     }
 
+    //项目启动
+    public function start($id)
+    {
+        $project=Project::find($id);
+
+        $need=$project->personnel;
+        $have=$project->staffId;
+        for($i=0;$need!=null;$i++){
+            $str1= substr($need,0,strpos($need,';'));
+            $need=substr($need,strpos($need,';')+1);
+            $key=substr($str1,0,strpos($str1,'*'));
+            $value=substr($str1,strpos($str1,'*')+1);
+            $data[$key]=$value;
+        }
+        $i=0;
+        foreach ($data as $k=>$v){
+            $boolstr=strpos($have,$k);
+            if($boolstr){
+                $strnum=substr_count($have,$k);
+                if($strnum==$v){
+                    $i++;
+                }
+            }
+        }
+        if($i!=count($data)){
+            $bool=false;
+            return redirect('bm/projectdetail/'.$id)->with('fail','分配人员与规定不符合,确定要开始吗?','bool',$bool); //如果预期人员与分配人员相符,
+        }else{                                                                                                                 //则跳出确认按钮
+            $bool=true;
+            return redirect('bm/projectdetail/'.$id)->with('success','确定要开始?','bool',$bool);   //不相符也跳出按钮,可以强制启动
+        }
+
+    }
+
 //    public function arrange_search()
 //    {
 //           $redis=new Redis();

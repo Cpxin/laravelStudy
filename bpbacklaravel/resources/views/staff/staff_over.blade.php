@@ -53,22 +53,22 @@
                 @foreach($staff as $sta)
                 <div class="row">
                     <div class="col-xs-1 " id="id">
-                        {{$arr[]=$sta->id}}
+                        {{$sta->id}}
                     </div>
                     <div class="col-xs-2" id="name">
-                        {{$arr[]=$sta->name}}
+                        {{$sta->name}}
                     </div>
                     <div class="col-xs-2" id="age">
-                        {{$arr[]=$sta->age}}
+                        {{$sta->age}}
                     </div>
                     <div class="col-xs-2" id="sex">
-                      {{$arr[]=$sta->sex}}
+                      {{$sta->sex($sta->sex)}}
                     </div>
                     <div class="col-xs-2" id="position">
-                        {{$arr[]=$sta->position}}
+                        {{$sta->position}}
                     </div>
-                    <div class="col-xs-1" >
-                        {{$sta->state}}
+                    <div class="col-xs-1" id="state">
+                        {{$sta->state($sta->state)}}
                     </div>
                     <div class="col-xs-2">
                         {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">详情</button>--}}

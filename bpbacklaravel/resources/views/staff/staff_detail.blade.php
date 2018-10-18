@@ -10,7 +10,7 @@
                     <p class="text-center text-primary">{{$staff->name}}</p>
                     <address>
                         {{--<strong>中国</strong><br>--}}
-                        <span class="glyphicon glyphicon-sex" title="sex"><kbd>{{$staff->sex}}</kbd></span><br>
+                        <span class="glyphicon glyphicon-sex" title="sex"><kbd>{{$staff->sex($staff->sex)}}</kbd></span><br>
                         <span class="glyphicon glyphicon-age" title="age">{{$staff->age}}</span><br>
                         <span class="glyphicon glyphicon-position" title="position">{{$staff->position}}</span><br>
                         {{--<span class="glyphicon glyphicon-envelope" title="Email"><code>1610712512@qq.com</code></span>--}}

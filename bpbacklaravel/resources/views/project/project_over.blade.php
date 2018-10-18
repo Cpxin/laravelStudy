@@ -64,7 +64,7 @@
                             {{$pro->rank}}
                         </div>
                         <div class="col-xs-2" id="position">
-                            {{$pro->state}}
+                            {{$pro->state($pro->state)}}
                         </div>
                         <div class="col-xs-2" >
                             {{$pro->created_at}}
