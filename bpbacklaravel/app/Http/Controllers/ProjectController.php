@@ -90,30 +90,50 @@ class ProjectController extends Controller
 
         $need=$project->personnel;
         $have=$project->staffId;
+        $num=0; //需求人数
         for($i=0;$need!=null;$i++){
             $str1= substr($need,0,strpos($need,';'));
             $need=substr($need,strpos($need,';')+1);
             $key=substr($str1,0,strpos($str1,'*'));
             $value=substr($str1,strpos($str1,'*')+1);
-            $data[$key]=$value;
+            $num+=$value;
+            $data[$key]=$value;     //['position1':'人数';'position2':'人数';..]
         }
-        $i=0;
-        foreach ($data as $k=>$v){
-            $boolstr=strpos($have,$k);
-            if($boolstr){
-                $strnum=substr_count($have,$k);
-                if($strnum==$v){
-                    $i++;
+        while($have!=null){
+            $str1= substr($have,0,strpos($have,';'));
+            $have=substr($have,strpos($have,';')+1);
+            $staid[]=$str1;       //['staffId1';'staffId2';..]
+        }
+        if(count($staid)<$num){
+            return redirect('project/detail/'.$id)->with('fail','分配人员数量不足,确定要开始吗?');
+        }else {
+            if (count($staid)>$num){
+                return redirect('project/detail/'.$id)->with('fail','分配人员数量超额,确定要开始吗?');
+            }else{
+                if (count($staid)==$num){
+                    return redirect('project/detail/'.$id)->with('success','分配成功,确定要开始吗?');
                 }
             }
         }
-        if($i!=count($data)){
-            $bool=false;
-            return redirect('bm/projectdetail/'.$id)->with('fail','分配人员与规定不符合,确定要开始吗?','bool',$bool); //如果预期人员与分配人员相符,
-        }else{                                                                                                                 //则跳出确认按钮
-            $bool=true;
-            return redirect('bm/projectdetail/'.$id)->with('success','确定要开始?','bool',$bool);   //不相符也跳出按钮,可以强制启动
+    }
+
+    public function assure($id)
+    {
+        $project=Project::find($id);
+        $have=$project->staffId;
+        while($have!=null){
+            $str1= substr($have,0,strpos($have,';'));
+            $have=substr($have,strpos($have,';')+1);
+            $staid[]=$str1;       //['staffId1';'staffId2';..]
         }
+        foreach ($staid as $sta){
+            $staff=Staff::find($sta);
+            $staff->state=1;
+            $staff->save();
+        }
+        $project->state=1;
+        $project->save();
+        return redirect('project/over')->with('success','项目启动成功');
 
     }
 

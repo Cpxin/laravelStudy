@@ -40,7 +40,7 @@
 
                 <!--项目内容-->
                 <div class="panel panel-info">
-                    <div class="panel panel-heading">项目内容</div>
+                    <div class="panel panel-heading">项目内容<button class="btn btn-green">编辑</button> </div>
                     <div class="panel-body">
 
                         <div class="row">
@@ -123,9 +123,32 @@
                 </div>
 
             </form>
+
             <div class="panel">
                 <a class="btn btn-xs btn-green" href="{{url('project/start',['id'=>$project->id])}}">启动</a>
             </div>
+
+        @if(Session::has('success'))
+            <!--成功提示框-->
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>成功!</strong>{{Session::get('success')}}
+                    <button class="btn btn-primary"><a style="color: white" href="{{url('project/assure',['id'=>$project->id])}}">启动</a></button>
+                </div>
+        @endif
+        @if(Session::has('fail'))
+            <!--失败提示框-->
+                <div class="alert alert-danger alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>失败!</strong>{{Session::get('fail')}}
+                    {{--<button class="btn btn-primary"><a href="{{url('bm/projectstart',['id'=>$project->id,'startbool'=>true])}}">启动</a></button>--}}
+                    <button class="btn btn-primary"><a style="color: white" href="{{url('project/assure',['id'=>$project->id])}}">启动</a></button>
+                </div>
+            @endif
 
         </div>
 

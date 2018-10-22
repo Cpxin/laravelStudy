@@ -34,4 +34,5 @@ Route::post('project/save',['uses'=>'ProjectController@save']);
 Route::get('project/arrange/{id}',['uses'=>'ProjectController@arrange']); //安排人员
 //Route::post('project/arrange_search',function (){return csrf_token();},['uses'=>'ProjectController@arrange_search']);
 Route::post('project/arrange_search',['uses'=>'ProjectController@arrange_search']);
-Route::post('project/start/{id}',['uses'=>'ProjectController@start']);   //项目启动
+Route::get('project/start/{id}',['uses'=>'ProjectController@start']);   //项目启动
+Route::get('project/assure/{id}',['uses'=>'ProjectController@assure']);
