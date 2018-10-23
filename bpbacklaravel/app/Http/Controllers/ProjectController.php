@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use App\Staff;
+use App\Vitae;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Redis;
 //use function MongoDB\BSON\toJSON;
@@ -126,7 +127,7 @@ class ProjectController extends Controller
             $have=substr($have,strpos($have,';')+1);
             $staid[]=$str1;       //['staffId1';'staffId2';..]
         }
-        foreach ($staid as $sta){
+        foreach ($staid as $sta){             //修改每个参与项目的员工的状态
             $staff=Staff::find($sta);
             $staff->state=1;
             $staff->save();
@@ -135,6 +136,37 @@ class ProjectController extends Controller
         $project->save();
         return redirect('project/over')->with('success','项目启动成功');
 
+    }
+
+    //项目结算
+    public function settle($id)
+    {
+        $project=Project::find($id);
+        $project->state=3;
+        $project->save();
+        $have=$project->staffId;
+        while($have!=null){
+            $str1= substr($have,0,strpos($have,';'));
+            $have=substr($have,strpos($have,';')+1);
+            $staid[]=$str1;       //['staffId1';'staffId2';..]
+        }
+        foreach ($staid as $sta){             //修改每个参与项目的员工的状态
+            $staff=Staff::find($sta);
+            $staff->state=0;
+            $staff->save();
+            $vitae=Vitae::where('staff_id',$staff->id);
+            if(isset($vitae->id)){           //如果该员工有详细信息（简历）
+                $vitae->experience.=$id.";";
+                $vitae->save();
+            }else{                          //否则新建该员工的详细信息（只有员工id和项目经历）
+                $vit=new Vitae();
+                $vit->staff_id=$staff->id;
+                $vit->experience.=$id.";";
+                $vit->save();
+            }
+
+        }
+        return redirect('project/over')->with('success','项目结算成功');
     }
 
 //    public function arrange_search()

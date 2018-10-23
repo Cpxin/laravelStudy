@@ -123,11 +123,15 @@
                 </div>
 
             </form>
-
+            @if($project->state==0)         <!--如果项目未启动-->
             <div class="panel">
                 <a class="btn btn-xs btn-green" href="{{url('project/start',['id'=>$project->id])}}">启动</a>
             </div>
-
+            @else
+                <div class="panel">
+                    <a class="btn btn-xs btn-green" href="{{url('project/settle',['id'=>$project->id])}}">结算</a>
+                </div>
+                @endif
         @if(Session::has('success'))
             <!--成功提示框-->
                 <div class="alert alert-success alert-dismissable" role="alert">
@@ -149,6 +153,7 @@
                     <button class="btn btn-primary"><a style="color: white" href="{{url('project/assure',['id'=>$project->id])}}">启动</a></button>
                 </div>
             @endif
+
 
         </div>
 

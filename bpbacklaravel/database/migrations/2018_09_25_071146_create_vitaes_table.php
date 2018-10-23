@@ -16,13 +16,13 @@ class CreateVitaesTable extends Migration
         Schema::create('vitae', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('staff_id');
-            $table->string('image');
-            $table->string('email');
-            $table->string('experience'); //项目经历
-            $table->string('skill');
-            $table->string('adress');
-            $table->string('education');  //教育经历
-            $table->string('hobby');
+            $table->string('image')->default('');
+            $table->string('email')->default('');
+            $table->string('experience')->default('无'); //项目经历
+            $table->string('skill')->default('');
+            $table->string('adress')->default('');
+            $table->string('education')->default('');  //教育经历
+            $table->string('hobby')->default('');
             $table->timestamps();
         });
     }

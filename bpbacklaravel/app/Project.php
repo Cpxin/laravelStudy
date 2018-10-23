@@ -9,6 +9,7 @@ class Project extends Model
     const STATE_UNSTART=0;
     const STATE_START=1;
     const STATE_OTHER=2;
+    const STATE_END=3;
     //
     protected $table='projects';
     public $timestamps=true;
@@ -27,6 +28,7 @@ class Project extends Model
             self::STATE_UNSTART=>'未启动',
             self::STATE_START=>'已启动',
             self::STATE_OTHER=>'其他',
+            self::STATE_END=>'结束'
         ];
         if($ind!==null){
             return array_key_exists($ind,$arr)?$arr[$ind]:$arr[self::STATE_OTHER];

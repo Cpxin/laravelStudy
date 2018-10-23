@@ -33,26 +33,26 @@
             @section('leftmenu')
                 <div class="leftMeun" id="leftMeun">
                     <div id="logoDiv">
-                        <p id="logoP"><img id="logo" alt="左右结构项目" src="images/logo.png"><span>左右结构项目</span></p>
+                        <p id="logoP"><span>企业管理系统</span></p>
                     </div>
                     <div id="personInfor">
-                        <p id="userName">杨鹏</p>
-                        <p><span>yangxp@qq.com</span> More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+                        <p id="userName">cpx</p>
+                        <p> </p>
                         <p>
                             <a>退出登录</a>
                         </p>
                     </div>
                     <div class="meun-title">员工管理</div>
-                    <a class="meun-item btn-link" href="{{url('staff/over')}}"><img src="images/icon_source_grey.png">员工管理</a>
+                    <a class="meun-item btn-link" href="{{url('staff/over')}}"><img src="">员工管理</a>
 
-                    <a class="meun-item" href="#char" aria-controls="char" role="tab" data-toggle="tab"><img src="images/icon_chara_grey.png">权限管理</a>
-                    <a class="meun-item meun-item-active" href="#user" aria-controls="user" role="tab" data-toggle="tab"><img src="images/icon_user.png">用户管理</a>
-                    <a class="meun-item" href="#chan" aria-controls="chan" role="tab" data-toggle="tab"><img src="images/icon_change_grey.png">修改密码</a>
+                    {{--<a class="meun-item" href="#char" aria-controls="char" role="tab" data-toggle="tab"><img src="images/icon_chara_grey.png">权限管理</a>--}}
+                    {{--<a class="meun-item meun-item-active" href="#user" aria-controls="user" role="tab" data-toggle="tab"><img src="images/icon_user.png">用户管理</a>--}}
+                    {{--<a class="meun-item" href="#chan" aria-controls="chan" role="tab" data-toggle="tab"><img src="images/icon_change_grey.png">修改密码</a>--}}
                     <div class="meun-title">项目管理</div>
-                    <a class="meun-item btn-link" href="{{url('project/over')}}" ><img src="images/icon_house_grey.png">项目管理</a>
-                    <div class="meun-item" href="#regu" aria-controls="regu" role="tab" data-toggle="tab"><img src="images/icon_rule_grey.png">规则管理</div>
-                    <div class="meun-item" href="#stud" aria-controls="stud" role="tab" data-toggle="tab"><img src="images/icon_card_grey.png">人员信息</div>
-                    <div class="meun-item" href="#sitt" aria-controls="sitt" role="tab" data-toggle="tab"><img src="images/icon_char_grey.png">座位管理</div>
+                    <a class="meun-item btn-link" href="{{url('project/over')}}" ><img src="">项目管理</a>
+                    {{--<div class="meun-item" href="#regu" aria-controls="regu" role="tab" data-toggle="tab"><img src="images/icon_rule_grey.png">规则管理</div>--}}
+                    {{--<div class="meun-item" href="#stud" aria-controls="stud" role="tab" data-toggle="tab"><img src="images/icon_card_grey.png">人员信息</div>--}}
+                    {{--<div class="meun-item" href="#sitt" aria-controls="sitt" role="tab" data-toggle="tab"><img src="images/icon_char_grey.png">座位管理</div>--}}
                 </div>
                     @show
         <!--右侧内容区域-->
@@ -62,7 +62,7 @@
 
 </div>
 
-<!--尾部-->
+{{--<!--尾部-->--}}
 {{--@section('footer')--}}
     {{--<div class="jumbotron navbar-fixed-bottom" style="margin: 0 " >--}}
         {{--<div class="container">--}}
