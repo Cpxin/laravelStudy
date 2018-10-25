@@ -169,6 +169,18 @@ class ProjectController extends Controller
         return redirect('project/over')->with('success','项目结算成功');
     }
 
+    public function update(Request $request)
+    {
+
+        $pro=$request->input('Project');
+        $project=Project::find($pro['id']);
+        $project->content=$pro['content'];
+        $project->save();
+        return redirect('project/detail/'.$pro['id']);
+
+
+    }
+
 //    public function arrange_search()
 //    {
 //           $redis=new Redis();

@@ -35,5 +35,8 @@ Route::get('project/arrange/{id}',['uses'=>'ProjectController@arrange']); //安�
 //Route::post('project/arrange_search',function (){return csrf_token();},['uses'=>'ProjectController@arrange_search']);
 Route::post('project/arrange_search',['uses'=>'ProjectController@arrange_search']);
 Route::get('project/start/{id}',['uses'=>'ProjectController@start']);   //项目启动
-Route::get('project/assure/{id}',['uses'=>'ProjectController@assure']);
-Route::get('project/settle/{id}',['uses'=>'ProjectController@settle']);
+Route::get('project/assure/{id}',['uses'=>'ProjectController@assure']);  //确认启动
+Route::get('project/settle/{id}',['uses'=>'ProjectController@settle']);   //项目结算
+Route::post('project/update',['uses'=>'ProjectController@update']);  //项目更新
+
+
