@@ -7,9 +7,11 @@
  */
 namespace App\Http\Controllers;
 
+use App\Record;
 use App\Staff;
 use App\Vitae;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StaffController extends Controller
 {
@@ -117,6 +119,8 @@ class StaffController extends Controller
 
     public function update(Request $request)
     {
+        DB::connection()->enableQueryLog();   //1.开启QueryLog
+
         $sta=$request->input('rStaff');
         $id=$sta['id'];
         $staff=Staff::find($id);
@@ -124,7 +128,14 @@ class StaffController extends Controller
         $staff->age=$sta['age'];
         $staff->sex=$sta['sex'];
         $staff->position=$sta['position'];
+
         if($staff->save()){
+            $record=new Record();
+            $queries = DB::getQueryLog();     //2.
+            $a = end($queries);
+            $tmp = str_replace('?', '"'.'%s'.'"', $a["query"]); //删除sql语句中不必要的字符
+            $record->cord=vsprintf($tmp, $a['bindings']);   //组合并存入相关数据库
+            $record->save();
             return redirect('staff/over')->with('success','修改成功!'.$id);
         }else{
             return redirect()->back()->with('fail','修改失败！'.$id);

@@ -39,4 +39,5 @@ Route::get('project/assure/{id}',['uses'=>'ProjectController@assure']);  //确�
 Route::get('project/settle/{id}',['uses'=>'ProjectController@settle']);   //项目结算
 Route::post('project/update',['uses'=>'ProjectController@update']);  //项目更新
 
-
+Route::get('record/over',['uses'=>'RecordController@over']);
+Route::get('record/delete/{id}',['uses'=>'RecordController@delete']);
