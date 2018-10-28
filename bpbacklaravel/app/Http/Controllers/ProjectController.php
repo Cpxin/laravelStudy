@@ -6,6 +6,8 @@ use App\Project;
 use App\Staff;
 use App\Vitae;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 //use Illuminate\Support\Facades\Redis;
 //use function MongoDB\BSON\toJSON;
 
@@ -46,6 +48,7 @@ class ProjectController extends Controller
     }
     public function save(Request $request)
     {
+        DB::connection()->enableQueryLog();
         $project=new Project();
         $pro=$request->input('Project');
         $project->name=$pro['name'];
@@ -55,6 +58,12 @@ class ProjectController extends Controller
         $project->profit=$pro['profit'];
 
         if($project->save()){
+            $record=new Record();
+            $queries = DB::getQueryLog();     //2.
+            $a = end($queries);
+            $tmp = str_replace('?', '"'.'%s'.'"', $a["query"]); //删除sql语句中不必要的字符
+            $record->cord=vsprintf($tmp, $a['bindings']);   //组合并存入相关数据库
+            $record->save();
             return redirect('project/over')->with('success','添加成功');
         }else{
             return redirect()->back()->with('fail','添加失败');

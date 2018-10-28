@@ -180,9 +180,44 @@
 
                     <div class="panel-heading">
                         <div class="panel-title">
-                            <a href="#collapseOne" data-toggle="collapse" data-parent="#accoradion">项目经历</a>
+                            <a href="#collapseOne" data-toggle="collapse" data-parent="#accoradion">附加信息</a>
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item list-group-item-success">
+                                        <div class="row">
+                                            <div class="col-sm-4">爱好</div>
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-4"><button  class="btn btn-primary" >修改</button></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item list-group-item-warning">
+                                        <div class="row">
+                                            <div class="col-sm-4">邮箱</div>
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-4"><button  class="btn btn-primary" >修改</button></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item list-group-item-info">
+                                        <div class="row">
+                                            <div class="col-sm-4">住址</div>
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-4"><button  class="btn btn-primary" >修改</button></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <a href="#collapseTwo" data-toggle="collapse" data-parent="#accoradion">项目经历</a>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul class="list-group">
                                     <li class="list-group-item list-group-item-success">
@@ -215,9 +250,9 @@
 
                     <div class="panel-heading">
                         <div class="panel-title">
-                            <a href="#collapseTwo" data-toggle="collapse" data-parent="#accoradion">教育经历</a>
+                            <a href="#collapseThree" data-toggle="collapse" data-parent="#accoradion">教育经历</a>
                         </div>
-                        <div id="collapseTwo" class="panel-collapse collapse">
+                        <div id="collapseThree" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul class="list-group">
                                     <li class="list-group-item list-group-item-success">

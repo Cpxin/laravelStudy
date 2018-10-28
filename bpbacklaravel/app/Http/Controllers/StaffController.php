@@ -47,6 +47,7 @@ class StaffController extends Controller
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        DB::connection()->enableQueryLog();
         $staff=new Staff();
         $sta=$request->input('Staff');
         $staff->name=$sta['name'];
@@ -55,6 +56,12 @@ class StaffController extends Controller
         $staff->position=$sta['position'];
 
         if($staff->save()){
+            $record=new Record();
+            $queries = DB::getQueryLog();     //2.
+            $a = end($queries);
+            $tmp = str_replace('?', '"'.'%s'.'"', $a["query"]); //删除sql语句中不必要的字符
+            $record->cord=vsprintf($tmp, $a['bindings']);   //组合并存入相关数据库
+            $record->save();
             return redirect('staff/over')->with('success','添加成功!'.$staff->id);
         }else{
             return redirect()->back()->with('fail','添加失败!');
