@@ -42,7 +42,7 @@
                         <div class="col-xs-1 " id="id">
                             {{$cord->id}}
                         </div>
-                        <div class="col-xs-9" id="name">
+                        <div class="col-xs-9 " id="name" style="" >
                             {{$cord->cord}}
                         </div>
                         <div class="col-xs-2">

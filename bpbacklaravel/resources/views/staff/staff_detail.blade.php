@@ -120,26 +120,26 @@
                         <form class="form-horizontal" method="post" action="{{url('staff/save_detail/'.$staff->id)}}">
                         {{csrf_field()}} <!--生成隐藏input表单-->
 
-                            <div class="form-group">
-                                <div class="col-sm-5">
-                                <label for="hobby">爱好:</label>
-                                <textarea id="hobby" name="Vitae[hobby]" value="{{old('Vitae')['hobby']?old('Vitae')['hobby']:''}}" class="form-control" rows="3"></textarea>
-                                </div>
-                            </div>
+                            {{--<div class="form-group">--}}
+                                {{--<div class="col-sm-5">--}}
+                                {{--<label for="hobby">爱好:</label>--}}
+                                {{--<textarea id="hobby" name="Vitae[hobby]"  value="{{old('Vitae')['hobby']?old('Vitae')['hobby']:''}}" class="form-control" rows="3"></textarea>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
 
-                            <div class="form-group">
-                                <div class="input-group col-sm-5">
-                                    <div class="input-group-addon" >邮箱</div>
-                                    <input type="text" name="Vitae[email]" value="{{old('Vitae')['email']?old('Vitae')['email']:''}}" class="form-control " id="email" placeholder="未填写..">
-                                </div>
-                            </div>
+                            {{--<div class="form-group">--}}
+                                {{--<div class="input-group col-sm-5">--}}
+                                    {{--<div class="input-group-addon" >邮箱</div>--}}
+                                    {{--<input type="text" name="Vitae[email]" value="{{old('Vitae')['email']?old('Vitae')['email']:''}}" class="form-control " id="email" placeholder="未填写..">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
 
-                            <div class="form-group">
-                                <div class="input-group col-sm-5">
-                                    <div class="input-group-addon" >住址</div>
-                                    <input type="text" name="Vitae[adress]" value="{{old('Vitae')['adrss']?old('Vitae')['adress']:''}}" class="form-control " id="adress" placeholder="未填写..">
-                                </div>
-                            </div>
+                            {{--<div class="form-group">--}}
+                                {{--<div class="input-group col-sm-5">--}}
+                                    {{--<div class="input-group-addon" >住址</div>--}}
+                                    {{--<input type="text" name="Vitae[adress]" value="{{old('Vitae')['adrss']?old('Vitae')['adress']:''}}" class="form-control " id="adress" placeholder="未填写..">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
 
                             {{--<div class="form-group">--}}
                                 {{--<label for="age" class="col-sm-2 control-label">教育情况</label>--}}
@@ -188,24 +188,25 @@
                                     <li class="list-group-item list-group-item-success">
                                         <div class="row">
                                             <div class="col-sm-4">爱好</div>
-                                            <div class="col-sm-4"></div>
-                                            <div class="col-sm-4"><button  class="btn btn-primary" >修改</button></div>
+                                            <div class="col-sm-4"><input name="rVitae[hobby]" value="{{isset($vitae->hobby)?$vitae->hobby:'未填写' }}"  class="form-control input-sm duiqi" id="chobby" style="background: rgba(0,0,0,0);border:none" placeholder="未填写"></div>
+                                            {{--<div class="col-sm-4"><button  class="btn btn-primary" >修改</button></div>--}}
                                         </div>
                                     </li>
 
                                     <li class="list-group-item list-group-item-warning">
                                         <div class="row">
                                             <div class="col-sm-4">邮箱</div>
-                                            <div class="col-sm-4"></div>
-                                            <div class="col-sm-4"><button  class="btn btn-primary" >修改</button></div>
+                                            <div class="col-sm-4"><input name="rVitae[email]" value="{{isset($vitae->email)?$vitae->email:'未填写' }}"  class="form-control input-sm duiqi" id="chobby" style="background: rgba(0,0,0,0);border:none" placeholder="未填写"></div>
+                                            {{--<div class="col-sm-4"><button  class="btn btn-primary" >修改</button></div>--}}
                                         </div>
                                     </li>
 
                                     <li class="list-group-item list-group-item-info">
                                         <div class="row">
                                             <div class="col-sm-4">住址</div>
-                                            <div class="col-sm-4"></div>
-                                            <div class="col-sm-4"><button  class="btn btn-primary" >修改</button></div>
+                                            {{--<div class="col-sm-4"><input name="rVitae[adress]" value="{{old('rVitae')['adress']?old('rVitae')['adress']:''}}"  class="form-control input-sm duiqi" id="chobby" style="background: rgba(0,0,0,0);border:none" placeholder=""></div>--}}
+                                            <div class="col-sm-4"><input name="rVitae[adress]" value="{{isset($vitae->adress)?$vitae->adress:'未填写' }}"  class="form-control input-sm duiqi" id="chobby" style="background: rgba(0,0,0,0);border:none" placeholder="未填写"></div>
+                                            {{--<div class="col-sm-4"><button  class="btn btn-primary" >修改</button></div>--}}
                                         </div>
                                     </li>
                                 </ul>
@@ -220,29 +221,26 @@
                         <div id="collapseTwo" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    <li class="list-group-item list-group-item-success">
-                                        <div class="row">
-                                            <div class="col-sm-4">2015/3/1-至今</div>
-                                            <div class="col-sm-4">XXX公司</div>
-                                            <div class="col-sm-4">IOS开发工程师</div>
-                                        </div>
-                                    </li>
-
-                                    <li class="list-group-item list-group-item-warning">
-                                        <div class="row">
-                                            <div class="col-sm-4">2015/3/1-至今</div>
-                                            <div class="col-sm-4">XXX公司</div>
-                                            <div class="col-sm-4">IOS开发工程师</div>
-                                        </div>
-                                    </li>
 
                                     <li class="list-group-item list-group-item-info">
                                         <div class="row">
-                                            <div class="col-sm-4">2015/3/1-至今</div>
-                                            <div class="col-sm-4">XXX公司</div>
-                                            <div class="col-sm-4">IOS开发工程师</div>
+                                            <div class="col-sm-4">项目ID</div>
+                                            <div class="col-sm-4">项目名称</div>
+                                            <div class="col-sm-4">项目等级</div>
                                         </div>
                                     </li>
+
+                                    @foreach($projectArr as $pro)
+                                    <li class="list-group-item list-group-item-success">
+                                        <div class="row">
+                                            <div class="col-sm-4">{{$pro['pid']}}</div>
+                                            <div class="col-sm-4">{{$pro['pname']}}</div>
+                                            <div class="col-sm-4">{{$pro['prank']}}</div>
+                                        </div>
+                                    </li>
+                                    @endforeach
+
+
                                 </ul>
                             </div>
                         </div>

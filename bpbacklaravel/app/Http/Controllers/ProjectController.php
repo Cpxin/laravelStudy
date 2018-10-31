@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Record;
 use App\Staff;
 use App\Vitae;
 use Illuminate\Http\Request;
@@ -188,6 +189,16 @@ class ProjectController extends Controller
         return redirect('project/detail/'.$pro['id']);
 
 
+    }
+
+    public function delete($id)
+    {
+        $project=Project::find($id);
+        if($project->delete()){
+            return  redirect('project/over')->with('success','删除成功！'.$id);
+        }else{
+            return redirect()->back()->with('fail','删除失败！'.$id);
+        }
     }
 
 //    public function arrange_search()

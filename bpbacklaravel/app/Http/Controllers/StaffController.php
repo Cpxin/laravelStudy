@@ -7,11 +7,13 @@
  */
 namespace App\Http\Controllers;
 
+use App\Project;
 use App\Record;
 use App\Staff;
 use App\Vitae;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use function PhpParser\filesInDir;
 
 class StaffController extends Controller
 {
@@ -71,7 +73,33 @@ class StaffController extends Controller
     public function detail($id)
     {
         $staff=Staff::find($id);
-        return view('staff.staff_detail',['staff'=>$staff]);
+
+        $vitae=Vitae::where('staff_id',$id)->with('staff')->get();   //关联表查询
+        foreach ($vitae as $v){
+            $vit=$v;        //通过循环才能读取？？
+        }
+        $have=$vit->experience;
+        while($have!=null){
+            $str1= substr($have,0,strpos($have,';'));
+            $have=substr($have,strpos($have,';')+1);
+            $proid[]=$str1;       //['projectId1';'projectId2';..]
+        }
+        foreach ($proid as $pid){
+            $pro=Project::find($pid);
+            $project[]=[
+                'pid'=>$pro->id,
+                'pname'=>$pro->name,
+                'prank'=>$pro->rank,
+            ];
+        }
+
+//        dd($vit->hobby);
+        if(isset($vit)){        //如果员工有对应简历表
+            return view('staff.staff_detail',['staff'=>$staff,'vitae'=>$vit,'projectArr'=>$project]);
+        }else{
+            return view('staff.staff_detail',['staff'=>$staff]);
+        }
+
     }
 
     public function save_detail(Request $request,$id)

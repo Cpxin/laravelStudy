@@ -24,7 +24,7 @@ Route::get('staff/over',['uses'=>'StaffController@over']);
 Route::post('staff/save',['uses'=>'StaffController@save']);
 Route::get('staff/detail/{id}',['uses'=>'StaffController@detail']);
 Route::post('staff/save_detail/{id}',['uses'=>'StaffController@save_detail']);
-Route::post('staff/delete/{id}',['uses'=>'StaffController@delete']);
+Route::any('staff/delete/{id}',['uses'=>'StaffController@delete']);
 Route::post('staff/update',['uses'=>'StaffController@update']);
 
 Route::get('project/over',['uses'=>'ProjectController@over']);
@@ -38,6 +38,7 @@ Route::get('project/start/{id}',['uses'=>'ProjectController@start']);   //项目
 Route::get('project/assure/{id}',['uses'=>'ProjectController@assure']);  //确认启动
 Route::get('project/settle/{id}',['uses'=>'ProjectController@settle']);   //项目结算
 Route::post('project/update',['uses'=>'ProjectController@update']);  //项目更新
+Route::any('project/delete/{id}',['uses'=>'ProjectController@delete']);
 
 Route::get('record/over',['uses'=>'RecordController@over']);
-Route::get('record/delete/{id}',['uses'=>'RecordController@delete']);
+Route::any('record/delete/{id}',['uses'=>'RecordController@delete']);
