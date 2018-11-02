@@ -18,7 +18,7 @@ class CreateVitaesTable extends Migration
             $table->integer('staff_id');
             $table->string('image')->default('');
             $table->string('email')->default('');
-            $table->string('experience')->default('无'); //项目经历
+            $table->string('experience')->default(''); //项目经历
             $table->string('skill')->default('');
             $table->string('adress')->default('');
             $table->string('education')->default('');  //教育经历

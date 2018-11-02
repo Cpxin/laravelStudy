@@ -78,27 +78,31 @@ class StaffController extends Controller
         foreach ($vitae as $v){
             $vit=$v;        //通过循环才能读取？？
         }
-        $have=$vit->experience;
-        while($have!=null){
-            $str1= substr($have,0,strpos($have,';'));
-            $have=substr($have,strpos($have,';')+1);
-            $proid[]=$str1;       //['projectId1';'projectId2';..]
-        }
-        foreach ($proid as $pid){
-            $pro=Project::find($pid);
-            $project[]=[
-                'pid'=>$pro->id,
-                'pname'=>$pro->name,
-                'prank'=>$pro->rank,
-            ];
-        }
-
-//        dd($vit->hobby);
-        if(isset($vit)){        //如果员工有对应简历表
-            return view('staff.staff_detail',['staff'=>$staff,'vitae'=>$vit,'projectArr'=>$project]);
+        if (isset($vit)){           //如果员工有对应简历表
+            if($vit->experience!=''){      //如果该员工有项目经历
+                $have=$vit->experience;
+//            dd($have);
+                while($have!=null){
+                    $str1= substr($have,0,strpos($have,';'));
+                    $have=substr($have,strpos($have,';')+1);
+                    $proid[]=$str1;       //['projectId1';'projectId2';..]
+                }
+                foreach ($proid as $pid){
+                    $pro=Project::find($pid);
+                    $project[]=[
+                        'pid'=>$pro->id,
+                        'pName'=>$pro->name,
+                        'prank'=>$pro->rank,
+                    ];
+                }
+                return view('staff.staff_detail',['staff'=>$staff,'vitae'=>$vit,'projectArr'=>$project]);
+            }else{
+                return view('staff.staff_detail',['staff'=>$staff,'vitae'=>$vit]);
+            }
         }else{
             return view('staff.staff_detail',['staff'=>$staff]);
         }
+
 
     }
 
@@ -122,15 +126,30 @@ class StaffController extends Controller
 //        if($validator->fails()){
 //            return redirect()->back()->withErrors($validator)->withInput();
 //        }
+        $vitae=Vitae::where('staff_id',$id)->with('staff')->get();   //关联表查询
+        foreach ($vitae as $v){
+            $vit=$v;        //通过循环才能读取？？
+        }
+        if (isset($vit)){       //如果是已存在的员工数据则为更新操作
+            $v=$request->input('rVitae');
+            $vit=Vitae::find($vit->id);
+            $vit->email=$v['email'];
+            $vit->adress=$v['adress'];
+            $vit->hobby=$v['hobby'];
+            if($vit->save()){
+                return redirect('staff/detail/'.$id)->with('success','添加成功!'.$vit->id);
+            }else{
+                return redirect()->back()->with('fail','添加失败!');
+            }
+        }
         $vitae=new Vitae();
-        $v=$request->input('Vitae');
+        $v=$request->input('rVitae');
         $vitae->staff_id=$id;
         $vitae->image="无";
         $vitae->email=$v['email'];
-        $vitae->experience=$v['experience'];
-        $vitae->skill=$v['skill'];
+//        $vitae->skill=$v['skill'];
         $vitae->adress=$v['adress'];
-        $vitae->education=$v['education'];
+//        $vitae->education=$v['education'];
         $vitae->hobby=$v['hobby'];
 
         if($vitae->save()){
