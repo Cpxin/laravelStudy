@@ -42,3 +42,6 @@ Route::any('project/delete/{id}',['uses'=>'ProjectController@delete']);
 
 Route::get('record/over',['uses'=>'RecordController@over']);
 Route::any('record/delete/{id}',['uses'=>'RecordController@delete']);
+
+Route::get('wages/over',['uses'=>'WagesController@over']);
+Route::post('wages/save',['uses'=>'WagesController@save']);

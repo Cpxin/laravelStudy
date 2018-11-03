@@ -53,6 +53,8 @@
                     {{--<div class="meun-item" href="#regu" aria-controls="regu" role="tab" data-toggle="tab"><img src="images/icon_rule_grey.png">规则管理</div>--}}
                     {{--<div class="meun-item" href="#stud" aria-controls="stud" role="tab" data-toggle="tab"><img src="images/icon_card_grey.png">人员信息</div>--}}
                     {{--<div class="meun-item" href="#sitt" aria-controls="sitt" role="tab" data-toggle="tab"><img src="images/icon_char_grey.png">座位管理</div>--}}
+                    <div class="meun-title">作业规划</div>
+                    <a class="meun-item btn-link" href="{{url('wages/over')}}" ><img src="">作业规划</a>
                     <div class="meun-title">操作记录</div>
                     <a class="meun-item btn-link" href="{{url('record/over')}}" ><img src="">操作记录</a>
                 </div>
