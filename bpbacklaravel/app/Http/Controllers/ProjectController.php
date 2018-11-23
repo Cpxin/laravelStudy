@@ -45,7 +45,10 @@ class ProjectController extends Controller
     //项目添加页面
     public function add()
     {
-        return view('project.project_add');
+        $staff=new Staff();
+        $position=$staff->distinct()->get(['position']);
+
+        return view('project.project_add',['position1'=>$position]);
     }
     public function save(Request $request)
     {

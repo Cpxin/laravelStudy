@@ -2,15 +2,15 @@
 
 @section('content')
     <div class="row">
-        <div class="col-sm-6">
-            <form class="form-horizontal" method="post" action="{{url('project/save')}}">
+        <div class="col-sm-6 col-sm-offset-3">
+            <form class="form-horizontal" method="post" action="{{url('project/save')}}" onsubmit="return conform()">
                 {{csrf_field()}}
             <div class="panel panel-default">
                 <div class="panel-heading">基本信息</div>
                 <div class="panel-body">
 
                     <div class="form-group">
-                        <div class="input-group col-sm-5">
+                        <div class="input-group col-sm-5 col-sm-offset-3">
                             <div class="input-group-addon" >项目名称</div>
                         <input type="text" id="pName" name="Project[name]" value="{{old('Project')['name']?old('Project')['name']:''}}" class="form-control" placeholder="未填写..">
                     </div>
@@ -24,8 +24,8 @@
                 <div class="panel-body">
 
                     <div class="row">
-                        <div class="form-group">
-                        <textarea id="pContent" name="Project[content]" value="{{old('Project')['content']?old('Project')['content']:''}}" class="form-control" rows="3" placeholder="未填写.."></textarea>
+                        <div class="form-group ">
+                        <textarea id="pContent" name="Project[content]" value="{{old('Project')['content']?old('Project')['content']:''}}" class="form-control col-sm-offset-1" style="width: 700px" rows="10" placeholder="未填写.."></textarea>
                         </div>
                     </div>
 
@@ -34,14 +34,42 @@
 
             <div class="panel panel-primary">
                 <div class="panel panel-heading">详细信息</div>
-                <div class="panel-body">
+                <div class="panel-body col-sm-offset-3">
 
 
-                        <div class="form-group">
-                            <div class="input-group col-sm-5">
-                                <div class="input-group-addon" >项目人员需求</div>
-                                <input type="text" id="pPersonnel" name="Project[personnel]" value="{{old('Project')['personnel']?old('Project')['personnel']:''}}" class="form-control" placeholder="未填写..">
+                        <div class="form-group" >
+                            <div class="form-inline" >
+                                <div class="input-group col-sm-5" style="width: auto">
+                                    <div class="input-group-addon" >项目人员需求</div>
+                                    <input type="text" id="pPersonnel" name="Project[personnel]" value="{{old('Project')['personnel']?old('Project')['personnel']:''}}" class="form-control" placeholder="未填写..">
+                                </div>
+                                <div class="input-group">
+                                    <button id="need" class="btn-green">+</button>
+                                </div>
+
                             </div>
+
+                            <div id="select" class="form-inline" style="display: none">
+                            <div class="input-group">
+                                <div class="input-group-addon" >职位</div>
+
+                                <select id="pos" class="form-control">
+                                    @foreach($position1 as $pos)
+                                        <option><a href="#">{{$pos->position}}</a></option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                                <div class="input-group col-sm-2">
+                                    <div class="input-group-addon" >人数</div>
+                                    <input id="num" type="text" class="form-control" value="" placeholder="" >
+                                </div>
+
+                                <div class="input-group col-sm-2">
+                                    <button id="sure" class="btn-green">+</button>
+                                </div>
+                            </div>
+
                         </div>
 
                     <div class="form-group">
@@ -123,3 +151,33 @@
     </div>
 
 @stop
+
+@section('javascript')
+    @parent
+    <script>
+        var i=0;
+        $('#need').on('click',function () {
+            $('#select').css('display','block');
+            $('#need').css('display','none');
+            i=1;
+        });
+        $('#sure').on('click',function () {
+            var s=$('#pPersonnel').val();
+            if(s.indexOf($('#pos').val())!=-1){
+                s+=$('#pos').val()+'*'+$('#num').val()+';';
+            }else {
+
+            }
+            $('#pPersonnel').val(s);
+            $('#select').css('display','none');
+            $('#need').css('display','block');
+        });
+        function conform() {
+            if(i==1){
+                return false;
+            }else {
+                return true;
+            }
+        }
+    </script>
+    @stop
