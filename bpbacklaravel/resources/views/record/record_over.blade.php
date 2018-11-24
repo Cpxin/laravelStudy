@@ -42,7 +42,7 @@
                         <div class="col-xs-1 " id="id">
                             {{$cord->id}}
                         </div>
-                        <div class="col-xs-9 " id="name" style="" >
+                        <div class="col-xs-9 " id="name" style="width:1280px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;" >
                             {{$cord->cord}}
                         </div>
                         <div class="col-xs-2">
@@ -62,3 +62,15 @@
 
     </div>
     @stop
+
+@section('javascript')
+    @parent
+    <script>
+        $(document).ready(function () {
+            if($('#Lcord1').css('display')=='none'){
+                $('#Lcord1').css('display','block');
+                $('#Lcord1').css('background','#F3F3FA');
+            }
+        });
+    </script>
+@stop

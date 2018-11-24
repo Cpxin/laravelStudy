@@ -44,21 +44,18 @@
                             <a>退出登录</a>
                         </p>
                     </div>
-                    <div class="meun-title">员工管理</div>
-                    <a class="meun-item btn-link" href="{{url('staff/over')}}"><img src="">员工管理</a>
+                    <div id="Lstaff" class="meun-title btn" >员工管理</div><br>
+                    <a id="Lstaff1" class="meun-item btn-link" href="{{url('staff/over')}}" style="display: none"><img src="">员工管理</a>
 
-                    {{--<a class="meun-item" href="#char" aria-controls="char" role="tab" data-toggle="tab"><img src="images/icon_chara_grey.png">权限管理</a>--}}
-                    {{--<a class="meun-item meun-item-active" href="#user" aria-controls="user" role="tab" data-toggle="tab"><img src="images/icon_user.png">用户管理</a>--}}
-                    {{--<a class="meun-item" href="#chan" aria-controls="chan" role="tab" data-toggle="tab"><img src="images/icon_change_grey.png">修改密码</a>--}}
-                    <div class="meun-title">项目管理</div>
-                    <a class="meun-item btn-link" href="{{url('project/over')}}" ><img src="">项目管理</a>
-                    {{--<div class="meun-item" href="#regu" aria-controls="regu" role="tab" data-toggle="tab"><img src="images/icon_rule_grey.png">规则管理</div>--}}
-                    {{--<div class="meun-item" href="#stud" aria-controls="stud" role="tab" data-toggle="tab"><img src="images/icon_card_grey.png">人员信息</div>--}}
-                    {{--<div class="meun-item" href="#sitt" aria-controls="sitt" role="tab" data-toggle="tab"><img src="images/icon_char_grey.png">座位管理</div>--}}
-                    <div class="meun-title">作业规划</div>
-                    <a class="meun-item btn-link" href="{{url('wages/over')}}" ><img src="">作业规划</a>
-                    <div class="meun-title">操作记录</div>
-                    <a class="meun-item btn-link" href="{{url('record/over')}}" ><img src="">操作记录</a>
+                    {{--<div id="Lstaff" class="meun-title btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">员工管理</div><br>--}}
+                    {{--<div class="collapse well" id="collapseExample">员工管理</div>--}}
+
+                    <div id="Lproject"  class="meun-title btn">项目管理</div><br>
+                    <a id="Lproject1" class="meun-item btn-link" href="{{url('project/over')}}" style="display: none"><img src="">项目管理</a>
+                    <div id="Lwage" class="meun-title btn">作业规划</div><br>
+                    <a id="Lwage1" class="meun-item btn-link" href="{{url('wages/over')}}" style="display: none"><img src="">作业规划</a>
+                    <div id="Lcord" class="meun-title btn">操作记录</div><br>
+                    <a id="Lcord1" class="meun-item btn-link" href="{{url('record/over')}}" style="display: none"><img src="">操作记录</a>
                 </div>
                     @show
         <!--右侧内容区域-->
@@ -80,6 +77,41 @@
 @section('javascript')
     <script src="{{asset('static/bootstrap/js/jquery-3.3.1.js')}}"></script>
     <script src="{{asset('static/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script>
+        $('#Lstaff').on('click',function () {
+            if($('#Lstaff1').css('display')=='none'){
+                $('#Lstaff1').css('display','block');
+                $('#Lstaff1').css('background','#F3F3FA');
+            }else {
+                $('#Lstaff1').css('display','none');
+            }
+        });
+        $('#Lproject').on('click',function () {
+            if($('#Lproject1').css('display')=='none'){
+                $('#Lproject1').css('display','block');
+                $('#Lproject1').css('background','#F3F3FA');
+            }else {
+                $('#Lproject1').css('display','none');
+            }
+        });
+        $('#Lwage').on('click',function () {
+            if($('#Lwage1').css('display')=='none'){
+                $('#Lwage1').css('display','block');
+                $('#Lwage1').css('background','#F3F3FA');
+            }else {
+                $('#Lwage1').css('display','none');
+            }
+        });
+        $('#Lcord').on('click',function () {
+            if($('#Lcord1').css('display')=='none'){
+                $('#Lcord1').css('display','block');
+                $('#Lcord1').css('background','#F3F3FA');
+            }else {
+                $('#Lcord1').css('display','none');
+            }
+
+        })
+    </script>
 @show
 </body>
 </html>

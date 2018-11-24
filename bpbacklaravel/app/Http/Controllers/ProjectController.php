@@ -56,7 +56,8 @@ class ProjectController extends Controller
         $project=new Project();
         $pro=$request->input('Project');
         $project->name=$pro['name'];
-        $project->content=$pro['content'];
+        $project->content=str_replace("\r\n","<br>",$pro['content']);
+//        dd(str_replace("\n","<br>",$pro['content']));
         $project->personnel=$pro['personnel'];
         $project->cost=$pro['cost'];
         $project->profit=$pro['profit'];

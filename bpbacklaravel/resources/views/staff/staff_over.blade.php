@@ -277,6 +277,12 @@
 @section('javascript')
     @parent
     <script type="text/javascript">
+        $(document).ready(function () {
+            if($('#Lstaff1').css('display')=='none'){
+                $('#Lstaff1').css('display','block');
+                $('#Lstaff1').css('background','#F3F3FA');
+            }
+        });
             function editInfo(arr0,arr1,arr2,arr3,arr4) {
                 $('#cId').val(arr0);
                 $('#cName').val(arr1);

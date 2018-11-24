@@ -154,3 +154,15 @@
 
     </div>
 @stop
+
+@section('javascript')
+    @parent
+    <script>
+        $(document).ready(function () {
+            if($('#Lwage1').css('display')=='none'){
+                $('#Lwage1').css('display','block');
+                $('#Lwage1').css('background','#F3F3FA');
+            }
+        });
+    </script>
+@stop

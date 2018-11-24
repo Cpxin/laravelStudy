@@ -96,7 +96,7 @@
             </div>
 
                 <div class="panel">
-                <button type="submit" class="btn btn-xs btn-green">保 存</button>
+                <button id="sub" type="submit" class="btn btn-xs btn-green">保 存</button>
                 </div>
 
             </form>
@@ -155,6 +155,12 @@
 @section('javascript')
     @parent
     <script>
+        $(document).ready(function () {
+            if($('#Lproject1').css('display')=='none'){
+            $('#Lproject1').css('display','block');
+            $('#Lproject1').css('background','#F3F3FA');
+            }
+        });
         var i=0;
         $('#need').on('click',function () {
             $('#select').css('display','block');
@@ -163,14 +169,17 @@
         });
         $('#sure').on('click',function () {
             var s=$('#pPersonnel').val();
-            if(s.indexOf($('#pos').val())!=-1){
+            // if(s.indexOf($('#pos').val())!=-1){
                 s+=$('#pos').val()+'*'+$('#num').val()+';';
-            }else {
-
-            }
+            // }else {
+            //
+            // }
             $('#pPersonnel').val(s);
             $('#select').css('display','none');
             $('#need').css('display','block');
+        });
+        $('#sub').on('click',function () {
+            i=0;
         });
         function conform() {
             if(i==1){

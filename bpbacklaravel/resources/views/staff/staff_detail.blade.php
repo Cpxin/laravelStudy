@@ -241,3 +241,15 @@
     </div>
 
     @stop
+
+@section('javascript')
+    @parent
+    <script>
+        $(document).ready(function () {
+            if($('#Lstaff1').css('display')=='none'){
+                $('#Lstaff1').css('display','block');
+                $('#Lstaff1').css('background','#F3F3FA');
+            }
+        });
+    </script>
+@stop

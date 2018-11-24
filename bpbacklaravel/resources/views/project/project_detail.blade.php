@@ -43,9 +43,9 @@
                     <div class="panel panel-heading">项目内容<button class="btn btn-green" data-toggle="modal" data-target="#reviseProject" onclick="contentInfo('{{$project->content}}','{{$project->id}}')">编辑</button> </div>
                     <div class="panel-body">
 
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <p id="pContent">{{$project->content}}</p>
+                        <div class="row" >
+                            <div class="col-sm-5 col-sm-offset-1" >
+                                <pre style="width:700px"><p id="pContent" style="width:700px;text-overflow:ellipsis">{{str_replace("<br>","\n",$project->content)}}</p>
                             </div>
                         </div>
 
@@ -252,6 +252,12 @@
 @section('javascript')
     @parent
     <script type="text/javascript">
+        $(document).ready(function () {
+            if($('#Lproject1').css('display')=='none'){
+                $('#Lproject1').css('display','block');
+                $('#Lproject1').css('background','#F3F3FA');
+            }
+        });
         function contentInfo(con,id) {
             $('#mId').val(id);
             $('#mContent').val(con);

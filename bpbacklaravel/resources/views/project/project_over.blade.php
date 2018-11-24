@@ -88,6 +88,17 @@
                 {{$project->render()}}
             </div>
         </div>
-
-
+    </div>
 @stop
+
+@section('javascript')
+    @parent
+    <script>
+        $(document).ready(function () {
+            if($('#Lproject1').css('display')=='none'){
+                $('#Lproject1').css('display','block');
+                $('#Lproject1').css('background','#F3F3FA');
+            }
+        });
+    </script>
+    @stop
