@@ -1,6 +1,9 @@
 @extends('common.layouts')
 
+
 @section('content')
+
+    @if($adminId==1)
 
     <div role="tabpanel" class="tab-pane active" id="user">
         <div class="check-div form-inline">
@@ -271,7 +274,7 @@
         <!-- /.modal -->
 
     </div>
-
+    @endif
 @stop
 
 @section('javascript')

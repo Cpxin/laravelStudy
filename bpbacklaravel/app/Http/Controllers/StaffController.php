@@ -12,6 +12,7 @@ use App\Record;
 use App\Staff;
 use App\Vitae;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function PhpParser\filesInDir;
 
@@ -24,9 +25,11 @@ class StaffController extends Controller
     public function over()
     {
 //        $staff=new Staff();
+//        dd(Auth::id());
         $staff=Staff::paginate(5);
+
 //        $arr=$staff->toArray();
-        return view('staff.staff_over',['staff'=>$staff]);
+        return view('staff.staff_over',['staff'=>$staff,'adminId'=>Auth::id()]);
     }
 
     public function save(Request $request)

@@ -1,5 +1,8 @@
 @extends('common.layouts')
 
+@section('style')
+    @stop
+
 @section('content')
     <div class="row">
         <div class="col-sm-3">

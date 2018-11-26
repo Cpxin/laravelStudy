@@ -9,12 +9,22 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>企业管理-@yield('title')</title>
+    <title >企业管理-@yield('title')</title>
 
     <link rel="stylesheet" href="{{asset('static/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/common.css')}}">
     <link rel="stylesheet" href="{{asset('css/commonCopy.css')}}">
     @section('style')
+        @if($_SERVER['REQUEST_URI']=='/bpbacklaravel/public/home')
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        @endif
     @show
 </head>
 <body>
@@ -39,7 +49,14 @@
                     </div>
                     <div id="personInfor">
                         <p id="userName">cpx</p>
-                        <p> </p>
+                        <div class="sj">
+                            <span></span>年
+                            <span></span>月
+                            <span></span>日<br>
+                            <span></span>时
+                            <span></span>分
+                            <span></span>秒
+                        </div>
                         <p>
                             <a>退出登录</a>
                         </p>
@@ -77,7 +94,41 @@
 @section('javascript')
     <script src="{{asset('static/bootstrap/js/jquery-3.3.1.js')}}"></script>
     <script src="{{asset('static/bootstrap/js/bootstrap.min.js')}}"></script>
+
     <script>
+        $(document).ready(function() {
+            function time() {
+                var date = new Date();
+                var n = date.getFullYear();
+                var y = date.getMonth()+1;
+                var t = date.getDate();
+                var h = date.getHours();
+                var m = date.getMinutes();
+                var s = date.getSeconds();
+
+                $('.sj span').eq(0).html(n);
+                $('.sj span').eq(1).html(y);
+                $('.sj span').eq(2).html(t);
+                $('.sj span').eq(3).html(h);
+                $('.sj span').eq(4).html(m);
+                $('.sj span').eq(5).html(s);
+                for (var i = 0; i < $('div').length; i++) {
+                    if ($('div').eq(i).text().length == 1) {
+                        $('div').eq(i).html(function(index, html) {
+                            return 0 + html;
+                        });
+                    }
+                }
+            }
+            time();
+            setInterval(time, 1000);
+        });
+        $('#logoP').on('click',function () {
+            {{--$.get('{{url('/home')}}',function () {--}}
+                    {{--//验证成功后实现跳转--}}
+                    window.location.href = '{{url('home')}}';
+            // });
+        });
         $('#Lstaff').on('click',function () {
             if($('#Lstaff1').css('display')=='none'){
                 $('#Lstaff1').css('display','block');

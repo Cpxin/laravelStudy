@@ -14,7 +14,6 @@
     @stop
 
 @section('content')
-
     <div role="tabpanel" class="tab-pane active" id="user">
         <div class="check-div form-inline">
             <div class="col-xs-3">
