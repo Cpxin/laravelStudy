@@ -40,7 +40,11 @@
 
                 <!--项目内容-->
                 <div class="panel panel-info">
-                    <div class="panel panel-heading">项目内容<button class="btn btn-green" data-toggle="modal" data-target="#reviseProject" onclick="contentInfo('{{$project->content}}','{{$project->id}}')">编辑</button> </div>
+                    <div class="panel panel-heading">项目内容
+                        @if($project->state!=3)
+                        <button class="btn btn-green" data-toggle="modal" data-target="#reviseProject" onclick="contentInfo('{{$project->content}}','{{$project->id}}')">编辑</button>
+                        @endif
+                    </div>
                     <div class="panel-body">
 
                         <div class="row" >
@@ -63,9 +67,11 @@
                                     <p>{{$project->personnel}}</p>
                                 </div>
                                 <div class="col-sm-2">
+                                    @if($project->state!=3)
                                     <a class="btn btn-green" href="{{url('project/arrange/'.$project->id)}}">
                                         选择员工
                                     </a>
+                                        @endif
                                 </div>
                             </div>
                         </div>
@@ -128,9 +134,11 @@
                 <a type="button" class="btn btn-xs btn-green" href="{{url('project/start',['id'=>$project->id])}}">启动</a>
             </div>
             @else
+                    @if($project->state!=3)
                 <div class="panel">
                     <a type="button" class="btn btn-xs btn-green" href="{{url('project/settle',['id'=>$project->id])}}">结算</a>
                 </div>
+                        @endif
                 @endif
         @if(Session::has('success'))
             <!--成功提示框-->

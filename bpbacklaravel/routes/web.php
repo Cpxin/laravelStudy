@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['middleware' => 'auth'], function () {
+
 Route::get('layouts',['uses'=>'StaffController@index']);
 Route::get('staff/over',['uses'=>'StaffController@over']);
 Route::post('staff/save',['uses'=>'StaffController@save']);
@@ -45,3 +47,5 @@ Route::any('record/delete/{id}',['uses'=>'RecordController@delete']);
 
 Route::get('wages/over',['uses'=>'WagesController@over']);
 Route::post('wages/save',['uses'=>'WagesController@save']);
+
+});
