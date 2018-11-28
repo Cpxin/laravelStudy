@@ -4,7 +4,7 @@
     @stop
 
 @section('content')
-    <div class="row">
+    <div class="row col-sm-offset-1" style="margin-left: 10px">
         <div class="col-sm-3">
             <div class="panel panel-default">
                 <div class="panel-heading">基本信息</div>
@@ -110,7 +110,7 @@
     </div>
 
         <!--右边-->
-        <div class="col-sm-9">
+        <div class="col-sm-8">
             <div class="jumbotron">
                 {{--<p class="text-left small">--}}
                     {{--爱学习、爱编程、爱咖啡可乐、爱挑战、爱专研、爱打游戏、爱晚起、也爱工作到深夜.我擅长技术、崇尚简单和懒惰。我神秘而孤僻，沉默而爱憎分明。--}}

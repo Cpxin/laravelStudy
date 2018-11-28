@@ -48,4 +48,6 @@ Route::any('record/delete/{id}',['uses'=>'RecordController@delete']);
 Route::get('wages/over',['uses'=>'WagesController@over']);
 Route::post('wages/save',['uses'=>'WagesController@save']);
 
+Route::get('admin/over',['uses'=>'AdminController@over']);
+
 });

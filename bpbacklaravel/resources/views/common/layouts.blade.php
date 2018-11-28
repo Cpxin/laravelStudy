@@ -71,6 +71,8 @@
                     <a id="Lproject1" class="meun-item btn-link" href="{{url('project/over')}}" style="display: none"><img src="">项目管理</a>
                     <div id="Lwage" class="meun-title btn">作业规划</div><br>
                     <a id="Lwage1" class="meun-item btn-link" href="{{url('wages/over')}}" style="display: none"><img src="">作业规划</a>
+                    <div id="Ladmin" class="meun-title btn">管理员</div><br>
+                    <a id="Ladmin1" class="meun-item btn-link" href="{{url('admin/over')}}" style="display: none"><img src="">管理员规划</a>
                     <div id="Lcord" class="meun-title btn">操作记录</div><br>
                     <a id="Lcord1" class="meun-item btn-link" href="{{url('record/over')}}" style="display: none"><img src="">操作记录</a>
                 </div>
@@ -151,6 +153,14 @@
                 $('#Lwage1').css('background','#F3F3FA');
             }else {
                 $('#Lwage1').css('display','none');
+            }
+        });
+        $('#Ladmin').on('click',function () {
+            if($('#Ladmin1').css('display')=='none'){
+                $('#Ladmin1').css('display','block');
+                $('#Ladmin1').css('background','#F3F3FA');
+            }else {
+                $('#Ladmin1').css('display','none');
             }
         });
         $('#Lcord').on('click',function () {
