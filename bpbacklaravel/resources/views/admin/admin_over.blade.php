@@ -74,3 +74,15 @@
 
     </div>
     @stop
+
+@section('javascript')
+    @parent
+    <script>
+        $(document).ready(function () {
+            if($('#Ladmin1').css('display')=='none'){
+                $('#Ladmin1').css('display','block');
+                $('#Ladmin1').css('background','#F3F3FA');
+            }
+        });
+    </script>
+@stop

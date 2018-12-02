@@ -20,10 +20,10 @@
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+        {{--<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">--}}
 
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
         @endif
     @show
 </head>
@@ -48,7 +48,7 @@
                         <p id="logoP"><span>企业管理系统</span></p>
                     </div>
                     <div id="personInfor">
-                        <p id="userName">cpx</p>
+                        <p id="userName">{{ Auth::user()->name }}</p>
                         <div class="sj">
                             <span></span>年
                             <span></span>月
@@ -61,20 +61,20 @@
                             <a>退出登录</a>
                         </p>
                     </div>
-                    <div id="Lstaff" class="meun-title btn" >员工管理</div><br>
-                    <a id="Lstaff1" class="meun-item btn-link" href="{{url('staff/over')}}" style="display: none"><img src="">员工管理</a>
+                    <div id="Lstaff" class="meun-title btn" ><img src="{{asset('img/员工信息.png')}}">员工管理</div><br>
+                    <a id="Lstaff1" class="meun-item btn-link" href="{{url('staff/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">员工管理</a>
 
                     {{--<div id="Lstaff" class="meun-title btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">员工管理</div><br>--}}
                     {{--<div class="collapse well" id="collapseExample">员工管理</div>--}}
 
-                    <div id="Lproject"  class="meun-title btn">项目管理</div><br>
-                    <a id="Lproject1" class="meun-item btn-link" href="{{url('project/over')}}" style="display: none"><img src="">项目管理</a>
-                    <div id="Lwage" class="meun-title btn">作业规划</div><br>
-                    <a id="Lwage1" class="meun-item btn-link" href="{{url('wages/over')}}" style="display: none"><img src="">作业规划</a>
-                    <div id="Ladmin" class="meun-title btn">管理员</div><br>
-                    <a id="Ladmin1" class="meun-item btn-link" href="{{url('admin/over')}}" style="display: none"><img src="">管理员规划</a>
-                    <div id="Lcord" class="meun-title btn">操作记录</div><br>
-                    <a id="Lcord1" class="meun-item btn-link" href="{{url('record/over')}}" style="display: none"><img src="">操作记录</a>
+                    <div id="Lproject"  class="meun-title btn"><img src="{{asset('img/项目.png')}}">项目管理</div><br>
+                    <a id="Lproject1" class="meun-item btn-link" href="{{url('project/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">项目管理</a>
+                    <div id="Lwage" class="meun-title btn"><img src="{{asset('img/企业.png')}}">作业规划</div><br>
+                    <a id="Lwage1" class="meun-item btn-link" href="{{url('wages/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">作业规划</a>
+                    <div id="Ladmin" class="meun-title btn"><img src="{{asset('img/管理员.png')}}">管理员</div><br>
+                    <a id="Ladmin1" class="meun-item btn-link" href="{{url('admin/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">管理员规划</a>
+                    <div id="Lcord" class="meun-title btn"><img src="{{asset('img/操作管理.png')}}">操作记录</div><br>
+                    <a id="Lcord1" class="meun-item btn-link" href="{{url('record/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">操作记录</a>
                 </div>
                     @show
         <!--右侧内容区域-->
