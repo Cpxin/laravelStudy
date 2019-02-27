@@ -7,8 +7,8 @@
                 <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addUser">添加用户 </button>
             </div>
             <div class="col-xs-4">
-                <input type="text" class="form-control input-sm" placeholder="输入文字搜索" >
-                <button class="btn btn-white btn-xs ">查 询 </button>
+                <input type="text" id="recordText" class="form-control input-sm" placeholder="输入文字搜索" >
+                <button class="btn btn-white btn-xs " onclick="find_record()">查 询 </button>
             </div>
             <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
                 <label for="paixu">排序:&nbsp;</label>
@@ -72,5 +72,9 @@
                 $('#Lcord1').css('background','#F3F3FA');
             }
         });
+        function find_record() {
+            var text=$('#recordText').val();
+            window.location.href="{{url('record/over')}}?text="+text;
+        }
     </script>
 @stop

@@ -10,8 +10,12 @@ class RecordController extends Controller
     //
     public function over()
     {
-        $recrod=Record::paginate(10);
-        return view('record.record_over',['record'=>$recrod]);
+        if (isset($_GET['text'])){
+            $record=Record::where('cord','like','%'.$_GET['text'].'%')->paginate(10);
+        }else{
+            $record=Record::paginate(10);
+        }
+        return view('record.record_over',['record'=>$record]);
     }
 
     public function delete($id)

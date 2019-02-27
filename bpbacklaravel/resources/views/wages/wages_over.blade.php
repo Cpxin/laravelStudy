@@ -7,8 +7,8 @@
                 <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addWages">添加 </button>
             </div>
             <div class="col-xs-4">
-                <input type="text" class="form-control input-sm" placeholder="输入文字搜索" >
-                <button class="btn btn-white btn-xs ">查 询 </button>
+                <input type="text" id="wagePosition" class="form-control input-sm" placeholder="输入职位搜索" >
+                <button class="btn btn-white btn-xs " onclick="find_wages()">查 询 </button>
             </div>
             <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
                 <label for="paixu">排序:&nbsp;</label>
@@ -76,6 +76,7 @@
                             {{$wag->other}}
                         </div>
                         <div class="col-xs-2">
+                            <a class="btn btn-info btn-xs" >修改</a>
                             <a class="btn btn-danger btn-xs" href="{{url('record/delete',['id'=>$wag->id])}}" onclick="if(confirm('确定要删除吗?')==false) return false;">删除</a>
                         </div>
                     </div>
@@ -164,5 +165,9 @@
                 $('#Lwage1').css('background','#F3F3FA');
             }
         });
+        function find_wages() {
+            var position=$('#wagePosition').val();
+            window.location.href="{{url('wages/over')}}?position="+position;
+        }
     </script>
 @stop

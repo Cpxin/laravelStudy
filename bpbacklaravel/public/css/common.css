@@ -9,13 +9,13 @@ body {
 .container-fluid {
 	padding-left: 0!important;
 }
-#wrap {
-	min-width: 100%;
-	position: absolute;
-	background: #eff3f6 bottom;
-	min-height: 100%;
-	overflow: hidden;
-}
+/*#wrap {*/
+	/*min-width: 100%;*/
+	/*position: absolute;*/
+	/*background: #eff3f6 bottom;*/
+	/*min-height: 100%;*/
+	/*overflow: hidden;*/
+/*}*/
 /*@media (min-width: 660px) #wrap {
 	min-width: 650px;
 }
@@ -44,7 +44,7 @@ body {
 }
 #rightContent {
 	/*position: absolute;*/
-
+	background: url(/public/img/中秋国庆纹理.png) no-repeat 400px 500px;
 	box-sizing: border-box;
 	float: left;
 	box-sizing: border-box;
@@ -159,7 +159,8 @@ body {
 	display: inline;
 }
 .tab-pane {
-	color: #9095ab;
+	/*color: #9095ab;*/
+	color: black;
 }
 .tableHeader {
 	height: 35px;
@@ -251,9 +252,10 @@ select {
 /*进度条样式*/
 
 @media (max-width: 1123px) {
-	#rightContent {
-		padding-left: 0;
-	}
+	/*#rightContent {*/
+		/*background: url(/public/img/中秋国庆纹理.png) no-repeat 4px 5px;*/
+		/*padding-left: 0;*/
+	/*}*/
 	.tab-pane {
 		min-width: 973px;
 	}

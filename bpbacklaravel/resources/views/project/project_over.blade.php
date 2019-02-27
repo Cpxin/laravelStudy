@@ -3,14 +3,29 @@
 @section('content')
     <div role="tabpanel" class="tab-pane active" id="user">
         <div class="check-div form-inline">
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <a class="btn btn-yellow btn-xs" href="{{url('project/add')}}">添加项目 </a>
             </div>
-            <div class="col-xs-4">
-                <input type="text" class="form-control input-sm" placeholder="输入文字搜索" >
-                <button class="btn btn-white btn-xs ">查 询 </button>
+            <div class="col-xs-3">
+                <input type="text" id="projectName" class="form-control input-sm" placeholder="输入项目名搜索" >
+                <button class="btn btn-white btn-xs " onclick="find_project()">查 询 </button>
             </div>
-            <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
+            <div class="col-xs-2">
+                <form id="imSubmit" method="post" action="{{url('excel/import')}}?type=project" enctype="multipart/form-data">
+                <span class="btn btn-danger fileinput-button">
+                    <span id="imBtn">导入Excel文件</span>
+                    <input type="file" name="import" style="display: none" onchange="im()"   id="imBtnInput" >
+                </span>
+                </form>
+            </div>
+            <div class="col-xs-2  " >
+                <form method="post" action="{{url('excel/export')}}?type=project">
+                    <button type="submit" class="btn btn-success fileinput-button" style="height: 35px;font-size: 13px">
+                        导出Excel文件
+                    </button>
+                </form>
+            </div>
+            <div class="col-xs-3" style=" padding-right: 40px;text-align: right;">
                 <label for="paixu">排序:&nbsp;</label>
                 <select class=" form-control">
                     <option>地区</option>
@@ -100,5 +115,12 @@
                 $('#Lproject1').css('background','#F3F3FA');
             }
         });
+        function find_project() {
+            var name=$('#projectName').val();
+            window.location.href="{{url('project/over')}}?name="+name;
+        }
+        function im() {
+            document.getElementById("imSubmit").submit();
+        }
     </script>
 @stop

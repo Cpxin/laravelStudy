@@ -1,9 +1,11 @@
 @extends('common.layouts')
 
 @section('content')
-    <div class="row">
+    <div class="row" >
         <div class="col-sm-6 col-sm-offset-3">
-            <form class="form-horizontal" method="post" action="{{url('project/save')}}" onsubmit="return conform()">
+            @include('common.message')
+            @include('common.vaildator')
+            <form id="form-horizontal" class="form-horizontal" method="post" action="{{url('project/save')}}" onsubmit="return conform();">
                 {{csrf_field()}}
             <div class="panel panel-default">
                 <div class="panel-heading">基本信息</div>
@@ -20,7 +22,26 @@
             </div>
 
             <div class="panel panel-info">
-                <div class="panel panel-heading">项目内容</div>
+                <div class="panel panel-heading" style="display: flex;flex-direction: row">项目内容
+                    {{--<form id="imSubmit" class="" method="post" action="{{url('project/word_save')}}"  >--}}
+                            <span class="btn btn-danger col-sm-offset-9" >
+                                <span id="imBtn">导入pdf文件</span>
+                                <input type="file" name="import" style="display: none" onchange="im(this)"   id="imBtnInput" >
+                            </span>
+                    <input type="text" id="pPdfUrl" name="Project[pdfUrl]" value="{{old('Project')['pdfUrl']?old('Project')['pdfUrl']:''}}" class="form-control" style="display: none" >
+                    {{--</form>--}}
+                </div>
+                {{--@include('common.vaildator')--}}
+                {{--@include('common.message')--}}
+                <div class="panel-body" id="pdf">
+                    {{--@if(isset($pdfUrl))--}}
+                        {{--<iframe src="{{asset('/storage/'.$pdfUrl)}}" width="100%" height="100%">123</iframe>--}}
+                        {{--@endif--}}
+                </div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel panel-heading" style="display: flex;flex-direction: row">项目备注</div>
                 <div class="panel-body">
 
                     <div class="row">
@@ -95,8 +116,8 @@
                 </div>
             </div>
 
-                <div class="panel">
-                <button id="sub" type="submit" class="btn btn-xs btn-green">保 存</button>
+                <div >
+                <button  id="sub" type="button" class="btn btn-xs btn-green col-sm-offset-5" style="width: 70px;height: 40px" onclick="onbefore()">保 存</button>
                 </div>
 
             </form>
@@ -154,39 +175,75 @@
 
 @section('javascript')
     @parent
-    <script>
+    <script type="text/javascript">
+        var i=0;
         $(document).ready(function () {
             if($('#Lproject1').css('display')=='none'){
             $('#Lproject1').css('display','block');
             $('#Lproject1').css('background','#F3F3FA');
             }
         });
-        var i=0;
+
         $('#need').on('click',function () {
             $('#select').css('display','block');
             $('#need').css('display','none');
-            i=1;
+            i=0;
         });
         $('#sure').on('click',function () {
             var s=$('#pPersonnel').val();
-            // if(s.indexOf($('#pos').val())!=-1){
-                s+=$('#pos').val()+'*'+$('#num').val()+';';
-            // }else {
-            //
-            // }
+            if(s.indexOf($('#pos').val())==-1) {
+                s += $('#pos').val() + '*' + $('#num').val() + ';';
+            }else {
+                var s1=s.substring(s.indexOf($('#pos').val()));
+                s1=s1.substring(s1.indexOf(";")+1);
+                s=s.substring(0,s.indexOf($('#pos').val()))+s1+$('#pos').val() + '*' + $('#num').val() + ';';
+            }
+
             $('#pPersonnel').val(s);
             $('#select').css('display','none');
             $('#need').css('display','block');
+
         });
         $('#sub').on('click',function () {
+            document.getElementById("form-horizontal").submit();
             i=0;
         });
+        // function sub() {
+        //     document.getElementById("form-horizontal").submit();
+        // }
         function conform() {
-            if(i==1){
+            if(i===0){
                 return false;
             }else {
                 return true;
             }
+        }
+        $('#imBtn').on('click',function () {
+            $('#imBtnInput').click();
+        });
+        function im(env) {
+            var formData = new FormData();
+            formData.append("import", document.getElementById("imBtnInput").files[0]);
+            var iframe=document.createElement('iframe');
+            iframe.setAttribute('width','100%');
+            iframe.setAttribute('height','700px');
+            $.ajax({
+                url:'{{url('project/word_save')}}',
+                data:formData,
+                type:'post',
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    $('#pPdfUrl').val(result);
+                    iframe.setAttribute('src','{{asset('/storage')}}'+'/'+result);
+                    document.getElementById('pdf').appendChild(iframe);
+                }
+            });
+
+        }
+        function onbefore() {   //不向服务端发送删除pdf请求
+            pdf=true;
         }
     </script>
     @stop

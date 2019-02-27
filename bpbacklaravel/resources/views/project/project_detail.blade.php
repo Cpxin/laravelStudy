@@ -31,7 +31,7 @@
                                 <p><strong>创建时间：</strong>{{$project->created_at}}</p>
                             </div>
                             <div class="col-sm-3">
-                                <p><strong>期限：</strong>{{$project->term}}</p>
+                                <p><strong>期限：</strong>{{$project->term}}天</p>
                             </div>
                         </div>
 
@@ -40,13 +40,25 @@
 
                 <!--项目内容-->
                 <div class="panel panel-info">
-                    <div class="panel panel-heading">项目内容
+                    <div class="panel panel-heading" style="display: flex;flex-direction: row">项目内容
                         @if($project->state!=3)
-                        <button class="btn btn-green" data-toggle="modal" data-target="#reviseProject" onclick="contentInfo('{{$project->content}}','{{$project->id}}')">编辑</button>
+                            {{--<button class="btn btn-green col-sm-offset-10" style="float: right;margin-right: -20px" data-toggle="modal" data-target="#reviseProject" onclick="contentInfo('{{$project->content}}','{{$project->id}}')">重新上传</button>--}}
                         @endif
                     </div>
                     <div class="panel-body">
+                        {{--<embed :src="" type="application/pdf" width="100%" height="100%" />--}}
+                        <iframe src="{{asset('/storage')}}/{{$project->pdfUrl}}" width="100%" height="700px">123</iframe>
+                    </div>
+                </div>
 
+                <div class="panel panel-info">
+                    <div class="panel panel-heading" style="display: flex;flex-direction: row">项目备注
+                        @if($project->state==0)
+                            <button class="btn btn-green col-sm-offset-10" style="float: right;margin-right: -20px" data-toggle="modal" data-target="#reviseProject" onclick="contentInfo('{{$project->content}}','{{$project->id}}')">编辑</button>
+                        @endif
+                    </div>
+                    <div class="panel-body">
+                        {{--<embed :src="" type="application/pdf" width="100%" height="100%" />--}}
                         <div class="row" >
                             <div class="col-sm-5 col-sm-offset-1" >
                                 <pre style="width:700px"><p id="pContent" style="width:700px;text-overflow:ellipsis">{{str_replace("<br>","\n",$project->content)}}</p>
@@ -63,47 +75,50 @@
 
                         <div class="row">
                             <div class="form-inline col-sm-7">
-                                <div class="col-sm-offset-1">
-                                    <p>{{$project->personnel}}</p>
+                                <div class="">
+                                    <p style="font-size: 15px">职位/人数:{{$project->personnel}}</p>
                                 </div>
-                                <div class="col-sm-2">
-                                    @if($project->state!=3)
+                                <div class="col-sm-2" style="margin-left: -13px;display: flex;flex-direction:row">
+                                    @if($project->state==0)
                                     <a class="btn btn-green" href="{{url('project/arrange/'.$project->id)}}">
                                         选择员工
+                                    </a>
+                                    <a class="btn btn-danger" href="{{url('project/detail/'.$project->id)}}?clear=true" id="clear">
+                                        清空已选
                                     </a>
                                         @endif
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-3 ">
-                                <div class="form-inline">
-                                    <p>职位：
-                                    <select class="form-control">
-                                        <option>程序员</option>
-                                        <option>项目主管</option>
-                                        <option>项目经理</option>
-                                    </select>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group  col-sm-4">
-                                <div class="input-group">
-                                    <div class="input-group-addon" >人数：</div>
-                                    <input type="text" style="width: 50px" id="num" name="Project[personnel]" value="{{old('Project')['personnel']?old('Project')['personnel']:''}}" class="form-control" placeholder="0">
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <button class="btn btn-green">
-                                    <strong>+</strong>
-                                </button>
-                            </div>
+                        {{--<div class="row">--}}
+                            {{--<div class="col-sm-3 ">--}}
+                                {{--<div class="form-inline">--}}
+                                    {{--<p>职位：--}}
+                                    {{--<select class="form-control">--}}
+                                        {{--<option>程序员</option>--}}
+                                        {{--<option>项目主管</option>--}}
+                                        {{--<option>项目经理</option>--}}
+                                    {{--</select>--}}
+                                    {{--</p>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group  col-sm-4">--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<div class="input-group-addon" >人数：</div>--}}
+                                    {{--<input type="text" style="width: 50px" id="num" name="Project[personnel]" value="{{old('Project')['personnel']?old('Project')['personnel']:''}}" class="form-control" placeholder="0">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="col-sm-2">--}}
+                                {{--<button class="btn btn-green">--}}
+                                    {{--<strong>+</strong>--}}
+                                {{--</button>--}}
+                            {{--</div>--}}
 
-                            <div class="col-sm-2"><p>{{$project->staffId}}</p></div>
+                            <div class="col-sm-7" style="margin-left: -13px;margin-top: 10px"><p style="font-size: 15px">已选员工ID：{{$project->staffId}}</p></div>
 
 
-                        </div>
+                        {{--</div>--}}
 
                     </div>
                 </div>
@@ -130,13 +145,13 @@
 
             {{--</form>--}}
             @if($project->state==0)         <!--如果项目未启动-->
-            <div class="panel">
-                <a type="button" class="btn btn-xs btn-green" href="{{url('project/start',['id'=>$project->id])}}">启动</a>
+            <div  style="text-align: center">
+                <a type="button" class="btn btn-xs btn-green" style="height: 40px;width: 70px;font-size: 20px" href="{{url('project/start',['id'=>$project->id])}}">启动</a>
             </div>
             @else
                     @if($project->state!=3)
-                <div class="panel">
-                    <a type="button" class="btn btn-xs btn-green" href="{{url('project/settle',['id'=>$project->id])}}">结算</a>
+                <div style="text-align: center">
+                    <a type="button" class="btn btn-xs btn-green" style="height: 40px;width: 70px;font-size: 20px" href="{{url('project/settle',['id'=>$project->id])}}">结算</a>
                 </div>
                         @endif
                 @endif
@@ -269,6 +284,12 @@
         function contentInfo(con,id) {
             $('#mId').val(id);
             $('#mContent').val(con);
+        }
+        $('#imBtn').on('click',function () {
+            $('#imBtnInput').click();
+        });
+        function im() {
+            document.getElementById("imSubmit").submit();
         }
     </script>
     @stop

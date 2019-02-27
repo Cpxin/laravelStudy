@@ -7,8 +7,8 @@
                 <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addUser">添加用户 </button>
             </div>
             <div class="col-xs-4">
-                <input type="text" class="form-control input-sm" placeholder="输入文字搜索" >
-                <button class="btn btn-white btn-xs ">查 询 </button>
+                <input type="text" id="adminName" class="form-control input-sm" placeholder="输入文字搜索" >
+                <button class="btn btn-white btn-xs " onclick="find_admin()">查 询 </button>
             </div>
             <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
                 <label for="paixu">排序:&nbsp;</label>
@@ -58,7 +58,7 @@
                             {{$ad->rank}}
                         </div>
                         <div class="col-xs-3">
-                            <a class="btn btn-danger btn-xs" href="{{url('admin/delete',['id'=>$ad->id])}}" onclick="if(confirm('确定要删除吗?')==false) return false;">删除</a>
+                            <a class="btn btn-danger btn-xs" href="{{url('admin/delete')}}?id={{$ad->id}}" onclick="if(confirm('确定要删除吗?')==false) return false;">删除</a>
                         </div>
                     </div>
                 @endforeach
@@ -73,6 +73,57 @@
         </div>
 
     </div>
+
+    <!--弹出添加用户窗口-->
+    <div class="modal fade" id="addUser" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form class="form-horizontal" method="post" action="{{url('admin/save')}}">
+                    {{ csrf_field() }}
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">添加管理员</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            {{--@include('common.vaildator')--}}
+                            <div class="form-group ">
+                                <label for="aName" class="col-xs-3 control-label">管理员姓名：</label>
+                                <div class="col-xs-8 ">
+                                    <input name="Admin[name]" value="{{old('Admin')['name']}}" class="form-control input-sm duiqi" id="aName" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="aEmail" class="col-xs-3 control-label">管理员邮箱：</label>
+                                <div class="col-xs-8 ">
+                                    <input name="Admin[email]" value="{{old('Admin')['email']}}" class="form-control input-sm duiqi" id="aEmail" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                    <label for="sOrd" class="col-xs-3 control-label">权限等级：
+
+                                    </label>
+                                <select class=" col-xs-3" name="Admin[rank]" style="margin-top:10px ">
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                        <button type="submit" class="btn btn-xs btn-green">保 存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
     @stop
 
 @section('javascript')
@@ -84,5 +135,9 @@
                 $('#Ladmin1').css('background','#F3F3FA');
             }
         });
+        function find_admin() {
+            var name=$('#adminName').val();
+            window.location.href="{{url('admin/over')}}?name="+name;
+        }
     </script>
 @stop

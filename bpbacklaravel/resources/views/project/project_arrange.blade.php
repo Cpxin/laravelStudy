@@ -40,17 +40,17 @@
 
         <div class="data-div col-xs-8">
             {{--{{csrf_field()}}--}}
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-1" style="margin-right: -20px"><strong >职位：</strong></div>
-                    <div class="col-sm-2">
-                        <ul class="list-inline" >
-                            <a class="btn btn-dark" onclick="edit('后端工程师')">后端工程师</a>
-                            <li>2</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            {{--<div class="panel-body">--}}
+                {{--<div class="row">--}}
+                    {{--<div class="col-sm-1" style="margin-right: -20px"><strong >职位：</strong></div>--}}
+                    {{--<div class="col-sm-2">--}}
+                        {{--<ul class="list-inline" >--}}
+                            {{--<a class="btn btn-dark" onclick="edit('后端工程师')">后端工程师</a>--}}
+                            {{--<li>2</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
             {{--<div class="row tableHeader">--}}
                 {{--<div class="col-xs-1 ">--}}
@@ -147,25 +147,28 @@
                     {{--<select multiple class="selectpicker show-tick" id="select1" data-style="btn-success">--}}
                     {{--<option>1</option>--}}
                 {{--</select>--}}
+                {{--$personnel ： 职位：人数--}}
                 @foreach($personnel as $k=>$v)
                     <ul class="list-group" id="{{$k}}">
                         <li class="list-group-item list-group-item-success" id="i{{$k}}" value="{{$v}}">职位：{{$k}}    剩余可选人数：{{$v}}</li>
                     </ul>
                 @endforeach
-
+                <ul class="list-group" id="其他">
+                    <li class="list-group-item list-group-item-success" id="i其他" value="">职位：其他  </li>
+                </ul>
             </div>
 
-            <form class="form-horizontal" method="post" action="{{url('project/detail',['id'=>$projectId])}}">
+            <form id="form-horizontal" class="form-horizontal" method="post" action="{{url('project/detail',['id'=>$projectId])}}" >
                 {{ csrf_field() }}
                 <div class="input-group col-sm-5">
-                    <input type="text" id="pId" name="Personnel[Id]" value="" class="form-control" placeholder="未填写..">
+                    <input type="text" id="pId" name="Personnel[Id]" value="" class="form-control" placeholder="未填写.." style="display: none">
                 </div>
                 <div class="input-group col-sm-5">
-                    <input type="text" id="pNum" name="Personnel[Num]" value="" class="form-control" placeholder="未填写..">
+                    <input type="text" id="pNum" name="Personnel[Num]" value="" class="form-control" placeholder="未填写.." style="display: none">
                 </div>
-                <div class="panel">
-                    <button type="submit" class="btn btn-xs btn-green" onclick="set()">保 存</button>
-                </div>
+
+                    <button type="button" class="btn btn-xs btn-green " onclick="set()" style="margin-left: 500px;">保 存</button>
+
             </form>
 
         </div>
@@ -191,6 +194,7 @@
                     $('#Lproject1').css('background','#F3F3FA');
                 }
             });
+
             window.arr=[];
             load();
         });
@@ -201,7 +205,7 @@
                     clickToSelect:true,
                     sortName: "created_at",
                     sortOrder: "desc",
-                    pageSize: 5,
+                    pageSize: 10,
                     pageNumber: 1,
 
                     showToggle: true,
@@ -265,6 +269,10 @@
                             u1.setAttribute('class','clickColor');
                         }
                     }
+                }else {
+                    var u1l=document.getElementById("其他");
+                    $($element).addClass('clickColor');
+                    u1l.appendChild(li);
                 }
 
             }else{
@@ -278,6 +286,10 @@
                     var subfirst= document.getElementById("i"+row['position']);
                     subfirst.value++;
                     subfirst.innerHTML="职位："+row['position']+"    剩余可选人数："+subfirst.value+"";
+                }else {
+                    var ll=document.getElementById(row['id']);
+                    uu=document.getElementById("其他");
+                    uu.removeChild(ll);
                 }
             }
 
@@ -297,7 +309,7 @@
                 }
             }
         }
-
+        var r=0;
         function set() {
             var i=document.getElementById('pId');
             var n=document.getElementById('pNum');
@@ -307,8 +319,22 @@
                 str+=arr[j]+';';
             }
             i.value=str;
-
+            if (str.length!==0){
+                document.getElementById("form-horizontal").submit();
+            }else {
+                if (confirm("未选择人员!")===false){
+                    return false
+                }
+            }
+            // console.log(r);
         }
+        // function confirm() {
+        //     if (r===0){
+        //         return false;
+        //     }else {
+        //         return true;
+        //     }
+        // }
 
 
     </script>

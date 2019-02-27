@@ -7,14 +7,29 @@
 
     <div role="tabpanel" class="tab-pane active" id="user">
         <div class="check-div form-inline">
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addUser">添加用户 </button>
             </div>
-            <div class="col-xs-4">
-                <input type="text" class="form-control input-sm" placeholder="输入文字搜索" >
-                <button class="btn btn-white btn-xs ">查 询 </button>
+            <div class="col-xs-3">
+                <input type="text" id="find_input" class="form-control input-sm" placeholder="输入文字搜索" >
+                <button class="btn btn-white btn-xs " onclick="find_staff()">查 询 </button>
             </div>
-            <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
+            <div class="col-xs-2">
+                <form id="imSubmit" method="post" action="{{url('excel/import')}}?type=staff" enctype="multipart/form-data">
+                <span class="btn btn-danger fileinput-button">
+                    <span id="imBtn">导入Excel文件</span>
+                    <input type="file" name="import" style="display: none" onchange="im()"   id="imBtnInput" >
+                </span>
+                </form>
+            </div>
+            <div class="col-xs-2  " >
+                <form method="post" action="{{url('excel/export')}}?type=staff">
+                    <button type="submit" class="btn btn-success fileinput-button" style="height: 35px;font-size: 13px">
+                    导出Excel文件
+                    </button>
+                </form>
+            </div>
+            <div class=" col-xs-3" style=" padding-right: 40px;text-align: right;">
                 <label for="paixu">排序:&nbsp;</label>
                 <select class=" form-control">
                     <option>地区</option>
@@ -71,6 +86,19 @@
                         {{$sta->position}}
                     </div>
                     <div class="col-xs-1" id="state">
+                        @if($sta->state==0)
+                            <img src="{{asset('/img/其他-im.png')}}" style="width:21px;height: 21px">
+                        @else
+                            @if($sta->state==1)
+                                <img src="{{asset('/img/离线-im.png')}}" style="width:21px;height: 21px">
+                            @else
+                                @if($sta->state==2)
+                                    <img src="{{asset('/img/空闲-im.png')}}" style="width:21px;height: 21px">
+                                    @else
+                                    <img src="{{asset('/img/忙碌-im.png')}}" style="width:21px;height: 21px">
+                                @endif
+                            @endif
+                        @endif
                         {{$sta->state($sta->state)}}
                     </div>
                     <div class="col-xs-2">
@@ -119,7 +147,13 @@
                                 <div class="form-group">
                                     <label for="sOrd" class="col-xs-3 control-label">性别：</label>
                                     <div class="col-xs-8">
-                                        <input name="Staff[sex]" value="{{old('Staff')['sex']}}" class="form-control input-sm duiqi" id="sOrd" placeholder="">
+                                        {{--<input name="Staff[sex]" value="{{old('Staff')['sex']}}" class="form-control input-sm duiqi" id="sOrd" placeholder="">--}}
+                                        <label class="radio-inline">
+                                            <input type="radio" name="Staff[sex]" id="" value="20" checked> 男
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="Staff[sex]" id="" value="30"> 女
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -128,35 +162,26 @@
                                         <input name="Staff[position]" value="{{old('Staff')['position']}}" class="form-control input-sm duiqi" id="sKnot" placeholder="">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="sKnot" class="col-xs-3 control-label">地区：</label>
-                                    <div class="col-xs-8">
-                                        <select class=" form-control select-duiqi">
-                                            <option value="">国际关系地区</option>
-                                            <option value="">北京大学</option>
-                                            <option value="">天津大学</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="sKnot" class="col-xs-3 control-label">权限：</label>
-                                    <div class="col-xs-8">
-                                        <select class=" form-control select-duiqi">
-                                            <option value="">管理员</option>
-                                            <option value="">普通用户</option>
-                                            <option value="">游客</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="situation" class="col-xs-3 control-label">状态：</label>
-                                    <div class="col-xs-8">
-                                        <label class="control-label" for="anniu">
-                                            <input type="radio" name="situation" id="normal">正常</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <label class="control-label" for="meun">
-                                            <input type="radio" name="situation" id="forbid"> 禁用</label>
-                                    </div>
-                                </div>
+
+                                {{--<div class="form-group">--}}
+                                    {{--<label for="sKnot" class="col-xs-3 control-label">权限：</label>--}}
+                                    {{--<div class="col-xs-8">--}}
+                                        {{--<select class=" form-control select-duiqi">--}}
+                                            {{--<option value="">管理员</option>--}}
+                                            {{--<option value="">普通用户</option>--}}
+                                            {{--<option value="">游客</option>--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group">--}}
+                                    {{--<label for="situation" class="col-xs-3 control-label">状态：</label>--}}
+                                    {{--<div class="col-xs-8">--}}
+                                        {{--<label class="control-label" for="anniu">--}}
+                                            {{--<input type="radio" name="situation" id="normal">正常</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--}}
+                                        {{--<label class="control-label" for="meun">--}}
+                                            {{--<input type="radio" name="situation" id="forbid"> 禁用</label>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -274,6 +299,16 @@
         <!-- /.modal -->
 
     </div>
+        @else
+        <div class="panel col-lg-4 col-lg-offset-4" style="margin-top: 50px">
+            <div class="panel-heading">
+                当前用户：{{ Auth::user()->name }}
+            </div>
+            <div class="panel-body" style="padding:10px 50px ">
+                权限等级：{{Auth::user()->rank}}
+                <ul class="nav nav-list"><li class="divider"></li></ul>
+            </div>
+        </div>
     @endif
 @stop
 
@@ -294,6 +329,42 @@
                 $('#cPosition').val(arr4);
                 $('#reviseStaff').modal('show');
             }
+            function find_staff() {
+                var name=$('#find_input').val();
+                // window.location.href='http://localhost/bpbacklaravel/public/staff/over?name='+name;
+                window.location.href="{{url('staff/over')}}?name="+name;
+                {{--$.get('{{url('staff/over')}}',{'name':name},function () {--}}
+                    {{----}}
+                {{--});--}}
+            }
+        $('#exBtn').on('click',function () {
+            $('#exBtnInput').click();
+        });
+        $('#imBtn').on('click',function () {
+            $('#imBtnInput').click();
+        });
+        // $('#imBtnInput').change(function(){
+        //     // var file = this.files[0];
+        //     // var url = getObjectURL(file);
+        //     console.log(url);
+        // });
+        var xhr;
+        function im() {
+            // var len=env.files.length;
+            // for (var i = 0; i < len; i++) {
+            //     var temp = env.files[i].name;
+            //     console.log(temp);
+            // }
+            // var fileObj = document.getElementById("import").file[0]; // js 获取文件对象
+            // var file=$('#imBtnInput')[0].files[0];
+            // var reader=new FileReader;
+            // reader.readAsText(file,'gb2312');
+            // reader.onload=function(evt){
+            //     var data=evt.target.result;
+            // }
+            document.getElementById("imSubmit").submit();
+
+        }
             // $('#reviseStaff').on('show.bs.modal',function (event) {
         // });
     </script>

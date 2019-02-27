@@ -9,97 +9,120 @@
             <div class="panel panel-default">
                 <div class="panel-heading">基本信息</div>
                 <div class="panel-body">
-                    <img src="{{asset('img/me.png')}}" class="img-responsive img-rounded img-thumbnail" alt="Me">
-                    <p class="text-center text-primary">{{$staff->name}}</p>
+                    {{--<img src="{{asset('img/me.png')}}" class="col-sm-offset-1 img-responsive img-rounded img-thumbnail" style="height: 270px;width: 300px;margin-right: 50px" alt="Me">--}}
+                    {{--<button class="btn-block col-sm-offset-4" style="width: 100px;">上传照片</button>--}}
+                    <form method="post" enctype="multipart/form-data" id="file_upload" action="{{url('staff/save_img/'.$staff->id)}}">
+                        {{csrf_field()}}
+                            @if(isset($vitae->image))
+                        　　<img  src="{{url($vitae->image)}}" class="col-sm-offset-1 img-responsive img-rounded img-thumbnail" style="height: 270px;width: 300px;margin-right: 50px">
+                        　　@else
+                            <img src="{{asset('img/me.png')}}" class="col-sm-offset-1 img-responsive img-rounded img-thumbnail" style="height: 270px;width: 300px;margin-right: 50px" alt="Me">
+                        @endif
+                            <p>
+                            　　　　<input type="file" id="test-image-file" name="img" accept="image/gif, image/jpeg, image/png, image/jpg" value="选择头像">
+
+                            　　</p>
+                        {{--<p id="test-file-info"></p>--}}
+
+
+                    <p  class=" col-sm-offset-1" style="width: 100px">姓名：{{$staff->name}}</p>
                     <address>
                         {{--<strong>中国</strong><br>--}}
-                        <span class="glyphicon glyphicon-sex" title="sex"><kbd>{{$staff->sex($staff->sex)}}</kbd></span><br>
-                        <span class="glyphicon glyphicon-age" title="age">{{$staff->age}}</span><br>
-                        <span class="glyphicon glyphicon-position" title="position">{{$staff->position}}</span><br>
+                        <span class="glyphicon glyphicon-sex col-sm-offset-1" title="sex">性别：{{$staff->sex($staff->sex)}}</span><br>
+                        <span class="glyphicon glyphicon-age col-sm-offset-1" title="age">年龄：{{$staff->age}}</span><br>
+                        <span class="glyphicon glyphicon-position col-sm-offset-1" title="position">职位：{{$staff->position}}</span><br>
                         {{--<span class="glyphicon glyphicon-envelope" title="Email"><code>1610712512@qq.com</code></span>--}}
                     </address>
+                    <button type="submit" class="col-sm-offset-5 btn btn-primary">保存</button>
+                    </form>
                 </div>
             </div>
 
-        <div class="panel panel-info">
-            <div class="panel panel-heading">技能</div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <span class="text-muted">HTML5</span>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped active" style="width: 85%"></div>
-                        </div>
-                    </div>
-                </div>
+        {{--<div class="panel panel-info">--}}
+            {{--<div class="panel panel-heading">技能</div>--}}
+            {{--<div class="panel-body">--}}
+                {{--<div class="row">--}}
+                    {{--<div class="col-sm-3">--}}
+                        {{--<span class="text-muted">HTML5</span>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-sm-9">--}}
+                        {{--<div class="progress">--}}
+                            {{--<div class="progress-bar progress-bar-striped active" style="width: 85%"></div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-                <div class="row">
-                    <div class="col-sm-3">
-                        <span class="text-success">IOS</span>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-success active" style="width: 85%"></div>
-                        </div>
-                    </div>
-                </div>
+                {{--<div class="row">--}}
+                    {{--<div class="col-sm-3">--}}
+                        {{--<span class="text-success">IOS</span>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-sm-9">--}}
+                        {{--<div class="progress">--}}
+                            {{--<div class="progress-bar progress-bar-striped progress-bar-success active" style="width: 85%"></div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-                <div class="row">
-                    <div class="col-sm-3">
-                        <span class="text-info">PHP</span>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-info active" style="width: 70%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <span class="text-warning">JQuery</span>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-warning active" style="width: 65%"></div>
-                        </div>
-                    </div>
-                </div>
+                {{--<div class="row">--}}
+                    {{--<div class="col-sm-3">--}}
+                        {{--<span class="text-info">PHP</span>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-sm-9">--}}
+                        {{--<div class="progress">--}}
+                            {{--<div class="progress-bar progress-bar-striped progress-bar-info active" style="width: 70%"></div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="row">--}}
+                    {{--<div class="col-sm-3">--}}
+                        {{--<span class="text-warning">JQuery</span>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-sm-9">--}}
+                        {{--<div class="progress">--}}
+                            {{--<div class="progress-bar progress-bar-striped progress-bar-warning active" style="width: 65%"></div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-                <div class="row">
-                    <div class="col-sm-3">
-                        <span class="text-danger">CSS</span>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-danger active" style="width: 50%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                {{--<div class="row">--}}
+                    {{--<div class="col-sm-3">--}}
+                        {{--<span class="text-danger">CSS</span>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-sm-9">--}}
+                        {{--<div class="progress">--}}
+                            {{--<div class="progress-bar progress-bar-striped progress-bar-danger active" style="width: 50%"></div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
         <div class="panel panel-primary">
             <div class="panel panel-heading">发送邮件</div>
             <div class="panel-body">
                 <form class="form-horizontal">
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" id="email" class="form-control" placeholder="Email">
+                        <div class="col-sm-8">
+                            {{--<input type="email" id="email" class="form-control" placeholder="Email">--}}
+                            @if(isset($vitae->email))
+                                <p style="margin-top: 7px">{{$vitae->email}}</p>
+                                @else
+                                <p style="margin-top: 7px">未填写邮箱</p>
+                            @endif
+
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">Name</label>
-                        <div class="col-sm-10">
-                            <input type="text" id="name" class="form-control" placeholder="Name">
+                        <label for="name" class="col-sm-2 control-label">标题</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="name" class="form-control" placeholder="">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-sm-10 col-sm-offset-2">
-                            <button type="submit" class="btn btn-primary pull-right">Send</button>
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <button type="submit" class="btn btn-primary pull-right">发送</button>
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -131,7 +154,7 @@
                             <a href="#collapseOne" data-toggle="collapse" data-parent="#accoradion">附加信息</a>
 
                         </div>
-                        <div id="collapseOne" class="panel-collapse collapse">
+                        <div id="collapseOne" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <ul class="list-group">
                                     <li class="list-group-item list-group-item-success">
@@ -169,7 +192,7 @@
                         <div class="panel-title">
                             <a href="#collapseTwo" data-toggle="collapse" data-parent="#accoradion">项目经历</a>
                         </div>
-                        <div id="collapseTwo" class="panel-collapse collapse">
+                        <div id="collapseTwo" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <ul class="list-group">
 
@@ -208,32 +231,56 @@
                         <div class="panel-title">
                             <a href="#collapseThree" data-toggle="collapse" data-parent="#accoradion">教育经历</a>
                         </div>
-                        <div id="collapseThree" class="panel-collapse collapse">
+                        <div id="collapseThree" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    <li class="list-group-item list-group-item-success">
-                                        <div class="row">
-                                            <div class="col-sm-4">2015/3/1-至今</div>
-                                            <div class="col-sm-4">XXX公司</div>
-                                            <div class="col-sm-4">IOS开发工程师</div>
-                                        </div>
-                                    </li>
+                                    {{--<li class="list-group-item list-group-item-success">--}}
+                                        {{--<div class="row">--}}
+                                            {{--<div class="col-sm-4">2015/3/1-至今</div>--}}
+                                            {{--<div class="col-sm-4">XXX公司</div>--}}
+                                            {{--<div class="col-sm-4">IOS开发工程师</div>--}}
+                                        {{--</div>--}}
+                                    {{--</li>--}}
 
-                                    <li class="list-group-item list-group-item-warning">
-                                        <div class="row">
-                                            <div class="col-sm-4">2015/3/1-至今</div>
-                                            <div class="col-sm-4">XXX公司</div>
-                                            <div class="col-sm-4">IOS开发工程师</div>
-                                        </div>
-                                    </li>
+                                    {{--<li class="list-group-item list-group-item-warning">--}}
+                                        {{--<div class="row">--}}
+                                            {{--<div class="col-sm-4">2015/3/1-至今</div>--}}
+                                            {{--<div class="col-sm-4">XXX公司</div>--}}
+                                            {{--<div class="col-sm-4">IOS开发工程师</div>--}}
+                                        {{--</div>--}}
+                                    {{--</li>--}}
 
+                                    {{--<li class="list-group-item list-group-item-info">--}}
+                                        {{--<div class="row">--}}
+                                            {{--<div class="col-sm-4">2015/3/1-至今</div>--}}
+                                            {{--<div class="col-sm-4">XXX公司</div>--}}
+                                            {{--<div class="col-sm-4">IOS开发工程师</div>--}}
+                                        {{--</div>--}}
+                                    {{--</li>--}}
                                     <li class="list-group-item list-group-item-info">
                                         <div class="row">
-                                            <div class="col-sm-4">2015/3/1-至今</div>
-                                            <div class="col-sm-4">XXX公司</div>
-                                            <div class="col-sm-4">IOS开发工程师</div>
+                                            <div class="col-sm-4">院校名称</div>
+                                            <div class="col-sm-4">学历</div>
+                                            <div class="col-sm-4">教育时间</div>
                                         </div>
                                     </li>
+                                    {{--@if(isset($projectArr))--}}
+                                        {{--@foreach($projectArr as $pro)--}}
+                                            {{--<li class="list-group-item list-group-item-success">--}}
+                                                {{--<div class="row">--}}
+                                                    {{--<div class="col-sm-4">{{$pro['pid']}}</div>--}}
+                                                    {{--<div class="col-sm-4">{{$pro['pName']}}</div>--}}
+                                                    {{--<div class="col-sm-4">{{$pro['prank']}}</div>--}}
+                                                {{--</div>--}}
+                                            {{--</li>--}}
+                                        {{--@endforeach--}}
+                                    {{--@else--}}
+                                        <li class="list-group-item list-group-item-success">
+                                            <div class="row">
+                                                <div class="col-sm-12">无</div>
+                                            </div>
+                                        </li>
+                                    {{--@endif--}}
                                 </ul>
                             </div>
                         </div>

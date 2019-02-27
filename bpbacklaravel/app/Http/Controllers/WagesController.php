@@ -12,7 +12,11 @@ class WagesController extends Controller
     //
     public function over()
     {
-        $wages=Wages::paginate(10);
+        if (isset($_GET['position'])){
+            $wages=Wages::where('position',$_GET)->paginate(10);
+        }else{
+            $wages=Wages::paginate(10);
+        }
         return view('wages.wages_over',['wages'=>$wages]);
     }
 

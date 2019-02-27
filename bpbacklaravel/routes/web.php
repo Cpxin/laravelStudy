@@ -17,7 +17,20 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/layouts', 'HomeController@index')->name('layouts');
+
+Route::post('staff/wx_staff_login',['uses'=>'StaffController@wx_staff_login']);  //员工登录
+Route::post('staff/wx_staff_pwd',['uses'=>'StaffController@wx_staff_pwd']);  //员工密码注册
+Route::get('staff/wx_staff_detail',['uses'=>'StaffController@wx_staff_detail']); //微信获取员工详细信息
+Route::get('staff/wx_staff_sign',['uses'=>'StaffController@wx_staff_sign']); //员工签到
+
+Route::any('excel/export',['uses'=>'ExcelController@export']);  //excel文件导出
+Route::any('excel/import',['uses'=>'ExcelController@import']);  //excel文件导入
+
+Route::any('project/word_save',['uses'=>'ProjectController@word_save']);  //项目内容导入
+
+//Route::get('staff/excel_save',['uses'=>'StaffController@exel_save']);
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -26,6 +39,7 @@ Route::get('staff/over',['uses'=>'StaffController@over']);
 Route::post('staff/save',['uses'=>'StaffController@save']);
 Route::get('staff/detail/{id}',['uses'=>'StaffController@detail']);
 Route::post('staff/save_detail/{id}',['uses'=>'StaffController@save_detail']);
+Route::post('staff/save_img/{id}',['uses'=>'StaffController@save_img']);
 Route::any('staff/delete/{id}',['uses'=>'StaffController@delete']);
 Route::post('staff/update',['uses'=>'StaffController@update']);
 
@@ -49,5 +63,7 @@ Route::get('wages/over',['uses'=>'WagesController@over']);
 Route::post('wages/save',['uses'=>'WagesController@save']);
 
 Route::get('admin/over',['uses'=>'AdminController@over']);
+Route::post('admin/save',['uses'=>'AdminController@save']);
+Route::get('admin/delete',['uses'=>'AdminController@delete']);
 
 });

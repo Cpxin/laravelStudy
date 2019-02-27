@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->increments('id');
             $table->string('name')->default('');  //项目名
             $table->string('content',10240)->default('');  //项目内容
+            $table->string('pdfUrl',512)->default('');   //项目pdf路径
             $table->string('personnel')->default(''); //人员需求
             $table->string('staffId')->default(''); //参与员工
             $table->integer('cost')->default(0);  //预期成本
