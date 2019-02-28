@@ -40,9 +40,11 @@ class WagesController extends Controller
 //        if($validator->fails()){
 //            return redirect()->back()->withErrors($validator)->withInput();
 //        }
+
         DB::connection()->enableQueryLog();
         $wages=new Wages();
         $wag=$request->input('Wages');
+
         $wages->position=$wag['position'];
         $wages->basic=$wag['basic'];
         $wages->weekday=$wag['weekday'];

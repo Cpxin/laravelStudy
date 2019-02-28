@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
+        <link rel="stylesheet" href="{{asset('static/bootstrap/css/bootstrap.min.css')}}">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -65,7 +66,7 @@
             }
             .container{
                 margin: 0 auto;
-                width: 950px;
+                width: 1000px;
                 padding: 50px 100px 80px;
             }
             .container-item{
@@ -102,20 +103,25 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}">登录</a>
+                        {{--<a href="{{ route('register') }}">注册</a>--}}
                     @endauth
                 </div>
             @endif
 
             {{--<block  style="width:100%;height:500px;position: absolute;top: 50px">--}}
                 <div style="background:url({{asset('img/chicago_large_change.jpg')}}) center center / cover no-repeat;width:100%;height:500px;margin-top: 50px">
-                    <div class="links">
-                        <a href="https://laravel.com/docs">Documentation</a>
-                        <a href="https://laracasts.com">Laracasts</a>
-                        <a href="https://laravel-news.com">News</a>
-                        <a href="https://forge.laravel.com">Forge</a>
-                        <a href="https://github.com/laravel/laravel">GitHub</a>
+                    {{--<div class="links">--}}
+                        {{--<a href="https://laravel.com/docs">Documentation</a>--}}
+                        {{--<a href="https://laracasts.com">Laracasts</a>--}}
+                        {{--<a href="https://laravel-news.com">News</a>--}}
+                        {{--<a href="https://forge.laravel.com">Forge</a>--}}
+                        {{--<a href="https://github.com/laravel/laravel">GitHub</a>--}}
+                    {{--</div>--}}
+                    <div class="jumbotron" style="background-color: #c7ddef;margin:0 auto ;position:relative;top:100px;width: 700px;height: 300px;opacity:0.8;">
+                        <h1 style="text-align: center">XXX公司</h1>
+                        <p style="float: right;margin-top: 20px">本公司提供专业的互联网服务</p>
+                        {{--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>--}}
                     </div>
                 </div>
             {{--</block>--}}

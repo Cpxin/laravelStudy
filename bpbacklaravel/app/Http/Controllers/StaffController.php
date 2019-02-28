@@ -37,28 +37,53 @@ class StaffController extends Controller
 //        dd(Auth::id());
         if (isset($_GET['name'])){
             $staff=Staff::where('name',$_GET['name'])->paginate(9);
-//            dd($staff);
         }else{
             $staff=Staff::paginate(9);//每翻一次页执行一次,查找结果为一个模型，对其更改也会改变数据库
                                       //并且在翻页时由于重新渲染视图，搜索会被重置取消（get值被替换为page页数）
         }
-//        $arr=$staff->toArray();
-        $w=date("w");
+        $h=date('h:i'); //小时:分钟
+        $m=date('a');//am pm
+        $w=date("w");//星期
         $wages=Wages::all();
-        $position=$wages->pluck("weekday","position");   //职位 =>工作日
+        $time=$wages->pluck('time','position');
+        $position=$wages->pluck('weekday',"position");   //职位 =>工作日
+//        dd($position,$time);
+        $range=[];
+        foreach ($time as $pos=>$t ){
+            $str1= substr($t,strpos($t,":")-2,5);  //8:00
+            $letter=substr($t,strpos($t,':')+3);   //至12：00；下午2:00至06:00
+            $str2=substr($letter,strpos($letter,":")-2,5); //12:00
+            $letter=substr($letter,strpos($letter,'午')+3);  //02:00至06:00
+            $str3=substr($letter,strpos($letter,":")-2,5);//2:00
+            $letter=substr($letter,strpos($letter,'至'));  //至06:00
+            $str4=substr($letter,strpos($letter,":")-2,5);//6:00
+            $range[$pos]=array($str1,$str2,$str3,$str4);
+//            dd($range);
+        }
         foreach ($staff as $sta){
             if (isset($position[$sta->position])){      //如果有规定工作日
                 if (strstr($position[$sta->position],$w)!=false){   //如果该员工在工作日
                     $sta=$staff->find($sta->id);
-                    $sta->state=2;
+                    if ($m='am'&&$h>=$range[$sta->position][0]&&$h<=$range[$sta->position][1]){
+                        $sta->state=2;        //在工作日且在上班时间，上班
+                        $sta->save();
+                        continue;
+                    }else if ($m='pm'&&$h>=$range[$sta->position][2]&&$h<=$range[$sta->position][3]){
+                        $sta->state=2;
+                        $sta->save();
+                        continue;
+                    }
+                    $sta->state=1;          //在工作日但是下班了，休息
                     $sta->save();
-                    //                dd($sta->state);
+                }else{
+                    $sta->state=1;   //不在工作日，休息
+                    $sta->save();
                 }
+            }else{
+                $sta->state=0;    //未设置工作日，其他
+                $sta->save();
             }
         }
-//        if (isset($_GET['name'])){
-//            return redirect('staff/over')->with(['staff'=>$staff,'adminId'=>Auth::id()]);
-//        }
         return view('staff.staff_over',['staff'=>$staff,'adminId'=>Auth::id()]);
     }
 
