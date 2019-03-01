@@ -1,29 +1,36 @@
 @extends('common.layouts')
 
 @section('content')
+    @if(Auth::user()->rank<=4)
     <div role="tabpanel" class="tab-pane active" id="user">
         <div class="check-div form-inline">
             <div class="col-xs-2">
+                @if(Auth::user()->rank<=3)
                 <a class="btn btn-yellow btn-xs" href="{{url('project/add')}}">添加项目 </a>
+                    @endif
             </div>
             <div class="col-xs-3">
                 <input type="text" id="projectName" class="form-control input-sm" placeholder="输入项目名搜索" >
                 <button class="btn btn-white btn-xs " onclick="find_project()">查 询 </button>
             </div>
             <div class="col-xs-2">
+                @if(Auth::user()->rank<=3)
                 <form id="imSubmit" method="post" action="{{url('excel/import')}}?type=project" enctype="multipart/form-data">
                 <span class="btn btn-danger fileinput-button">
                     <span id="imBtn">导入Excel文件</span>
                     <input type="file" name="import" style="display: none" onchange="im()"   id="imBtnInput" >
                 </span>
                 </form>
+                    @endif
             </div>
             <div class="col-xs-2  " >
+                @if(Auth::user()->rank<=3)
                 <form method="post" action="{{url('excel/export')}}?type=project">
                     <button type="submit" class="btn btn-success fileinput-button" style="height: 35px;font-size: 13px">
                         导出Excel文件
                     </button>
                 </form>
+                    @endif
             </div>
             <div class="col-xs-3" style=" padding-right: 40px;text-align: right;">
                 <label for="paixu">排序:&nbsp;</label>
@@ -87,7 +94,7 @@
                         <div class="col-xs-2">
                             {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">详情</button>--}}
                             <a class="btn btn-success btn-xs" href="{{url('project/detail',['id'=>$pro->id])}}">详情</a>
-                            @if($pro->state!=3)
+                            @if($pro->state!=3&&Auth::user()->rank<=3)
                             <a class="btn btn-info btn-xs">修改</a>
                             <a class="btn btn-danger btn-xs" href="{{url('project/delete',['id'=>$pro->id])}}" onclick="if(confirm('确定要删除吗?')==false) return false;">删除</a>
                             @endif
@@ -104,6 +111,9 @@
             </div>
         </div>
     </div>
+    @else
+        @include('common.jurisdiction')
+    @endif
 @stop
 
 @section('javascript')

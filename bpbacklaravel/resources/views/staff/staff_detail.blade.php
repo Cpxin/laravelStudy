@@ -4,6 +4,7 @@
     @stop
 
 @section('content')
+    @if(Auth::user()->rank<=3)
     <div class="row col-sm-offset-1" style="margin-left: 10px">
         <div class="col-sm-3">
             <div class="panel panel-default">
@@ -33,7 +34,9 @@
                         <span class="glyphicon glyphicon-position col-sm-offset-1" title="position">职位：{{$staff->position}}</span><br>
                         {{--<span class="glyphicon glyphicon-envelope" title="Email"><code>1610712512@qq.com</code></span>--}}
                     </address>
+                        @if(Auth::user()->rank<=3)
                     <button type="submit" class="col-sm-offset-5 btn btn-primary">保存</button>
+                            @endif
                     </form>
                 </div>
             </div>
@@ -182,7 +185,9 @@
                                         </div>
                                     </li>
                                 </ul>
+                                @if(Auth::user()->rank<=3)
                                 <button class="btn btn-primary" type="submit" style="float:right;margin-right: 20px">保存</button>
+                                    @endif
                             </div>
                         </div>
                         </form>
@@ -289,7 +294,9 @@
         </div>
     </div>
     </div>
-
+    @else
+        @include('common.jurisdiction')
+    @endif
     @stop
 
 @section('javascript')

@@ -53,7 +53,7 @@
 
                 <div class="panel panel-info">
                     <div class="panel panel-heading" style="display: flex;flex-direction: row">项目备注
-                        @if($project->state==0)
+                        @if($project->state==0&&Auth::user()->rank<=3)
                             <button class="btn btn-green col-sm-offset-10" style="float: right;margin-right: -20px" data-toggle="modal" data-target="#reviseProject" onclick="contentInfo('{{$project->content}}','{{$project->id}}')">编辑</button>
                         @endif
                     </div>
@@ -79,7 +79,7 @@
                                     <p style="font-size: 15px">职位/人数:{{$project->personnel}}</p>
                                 </div>
                                 <div class="col-sm-2" style="margin-left: -13px;display: flex;flex-direction:row">
-                                    @if($project->state==0)
+                                    @if($project->state==0&&Auth::user()->rank<=3)
                                     <a class="btn btn-green" href="{{url('project/arrange/'.$project->id)}}">
                                         选择员工
                                     </a>

@@ -1,6 +1,7 @@
 @extends('common.layouts')
 
 @section('content')
+    @if(Auth::user()->rank==1)
     <div role="tabpanel" class="tab-pane active" id="user">
         <div class="check-div form-inline">
             <div class="col-xs-3">
@@ -124,6 +125,9 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+    @else
+        @include('common.jurisdiction')
+    @endif
     @stop
 
 @section('javascript')

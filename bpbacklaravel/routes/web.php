@@ -66,4 +66,7 @@ Route::get('admin/over',['uses'=>'AdminController@over']);
 Route::post('admin/save',['uses'=>'AdminController@save']);
 Route::get('admin/delete',['uses'=>'AdminController@delete']);
 
+Route::get('homepage/over',['uses'=>'HomepageController@over']);
+Route::get('homepage/article',['uses'=>'HomepageController@article']);
+
 });

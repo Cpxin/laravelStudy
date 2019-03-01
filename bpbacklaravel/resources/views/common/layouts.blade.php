@@ -87,6 +87,8 @@
                     <a id="Lwage1" class="meun-item btn-link" href="{{url('wages/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">作业规划</a>
                     <div id="Ladmin" class="meun-title btn"><img src="{{asset('img/管理员.png')}}">管理员</div><br>
                     <a id="Ladmin1" class="meun-item btn-link" href="{{url('admin/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">管理员规划</a>
+                    <div id="Lhomepage" class="meun-title btn"><img src="{{asset('img/管理员.png')}}">主页管理</div><br>
+                    <a id="Lhomepage1" class="meun-item btn-link" href="{{url('homepage/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">管理员规划</a>
                     <div id="Lcord" class="meun-title btn"><img src="{{asset('img/操作管理.png')}}">操作记录</div><br>
                     <a id="Lcord1" class="meun-item btn-link" href="{{url('record/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">操作记录</a>
                 </div>
@@ -207,6 +209,15 @@
                 $('#Lcord1').css('background','#F3F3FA');
             }else {
                 $('#Lcord1').css('display','none');
+            }
+
+        });
+        $('#Lhomepage').on('click',function () {
+            if($('#Lhomepage1').css('display')=='none'){
+                $('#Lhomepage1').css('display','block');
+                $('#Lhomepage1').css('background','#F3F3FA');
+            }else {
+                $('#Lhomepage1').css('display','none');
             }
 
         });

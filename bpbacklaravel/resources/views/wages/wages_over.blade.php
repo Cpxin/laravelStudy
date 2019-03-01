@@ -3,10 +3,13 @@
     {{--@parent--}}
 {{--@stop--}}
 @section('content')
+    @if(Auth::user()->rank<=4)
     <div role="tabpanel" class="tab-pane active" id="user">
         <div class="check-div form-inline">
             <div class="col-xs-3">
+                @if(Auth::user()->rank<=3)
                 <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addWages">添加 </button>
+                    @endif
             </div>
             <div class="col-xs-4">
                 <input type="text" id="wagePosition" class="form-control input-sm" placeholder="输入职位搜索" >
@@ -78,8 +81,10 @@
                             {{$wag->other}}
                         </div>
                         <div class="col-xs-2">
+                            @if(Auth::user()->rank<=3)
                             <a class="btn btn-info btn-xs" >修改</a>
                             <a class="btn btn-danger btn-xs" href="" onclick="if(confirm('确定要删除吗?')==false) return false;">删除</a>
+                            @endif
                         </div>
                     </div>
                 @endforeach
@@ -192,6 +197,9 @@
         <!-- /.modal -->
 
     </div>
+    @else
+        @include('common.jurisdiction')
+    @endif
 @stop
 
 @section('javascript')
