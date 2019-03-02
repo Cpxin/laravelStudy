@@ -28,38 +28,49 @@
                 </div>
             </div>
             <div class="" style="position: absolute">
-                <div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">
-                    <div class="panel-heading">关于公司</div>
-                    <ul class="list-group" id="Article">
-                        <li class="list-group-item" onclick="art(0)">公司介绍</li>
-                        <li class="list-group-item" onclick="art(1)">发展历程</li>
-                        <li class="list-group-item" onclick="art(2)">管理团队</li>
-                        <li class="list-group-item" onclick="art(3)">文化和价值观</li>
-                        <li class="list-group-item" onclick="art(4)">企业荣誉</li>
-                    </ul>
-                    <div class="panel-body" style="text-align: center">+</div>
-                </div>
-                <div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">
-                    <div class="panel-heading">业务体系</div>
-                    <ul class="list-group">
-                        <li class="list-group-item">业务体系</li>
-                    </ul>
-                </div>
-                <div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">
-                    <div class="panel-heading">新闻及媒体资源</div>
-                    <ul class="list-group">
-                        <li class="list-group-item">新闻发布</li>
-                        <li class="list-group-item">媒体资料库</li>
-                    </ul>
-                </div>
-                <div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">
-                    <div class="panel-heading">联系我们</div>
-                    <ul class="list-group">
-                        <li class="list-group-item">商务合作</li>
-                        <li class="list-group-item">公司地址</li>
-                        <li class="list-group-item">廉政举报</li>
-                    </ul>
-                </div>
+                {{--<div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">--}}
+                    {{--<div class="panel-heading">关于公司</div>--}}
+                    {{--<ul class="list-group" id="Article_1">--}}
+                        {{--<li class="list-group-item" onclick="art(0)">公司介绍</li>--}}
+                        {{--<li class="list-group-item" onclick="art(1)">发展历程</li>--}}
+                        {{--<li class="list-group-item" onclick="art(2)">管理团队</li>--}}
+                        {{--<li class="list-group-item" onclick="art(3)">文化和价值观</li>--}}
+                        {{--<li class="list-group-item" onclick="art(4)">企业荣誉</li>--}}
+                    {{--</ul>--}}
+                    {{--<div class="panel-body" style="text-align: center" id="addArticle" onclick="addArticle()">+</div>--}}
+                {{--</div>--}}
+                {{--<div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">--}}
+                    {{--<div class="panel-heading">业务体系</div>--}}
+                    {{--<ul class="list-group">--}}
+                        {{--<li class="list-group-item">业务体系</li>--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
+                {{--<div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">--}}
+                    {{--<div class="panel-heading">新闻及媒体资源</div>--}}
+                    {{--<ul class="list-group">--}}
+                        {{--<li class="list-group-item">新闻发布</li>--}}
+                        {{--<li class="list-group-item">媒体资料库</li>--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
+                {{--<div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">--}}
+                    {{--<div class="panel-heading">联系我们</div>--}}
+                    {{--<ul class="list-group">--}}
+                        {{--<li class="list-group-item">商务合作</li>--}}
+                        {{--<li class="list-group-item">公司地址</li>--}}
+                        {{--<li class="list-group-item">廉政举报</li>--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
+                @foreach($article as $zt=>$t)
+                    <div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">
+                        <div class="panel-heading">{{$zt}}</div>
+                        <ul class="list-group" id="{{$zt}}">
+                            @foreach($t as $k=>$v)
+                            <li class="list-group-item" onclick="art('{{$zt}}',{{$k}})">{{$v}}</li>
+                            @endforeach
+                        </ul>
+                        <p class="" style="text-align: center" id="addArticle" onclick="addArticle('{{$zt}}')">+</p>
+                    </div>
+                    @endforeach
                 <!--弹出添加用户窗口-->
                 <div class="modal fade" id="addUser" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog" role="document">
@@ -89,6 +100,7 @@
                     <!-- /.modal-dialog -->
                 </div>
                 <!-- /.modal -->
+
                 {{--<div class="container">--}}
                     {{--<div class="row">--}}
                         {{--<div class="col-md-9 col-lg-9 col-sm-9 col-xs-12 ">--}}
@@ -134,6 +146,36 @@
 
 
         </div>
+            <!--弹出添加用户窗口-->
+            <div class="modal fade" id="addArticle_modal" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        {{--<form class="form-horizontal" method="post" action="{{url('staff/save')}}">--}}
+                        {{--{{ csrf_field() }}--}}
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="gridSystemModalLabel">请输入标题</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                {{--@include('common.vaildator')--}}
+                                <div >
+                                    <input id="ztitle" style="display: none">
+                                    <input id="aTitle" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                            <button  class="btn btn-xs btn-green" onclick="addArticle_modal($('#ztitle').val())">保 存</button>
+                        </div>
+                        {{--</form>--}}
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
     @else
         @include('common.jurisdiction')
     @endif
@@ -147,15 +189,38 @@
                 $('#Lhomepage1').css('background','#F3F3FA');
             }
         });
-        function art(val) {
-            var about=$('#addUser');
-            var str=$('#Article li').eq(val).text();
+        function art(title,val) {           //当点击li时
+            var about=$('#addUser');       //文章内容模态框
+            var str=$('#'+title+' li').eq(val).html();  //标题
             var text='';
             $.get('{{url('homepage/article')}}',{'title':str},function (content) {
                 text=content;
                 $('#content').html(text);
                 $('#gridSystemModalLabel').html(str);
                 about.modal('show');
+            });
+        }
+        function addArticle(ztitle) {     //当点击添加文章标题时，传入总标题
+            $('#ztitle').val(ztitle);
+            $('#addArticle_modal').modal('show');
+
+        }
+        function addArticle_modal(ztitle) {       //当点击保存添加标题时，传入总标题
+            var title=document.getElementById('aTitle').value;
+            $.ajax({
+                type:'get',
+                url:'{{url('homepage/add_title')}}',
+                data:{'z_title':ztitle,'title':title},
+                success:function(data){
+                    // console.log(data);
+                    var li=document.createElement('li');
+                    li.setAttribute('class','list-group-item');
+                    li.setAttribute('onclick','art('+document.getElementById(ztitle).getElementsByTagName("li").length+')');
+                    li.innerHTML=document.getElementById('aTitle').value;
+                    document.getElementById(ztitle).appendChild(li);
+                    $('#addArticle_modal').modal('hide');
+                }
+
             });
         }
     </script>

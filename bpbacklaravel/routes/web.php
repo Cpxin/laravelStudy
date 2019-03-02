@@ -68,5 +68,6 @@ Route::get('admin/delete',['uses'=>'AdminController@delete']);
 
 Route::get('homepage/over',['uses'=>'HomepageController@over']);
 Route::get('homepage/article',['uses'=>'HomepageController@article']);
+Route::get('homepage/add_title',['uses'=>'HomepageController@add_title']);
 
 });
