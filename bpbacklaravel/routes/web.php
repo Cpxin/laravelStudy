@@ -11,8 +11,15 @@
 |
 */
 
+use App\Article;
+
 Route::get('/', function () {
-    return view('welcome');
+    $article=Article::select('z_title','title')->get();
+    $art=[];
+    foreach ($article as $zt=>$t){
+        $art[$t->z_title][]=$t->title;
+    }
+    return view('welcome',['article'=>$art]);
 });
 
 Auth::routes();
@@ -65,9 +72,12 @@ Route::post('wages/save',['uses'=>'WagesController@save']);
 Route::get('admin/over',['uses'=>'AdminController@over']);
 Route::post('admin/save',['uses'=>'AdminController@save']);
 Route::get('admin/delete',['uses'=>'AdminController@delete']);
+Route::get('admin/logout',['uses'=>'AdminController@logout']);
 
 Route::get('homepage/over',['uses'=>'HomepageController@over']);
 Route::get('homepage/article',['uses'=>'HomepageController@article']);
 Route::get('homepage/add_title',['uses'=>'HomepageController@add_title']);
+Route::post('homepage/update',['uses'=>'HomepageController@update']);
+Route::get('homepage/front',['uses'=>'HomepageController@front']);
 
 });

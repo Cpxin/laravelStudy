@@ -6,6 +6,7 @@ use App\Admin;
 use App\Record;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -59,5 +60,10 @@ class AdminController extends Controller
         }else{
             return redirect()->back()->with('fail','删除失败!');
         }
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
     }
 }

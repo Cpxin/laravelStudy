@@ -28,6 +28,8 @@
                 </div>
             </div>
             <div class="" style="position: absolute">
+                @include('common.message')
+                @include('common.vaildator')
                 {{--<div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">--}}
                     {{--<div class="panel-heading">关于公司</div>--}}
                     {{--<ul class="list-group" id="Article_1">--}}
@@ -75,7 +77,7 @@
                 <div class="modal fade" id="addUser" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <form class="form-horizontal" method="post" action="{{url('staff/save')}}">
+                            <form class="form-horizontal" method="post" action="{{url('homepage/update')}}">
                                 {{ csrf_field() }}
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -84,8 +86,9 @@
                                 <div class="modal-body">
                                     <div class="container-fluid">
                                         {{--@include('common.vaildator')--}}
+                                        <input value="" name="Article[title]" id="mTitle" style="display: none">
                                         <div class="form-group ">
-                                            <textarea class="" cols="70" rows="30" style="position:relative;left: 40px" id="content"></textarea>
+                                            <textarea name="Article[content]" class="" cols="70" rows="30" style="position:relative;left: 40px" id="content"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -197,6 +200,7 @@
                 text=content;
                 $('#content').html(text);
                 $('#gridSystemModalLabel').html(str);
+                $('#mTitle').val(str);
                 about.modal('show');
             });
         }

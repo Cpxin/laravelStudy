@@ -17,6 +17,7 @@ class HomepageController extends Controller
 
         return view('homepage.homepage_over',['article'=>$art]);
     }
+    //文章查找
     public function article(){
 //        dd($_GET['title']);
         $article=Article::where('title',$_GET['title'])->get();
@@ -30,6 +31,18 @@ class HomepageController extends Controller
             echo "无";
         };
     }
+    public function update(Request $request){
+        $article=$request->input('Article');
+        $art=Article::where('title',$article['title'])->get();
+//        dd($art[0]->title);
+        $art[0]->content=$article['content'];
+        if ($art[0]->save()){
+            return redirect('homepage/over')->with('success','文章'.$article['title'].'修改成功');
+        }else{
+            return redirect()->back()->with('fail','文章'.$article['title'].'修改失败');
+        }
+    }
+    //添加标题
     public function add_title(){
         $ztitle=$_GET['z_title'];
         $title= $_GET['title'];
@@ -41,5 +54,12 @@ class HomepageController extends Controller
         }else{
             echo "添加失败";
         }
+    }
+    public function front(){
+        $title=$_GET['title'];
+        $article=Article::select('content')->where('title',$title)->get();
+//        dd($article);
+        return view('homepage.homepage_article',['title'=>$title,'content'=>$article->content]);
+
     }
 }

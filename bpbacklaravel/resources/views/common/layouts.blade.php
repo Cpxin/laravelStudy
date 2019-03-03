@@ -62,14 +62,15 @@
                             <span></span>分
                             <span></span>秒
                         </div>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                        {{--<a class="dropdown-item" href="{{ route('logout') }}"--}}
+                           {{--onclick="event.preventDefault();--}}
+                                                     {{--document.getElementById('logout-form').submit();">--}}
+                        <a class="dropdown-item" href="{{ url('admin/logout') }}">
                             {{ __('退出') }}
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                        {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
+                            {{--@csrf--}}
+                        {{--</form>--}}
                         {{--<p>--}}
                             {{--<a>退出登录</a>--}}
                         {{--</p>--}}
@@ -230,6 +231,9 @@
         $('#toback').on('click',function () {
             history.go(-1);
         });
+        {{--function logout() {--}}
+            {{--$.get('{{url('admin/logout')}}');--}}
+        {{--}--}}
     </script>
 @show
 </body>
