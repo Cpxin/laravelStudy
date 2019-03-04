@@ -59,7 +59,8 @@ class HomepageController extends Controller
         $title=$_GET['title'];
         $article=Article::select('content')->where('title',$title)->get();
 //        dd($article);
-        return view('homepage.homepage_article',['title'=>$title,'content'=>$article->content]);
+//        dd($article[0]->content);
+        return view('homepage.homepage_article',['title'=>$title,'content'=>$article[0]->content]);
 
     }
 }

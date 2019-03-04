@@ -23,6 +23,7 @@ class CreateVitaesTable extends Migration
             $table->string('adress')->default('');
             $table->string('education')->default('');  //教育经历
             $table->string('hobby')->default('');
+            $table->string('information')->default('');  //员工消息
             $table->timestamps();
         });
     }

@@ -103,12 +103,12 @@
         {{--<div class="flex-center position-ref full-height">--}}
             @if (Route::has('login'))
                 <div class="top-right links" style="">
-                    {{--@auth--}}
-                        {{--<a href="{{ url('/home') }}">Home</a>--}}
-                    {{--@else--}}
+                    @auth
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
                         <a href="{{ route('login') }}">登录</a>
                         {{--<a href="{{ route('register') }}">注册</a>--}}
-                    {{--@endauth--}}
+                    @endauth
                 </div>
             @endif
 
@@ -150,19 +150,19 @@
 
         <script>
             function article(title) {
-                console.log(title);
-                $.ajax({
-                    type:'get',
-                    url:'{{url('homepage/front')}}',
-                    data:{'title':title},
-                    success:function () {
-                        console.log(123);
-                    },
-                    error:function () {
-                        console.log(321);
-                    }
-
-                })
+                {{--console.log(title);--}}
+                {{--$.ajax({--}}
+                    {{--type:'get',--}}
+                    {{--url:'{{url('homepage/front')}}',--}}
+                    {{--data:{'title':title},--}}
+                    {{--success:function () {--}}
+                        window.location.href='{{url('homepage/front')}}?title='+title+'';
+                //     },
+                //     error:function () {
+                //         console.log(321);
+                //     }
+                //
+                // })
             }
         </script>
 

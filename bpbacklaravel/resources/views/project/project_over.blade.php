@@ -95,7 +95,7 @@
                             {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">详情</button>--}}
                             <a class="btn btn-success btn-xs" href="{{url('project/detail',['id'=>$pro->id])}}">详情</a>
                             @if($pro->state!=3&&Auth::user()->rank<=3)
-                            <a class="btn btn-info btn-xs">修改</a>
+                            {{--<a class="btn btn-info btn-xs">修改</a>--}}
                             <a class="btn btn-danger btn-xs" href="{{url('project/delete',['id'=>$pro->id])}}" onclick="if(confirm('确定要删除吗?')==false) return false;">删除</a>
                             @endif
                         </div>

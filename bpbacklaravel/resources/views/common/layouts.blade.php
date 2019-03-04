@@ -89,7 +89,7 @@
                     <div id="Ladmin" class="meun-title btn"><img src="{{asset('img/管理员.png')}}">管理员</div><br>
                     <a id="Ladmin1" class="meun-item btn-link" href="{{url('admin/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">管理员规划</a>
                     <div id="Lhomepage" class="meun-title btn"><img src="{{asset('img/管理员.png')}}">主页管理</div><br>
-                    <a id="Lhomepage1" class="meun-item btn-link" href="{{url('homepage/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">管理员规划</a>
+                    <a id="Lhomepage1" class="meun-item btn-link" href="{{url('homepage/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">主页管理</a>
                     <div id="Lcord" class="meun-title btn"><img src="{{asset('img/操作管理.png')}}">操作记录</div><br>
                     <a id="Lcord1" class="meun-item btn-link" href="{{url('record/over')}}" style="display: none"><img src="{{asset('img/组织管理.png')}}">操作记录</a>
                 </div>
@@ -97,7 +97,7 @@
         <!--右侧内容区域-->
         <div id="rightContent" style="background:url({{asset('img/中秋国庆纹理.png')}});width:100px;height:100%;">
             @if($_SERVER['REQUEST_URI']=='/bpbacklaravel/public/layouts')
-                <div class="panel col-sm-4 col-sm-offset-4" style="margin-top: 200px">
+                <div class="panel panel-primary col-sm-4 col-sm-offset-4" style="margin-top: 200px">
                     <div class="panel-heading">
                         登录成功
                     </div>
@@ -105,7 +105,7 @@
                         <h3>欢迎登录企业人力资源管理系统！！！</h3>
                     </div>
                 </div>
-                <div class="panel col-lg-4 col-lg-offset-4" style="margin-top: 50px">
+                <div class="panel panel-info col-lg-4 col-lg-offset-4" style="margin-top: 50px">
                     <div class="panel-heading">
                         当前用户：{{ Auth::user()->name }}
                     </div>

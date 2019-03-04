@@ -31,6 +31,7 @@ Route::post('staff/wx_staff_login',['uses'=>'StaffController@wx_staff_login']); 
 Route::post('staff/wx_staff_pwd',['uses'=>'StaffController@wx_staff_pwd']);  //员工密码注册
 Route::get('staff/wx_staff_detail',['uses'=>'StaffController@wx_staff_detail']); //微信获取员工详细信息
 Route::get('staff/wx_staff_sign',['uses'=>'StaffController@wx_staff_sign']); //员工签到
+Route::post('staff/wx_information',['uses'=>'StaffController@wx_information']);
 
 Route::any('excel/export',['uses'=>'ExcelController@export']);  //excel文件导出
 Route::any('excel/import',['uses'=>'ExcelController@import']);  //excel文件导入
@@ -38,6 +39,8 @@ Route::any('excel/import',['uses'=>'ExcelController@import']);  //excel文件导
 Route::any('project/word_save',['uses'=>'ProjectController@word_save']);  //项目内容导入
 
 //Route::get('staff/excel_save',['uses'=>'StaffController@exel_save']);
+
+Route::any('homepage/front',['uses'=>'HomepageController@front']);
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -78,6 +81,6 @@ Route::get('homepage/over',['uses'=>'HomepageController@over']);
 Route::get('homepage/article',['uses'=>'HomepageController@article']);
 Route::get('homepage/add_title',['uses'=>'HomepageController@add_title']);
 Route::post('homepage/update',['uses'=>'HomepageController@update']);
-Route::get('homepage/front',['uses'=>'HomepageController@front']);
+
 
 });

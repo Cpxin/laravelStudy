@@ -98,6 +98,10 @@
 </head>
 <body>
 {{--<div class="flex-center position-ref full-height">--}}
+<div class="" style="">
+    <img id="toback" src="{{asset('img/后退.png')}}" style="position: fixed;bottom:20px;right: 20px;height: 50px;width: 50px" >
+</div>
+
 @if (Route::has('login'))
     <div class="top-right links" style="">
         @auth
@@ -110,6 +114,7 @@
 @endif
 
 {{--<block  style="width:100%;height:500px;position: absolute;top: 50px">--}}
+
 <div style="background:url({{asset('img/chicago_large_change.jpg')}}) center center / cover no-repeat;width:100%;height:500px;margin-top: 50px">
     {{--<div class="links">--}}
     {{--<a href="https://laravel.com/docs">Documentation</a>--}}
@@ -119,8 +124,8 @@
     {{--<a href="https://github.com/laravel/laravel">GitHub</a>--}}
     {{--</div>--}}
     <div class="jumbotron" style="background-color: #c7ddef;margin:0 auto ;position:relative;top:100px;width: 700px;height: 300px;opacity:0.8;">
-        <h1 style="text-align: center">XXX公司</h1>
-        <p style="float: right;margin-top: 20px">本公司提供专业的互联网服务</p>
+        <h1 style="text-align: center">{{$title}}</h1>
+        <p style="float: right;margin-top: 20px">{{$content}}</p>
         {{--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>--}}
     </div>
 </div>
@@ -146,7 +151,9 @@
 <script src="{{asset('static/bootstrap/js/bootstrap.min.js')}}"></script>
 
 <script>
-
+    $('#toback').on('click',function () {
+        history.go(-1);
+    });
 </script>
 
 </body>

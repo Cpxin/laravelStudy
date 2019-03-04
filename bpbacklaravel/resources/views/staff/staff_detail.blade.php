@@ -13,11 +13,11 @@
                     {{--<img src="{{asset('img/me.png')}}" class="col-sm-offset-1 img-responsive img-rounded img-thumbnail" style="height: 270px;width: 300px;margin-right: 50px" alt="Me">--}}
                     {{--<button class="btn-block col-sm-offset-4" style="width: 100px;">上传照片</button>--}}
                     <form method="post" enctype="multipart/form-data" id="file_upload" action="{{url('staff/save_img/'.$staff->id)}}">
-                        {{csrf_field()}}
-                            @if(isset($vitae->image))
-                        　　<img  src="{{url($vitae->image)}}" class="col-sm-offset-1 img-responsive img-rounded img-thumbnail" style="height: 270px;width: 300px;margin-right: 50px">
+                        {{ csrf_field() }}
+                            @if(isset($vitae->image)&&$vitae->image!=null)
+                        　　<img  src="{{asset('/storage')}}/{{$vitae->image}}" class="col-sm-offset-1 img-responsive img-rounded img-thumbnail" style="border: 2px solid #1f4ba5;border-radius: 150px;height: 300px;width: 300px;margin-right: 50px">
                         　　@else
-                            <img src="{{asset('img/me.png')}}" class="col-sm-offset-1 img-responsive img-rounded img-thumbnail" style="height: 270px;width: 300px;margin-right: 50px" alt="Me">
+                            <img src="{{asset('img/用户.png')}}" class="col-sm-offset-1 img-responsive img-rounded img-thumbnail" style="border: 2px solid #1f4ba5;border-radius: 150px;height: 300px;width: 300px;margin-right: 50px" alt="Me">
                         @endif
                             <p>
                             　　　　<input type="file" id="test-image-file" name="img" accept="image/gif, image/jpeg, image/png, image/jpg" value="选择头像">
@@ -100,26 +100,26 @@
             {{--</div>--}}
         {{--</div>--}}
         <div class="panel panel-primary">
-            <div class="panel panel-heading">发送邮件</div>
+            <div class="panel panel-heading">发送消息</div>
             <div class="panel-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="email" class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-8">
+                <form class="form-horizontal" method="post" action="{{url('staff/wx_information')}}">
+                    {{ csrf_field() }}
+                    {{--<div class="form-group">--}}
+                        {{--<label for="email" class="col-sm-2 control-label">Email</label>--}}
+                        {{--<div class="col-sm-8">--}}
                             {{--<input type="email" id="email" class="form-control" placeholder="Email">--}}
-                            @if(isset($vitae->email))
-                                <p style="margin-top: 7px">{{$vitae->email}}</p>
-                                @else
-                                <p style="margin-top: 7px">未填写邮箱</p>
-                            @endif
-
-                        </div>
-                    </div>
-
+                            {{--@if($vitae->email!=null)--}}
+                                {{--<p style="margin-top: 7px">{{$vitae->email}}</p>--}}
+                                {{--@else--}}
+                                {{--<p style="margin-top: 7px">未填写邮箱</p>--}}
+                            {{--@endif--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    <input type="text" name="Info[id]" style="display: none" value="{{$staff->id}}">
                     <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">标题</label>
+                        <label for="name" class="col-sm-2 control-label">消息</label>
                         <div class="col-sm-8">
-                            <input type="text" id="name" class="form-control" placeholder="">
+                            <input type="text" id="name" name="Info[content]" class="form-control" placeholder="">
                         </div>
                     </div>
 

@@ -135,7 +135,6 @@ class StaffController extends Controller
     public function detail($id)
     {
         $staff=Staff::find($id);
-
         $vitae=Vitae::where('staff_id',$id)->with('staff')->get();   //关联表查询
         foreach ($vitae as $v){
             $vit=$v;        //通过循环才能读取？？
@@ -143,7 +142,6 @@ class StaffController extends Controller
         if (isset($vit)){           //如果员工有对应简历表
             if($vit->experience!=''){      //如果该员工有项目经历
                 $have=$vit->experience;
-//            dd($have);
                 while($have!=null){
                     $str1= substr($have,0,strpos($have,';'));
                     $have=substr($have,strpos($have,';')+1);
@@ -231,13 +229,14 @@ class StaffController extends Controller
         }
         if (isset($vit)) {       //如果是已存在的员工数据则为更新操作
             $v=$request->file('img');
-            $name=$v->getClientOriginalName();
+//            $name=$v->getClientOriginalName();
             $ext=$v->getClientOriginalExtension();
-            $fileName=md5(uniqid($name));
-            $fileName=$fileName.'.'.$ext;
-            $bool=Storage::disk('public')->put($fileName,file_get_contents($v->getRealPath()));
+//            $fileName=md5(uniqid($name));
+//            $fileName=$fileName.'.'.$ext;
+            $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+            $bool=Storage::disk('public')->put($filename,file_get_contents($v->getRealPath()));
 //            $vit->image='http://localhost/bpbacklaravel/public/storage/'.$fileName;
-            $vit->image='storage/'.$fileName;
+            $vit->image=$filename;
             $vit->save();
             if($vit->save()){
                 return redirect('staff/detail/'.$id)->with('success','添加成功!'.$vit->id);
@@ -247,12 +246,13 @@ class StaffController extends Controller
         }
         $vitae=new Vitae();
         $v=$request->file('img');
-        $name=$v->getClientOriginalName();
+//        $name=$v->getClientOriginalName();
         $ext=$v->getClientOriginalExtension();
-        $fileName=md5(uniqid($name));
-        $fileName=$fileName.'.'.$ext;
-        $bool=Storage::disk('local')->put($fileName,file_get_contents($v->getRealPath()));
-        $vitae->image='storage/app/'.$fileName;
+//        $fileName=md5(uniqid($name));
+//        $fileName=$fileName.'.'.$ext;
+        $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+        $bool=Storage::disk('public')->put($filename,file_get_contents($v->getRealPath()));
+        $vitae->image=$filename;
         $vitae->staff_id=$id;
         $vitae->save();
         if($vitae->save()){
@@ -377,6 +377,28 @@ class StaffController extends Controller
             $staff->save();
         }
         echo $staff->updated_at;
+    }
+    //向员工发送信息
+    public function wx_information(Request $request){
+        $info=$request->input('Info');
+        $vitae=Vitae::where('staff_id',$info['id'])->with('staff')->get();   //关联表查询
+        if (isset($vitae[0])){       //如果是已存在的员工数据则为更新操作
+            $vit=Vitae::find($vitae[0]->id);
+            $vitae[0]->information=$info['content'];
+            if($vitae->save()){
+                return redirect('staff/detail/'.$info['id'])->with('success','发送信息成功!'.$vit->id);
+            }else{
+                return redirect()->back()->with('fail','添加失败!');
+            }
+        }
+        $vitae=new Vitae();
+        $vitae->staff_id=$info['id'];
+        $vitae->information=$info['content'];
+        if($vitae->save()){
+            return redirect('staff/detail/'.$info['id'])->with('success','发送信息成功!'.$vitae->id);
+        }else{
+            return redirect()->back()->with('fail','添加失败!');
+        }
     }
     //excel文件内容批量保存
     public function excel_save($obj){
