@@ -71,6 +71,7 @@ Route::any('record/delete/{id}',['uses'=>'RecordController@delete']);
 
 Route::get('wages/over',['uses'=>'WagesController@over']);
 Route::post('wages/save',['uses'=>'WagesController@save']);
+Route::match(['get','post'],'wages/update',['uses'=>'WagesController@update']);
 
 Route::get('admin/over',['uses'=>'AdminController@over']);
 Route::post('admin/save',['uses'=>'AdminController@save']);

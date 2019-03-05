@@ -35,16 +35,8 @@
                 </form>
                     @endif
             </div>
-            <div class=" col-xs-3" style=" padding-right: 40px;text-align: right;">
-                <label for="paixu">排序:&nbsp;</label>
-                <select class=" form-control">
-                    <option>地区</option>
-                    <option>地区</option>
-                    <option>班期</option>
-                    <option>性别</option>
-                    <option>年龄</option>
-                    <option>份数</option>
-                </select>
+            <div class="col-xs-3" style=" padding-right: 40px;text-align: right;">
+                <img id="toout" onclick="window.location.href='{{url('admin/logout')}}'" src="{{asset('img/退出.png')}}" style="height: 30px;width: 30px" >
             </div>
         </div>
         <div class="data-div">

@@ -202,12 +202,13 @@ class ProjectController extends Controller
         }
         foreach ($staid as $sta){             //修改每个参与项目的员工的状态
             $staff=Staff::find($sta);
-            $staff->state=0;
+            $staff->state=2;
             $staff->save();
-            $vitae=Vitae::where('staff_id',$staff->id);
-            if(isset($vitae->id)){           //如果该员工有详细信息（简历）
-                $vitae->experience.=$id.";";
-                $vitae->save();
+            $vitae=Vitae::where('staff_id',$staff->id)->get();
+//            dd($vitae[0]->experience,isset($vitae[0]->id));
+            if(isset($vitae[0]->id)){           //如果该员工有详细信息（简历）
+                $vitae[0]->experience.=$id.";";
+                $vitae[0]->save();
             }else{                          //否则新建该员工的详细信息（只有员工id和项目经历）
                 $vit=new Vitae();
                 $vit->staff_id=$staff->id;
@@ -233,7 +234,9 @@ class ProjectController extends Controller
     public function delete($id)
     {
         $project=Project::find($id);
-        if($project->delete()){
+        $filename=$project->pdfUrl;
+        $bool = Storage::disk('public')->delete($filename);
+        if($project->delete()&&$bool){
             return  redirect('project/over')->with('success','删除成功！'.$id);
         }else{
             return redirect()->back()->with('fail','删除失败！'.$id);

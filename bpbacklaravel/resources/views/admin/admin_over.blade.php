@@ -11,16 +11,8 @@
                 <input type="text" id="adminName" class="form-control input-sm" placeholder="输入文字搜索" >
                 <button class="btn btn-white btn-xs " onclick="find_admin()">查 询 </button>
             </div>
-            <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
-                <label for="paixu">排序:&nbsp;</label>
-                <select class=" form-control">
-                    <option>地区</option>
-                    <option>地区</option>
-                    <option>班期</option>
-                    <option>性别</option>
-                    <option>年龄</option>
-                    <option>份数</option>
-                </select>
+            <div class="col-xs-5" style=" padding-right: 40px;text-align: right;">
+                <img id="toout" onclick="window.location.href='{{url('admin/logout')}}'" src="{{asset('img/退出.png')}}" style="height: 30px;width: 30px" >
             </div>
         </div>
         <div class="data-div">

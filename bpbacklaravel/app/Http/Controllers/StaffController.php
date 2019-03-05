@@ -61,6 +61,9 @@ class StaffController extends Controller
 //            dd($range);
         }
         foreach ($staff as $sta){
+            if ($sta->state==3){
+                continue;
+            }
             if (isset($position[$sta->position])){      //如果有规定工作日
                 if (strstr($position[$sta->position],$w)!=false){   //如果该员工在工作日
                     $sta=$staff->find($sta->id);
@@ -266,7 +269,10 @@ class StaffController extends Controller
     public function delete($id)
     {
         $staff=Staff::find($id);   //通过点击获取的id查找数据
-        if($staff->delete()){      //如果删除成功
+        $vitae=Vitae::where('staff_id',$id)->get();
+        $filename=$vitae[0]->image;
+        $bool = Storage::disk('public')->delete($filename);
+        if($staff->delete()&&$vitae[0]->delete()&&$bool){      //如果删除成功
             return  redirect('staff/over')->with('success','删除成功！'.$id);
         }else{
             return redirect()->back()->with('fail','删除失败！'.$id);

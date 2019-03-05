@@ -64,4 +64,10 @@ class WagesController extends Controller
             return redirect()->back()->with('fail','添加失败!');
         }
     }
+
+    public function update()
+    {
+        $id=$_GET['id'];
+
+    }
 }

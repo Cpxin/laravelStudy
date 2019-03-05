@@ -65,9 +65,9 @@
                         {{--<a class="dropdown-item" href="{{ route('logout') }}"--}}
                            {{--onclick="event.preventDefault();--}}
                                                      {{--document.getElementById('logout-form').submit();">--}}
-                        <a class="dropdown-item" href="{{ url('admin/logout') }}">
-                            {{ __('退出') }}
-                        </a>
+                        {{--<a class="dropdown-item" href="{{ url('admin/logout') }}">--}}
+                            {{--{{ __('退出') }}--}}
+                        {{--</a>--}}
                         {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
                             {{--@csrf--}}
                         {{--</form>--}}
@@ -114,9 +114,12 @@
                         <ul class="nav nav-list"><li class="divider"></li></ul>
                     </div>
                 </div>
+                <img id="toout" onclick="window.location.href='{{url('admin/logout')}}'" src="{{asset('img/退出.png')}}" style="position:fixed;top: 20px;right:20px;height: 30px;width: 30px" >
+                @else
+                    @yield('content')
+                    <img id="toback" src="{{asset('img/后退.png')}}" style="position: fixed;bottom:20px;right: 20px;height: 50px;width: 50px" >
                 @endif
-            @yield('content')
-            <img id="toback" src="{{asset('img/后退.png')}}" style="position: fixed;bottom:20px;right: 20px;height: 50px;width: 50px" >
+
         </div>
         {{--<div style="background: url(/public/img/中秋国庆纹理.png) no-repeat 400px 500px;">--}}
             {{--<p>123456</p>--}}
