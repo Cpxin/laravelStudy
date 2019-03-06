@@ -41,6 +41,7 @@ Route::any('project/word_save',['uses'=>'ProjectController@word_save']);  //é¡¹ç
 //Route::get('staff/excel_save',['uses'=>'StaffController@exel_save']);
 
 Route::any('homepage/front',['uses'=>'HomepageController@front']);
+Route::post('homepage/message',['uses'=>'HomepageController@message']);
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -82,6 +83,10 @@ Route::get('homepage/over',['uses'=>'HomepageController@over']);
 Route::get('homepage/article',['uses'=>'HomepageController@article']);
 Route::get('homepage/add_title',['uses'=>'HomepageController@add_title']);
 Route::post('homepage/update',['uses'=>'HomepageController@update']);
+Route::post('homepage/add_ztitle',['uses'=>'HomepageController@add_ztitle']);
+Route::get('homepage/delete',['uses'=>'HomepageController@delete']);
+Route::get('homepage/message_delete',['uses'=>'HomepageController@message_delete']);
+
 
 
 });

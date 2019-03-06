@@ -141,28 +141,48 @@
                         </div>
                     @endforeach
                 </div>
-
             </div>
+        <img onclick="addMessage()"  src="{{asset('img/留言板.png')}}" style="position: fixed;bottom:20px;right: 20px;height: 50px;width: 50px" >
         {{--</div>--}}
+        <!--弹出添加用户窗口-->
+        <div class="modal fade" id="addMessage" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form class="form-horizontal" method="post" action="{{url('homepage/message')}}">
+                        {{ csrf_field() }}
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="gridSystemModalLabel">留言板</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                {{--@include('common.vaildator')--}}
+                                <div class="form-group ">
+                                    <textarea name="content" class="" cols="70" rows="30" style="position:relative;left: 40px" id="content"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                            <button type="submit" class="btn btn-xs btn-green">保 存</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
 
         <script src="{{asset('static/bootstrap/js/jquery-3.3.1.js')}}"></script>
         <script src="{{asset('static/bootstrap/js/bootstrap.min.js')}}"></script>
 
         <script>
             function article(title) {
-                {{--console.log(title);--}}
-                {{--$.ajax({--}}
-                    {{--type:'get',--}}
-                    {{--url:'{{url('homepage/front')}}',--}}
-                    {{--data:{'title':title},--}}
-                    {{--success:function () {--}}
                         window.location.href='{{url('homepage/front')}}?title='+title+'';
-                //     },
-                //     error:function () {
-                //         console.log(321);
-                //     }
-                //
-                // })
+            }
+            function addMessage() {
+                $('#addMessage').modal('show');
             }
         </script>
 

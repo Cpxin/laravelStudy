@@ -19,52 +19,38 @@
                     <img id="toout" onclick="window.location.href='{{url('admin/logout')}}'" src="{{asset('img/退出.png')}}" style="height: 30px;width: 30px" >
                 </div>
             </div>
-            <div class="" style="position: absolute">
+            <div class="" style="position: relative">
                 @include('common.message')
                 @include('common.vaildator')
-                {{--<div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">--}}
-                    {{--<div class="panel-heading">关于公司</div>--}}
-                    {{--<ul class="list-group" id="Article_1">--}}
-                        {{--<li class="list-group-item" onclick="art(0)">公司介绍</li>--}}
-                        {{--<li class="list-group-item" onclick="art(1)">发展历程</li>--}}
-                        {{--<li class="list-group-item" onclick="art(2)">管理团队</li>--}}
-                        {{--<li class="list-group-item" onclick="art(3)">文化和价值观</li>--}}
-                        {{--<li class="list-group-item" onclick="art(4)">企业荣誉</li>--}}
-                    {{--</ul>--}}
-                    {{--<div class="panel-body" style="text-align: center" id="addArticle" onclick="addArticle()">+</div>--}}
-                {{--</div>--}}
-                {{--<div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">--}}
-                    {{--<div class="panel-heading">业务体系</div>--}}
-                    {{--<ul class="list-group">--}}
-                        {{--<li class="list-group-item">业务体系</li>--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
-                {{--<div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">--}}
-                    {{--<div class="panel-heading">新闻及媒体资源</div>--}}
-                    {{--<ul class="list-group">--}}
-                        {{--<li class="list-group-item">新闻发布</li>--}}
-                        {{--<li class="list-group-item">媒体资料库</li>--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
-                {{--<div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">--}}
-                    {{--<div class="panel-heading">联系我们</div>--}}
-                    {{--<ul class="list-group">--}}
-                        {{--<li class="list-group-item">商务合作</li>--}}
-                        {{--<li class="list-group-item">公司地址</li>--}}
-                        {{--<li class="list-group-item">廉政举报</li>--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
-                @foreach($article as $zt=>$t)
-                    <div class="panel panel-info" style="width:200px;margin-top: 10px;margin-left: 20px;float: left">
-                        <div class="panel-heading">{{$zt}}</div>
-                        <ul class="list-group" id="{{$zt}}">
-                            @foreach($t as $k=>$v)
-                            <li class="list-group-item" onclick="art('{{$zt}}',{{$k}})">{{$v}}</li>
+                <div class="panel panel-info">
+                    <div class="panel-heading">文章模块</div>
+                    <div class="panel-body">
+                        @foreach($article as $zt=>$t)
+                        <div class="panel panel-info glyphicon " style="width:200px;margin-top: 10px;margin-left: 20px;float: left">
+                            <div class="panel-heading ">{{$zt}}<a href="{{url('homepage/delete')}}?ztitle={{$zt}}"><span   class="glyphicon glyphicon-remove" style="float: right"></span></a></div>
+                            <ul class="list-group" id="{{$zt}}">
+                                @foreach($t as $k=>$v)
+                                <li class="list-group-item" onclick="art('{{$zt}}',{{$k}})">{{$v}}</li>
+                                @endforeach
+                            </ul>
+                            <p class="" style="text-align: center" id="addArticle" onclick="addArticle('{{$zt}}')">+</p>
+                        </div>
+                        @endforeach
+                        <div >
+                            <img src="{{asset('img/加.png')}}" style="height: 50px;width: 50px;margin-left: 50px;margin-top: 100px" onclick="addzTitle()">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">留言板</div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                        @foreach($message as $mes)
+                                <li class="list-group-item">{{$mes->content}}<a href="{{url('homepage/message_delete')}}?id={{$mes->id}}"><span  class="glyphicon glyphicon-remove" style="float: right"></span></a></li>
                             @endforeach
                         </ul>
-                        <p class="" style="text-align: center" id="addArticle" onclick="addArticle('{{$zt}}')">+</p>
                     </div>
-                    @endforeach
+                </div>
                 <!--弹出添加用户窗口-->
                 <div class="modal fade" id="addUser" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog" role="document">
@@ -171,6 +157,36 @@
                 <!-- /.modal-dialog -->
             </div>
             <!-- /.modal -->
+            <!--弹出添加用户窗口-->
+            <div class="modal fade" id="addzTitle_model" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form class="form-horizontal" method="post" action="{{url('homepage/add_ztitle')}}">
+                        {{ csrf_field() }}
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="gridSystemModalLabel">请输入标题</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                {{--@include('common.vaildator')--}}
+                                <div >
+                                    总标题：<input id="zztitle" name="title[ztitle]" class="form-control" placeholder="">
+                                    标题：<input id="aaTitle" name="title[title]" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                            <button  class="btn btn-xs btn-green" type="submit">保 存</button>
+                        </div>
+                        </form>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
     @else
         @include('common.jurisdiction')
     @endif
@@ -219,5 +235,19 @@
 
             });
         }
+        function addzTitle() {
+            $('#addzTitle_model').modal('show');
+        }
+        function del(ztitle) {
+            $.ajax({
+                url:'{{url('homepage/delete')}}',
+                type:'get',
+                data:{ztitle:ztitle},
+                success:function (data) {
+                    console.log(132);
+                }
+            })
+        }
+
     </script>
 @stop
