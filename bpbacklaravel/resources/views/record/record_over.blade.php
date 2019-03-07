@@ -47,8 +47,8 @@
 
         </div>
         <!--分页-->
-        <div>
-            <div class="pull-right">
+        <div >
+            <div class="pull-left">
                 {{$record->render()}}
             </div>
         </div>

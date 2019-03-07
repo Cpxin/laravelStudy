@@ -35,8 +35,16 @@ class StaffController extends Controller
     {
 //        $staff=new Staff();
 //        dd(Auth::id());
-        if (isset($_GET['name'])){
-            $staff=Staff::where('name',$_GET['name'])->paginate(9);
+        if (isset($_GET['id'])||isset($_GET['position'])||isset($_GET['state'])){
+            if (isset($_GET['id'])){
+                $staff=Staff::where('id',$_GET['id'])->paginate(9);
+            }
+            if (isset($_GET['position'])){
+                $staff=Staff::where('position',$_GET['position'])->paginate(9);
+            }
+            if (isset($_GET['state'])){
+                $staff=Staff::where('state',$_GET['state'])->paginate(9);
+            }
         }else{
             $staff=Staff::paginate(9);//每翻一次页执行一次,查找结果为一个模型，对其更改也会改变数据库
                                       //并且在翻页时由于重新渲染视图，搜索会被重置取消（get值被替换为page页数）
@@ -87,7 +95,9 @@ class StaffController extends Controller
                 $sta->save();
             }
         }
-        return view('staff.staff_over',['staff'=>$staff,'adminId'=>Auth::id()]);
+        $positionnel=new Staff();
+        $position=$positionnel->distinct()->get(['position']);
+        return view('staff.staff_over',['staff'=>$staff,'position'=>$position,'adminId'=>Auth::id()]);
     }
 
     public function save(Request $request)

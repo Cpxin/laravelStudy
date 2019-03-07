@@ -99,7 +99,7 @@
 <body>
 {{--<div class="flex-center position-ref full-height">--}}
 <div class="" style="">
-    <img id="toback" src="{{asset('img/后退.png')}}" style="position: fixed;bottom:20px;right: 20px;height: 50px;width: 50px" >
+    <img id="toback" src="{{asset('img/后退.png')}}" style="position: fixed;top:2px;left: 20px;height: 50px;width: 50px" >
 </div>
 
 @if (Route::has('login'))
@@ -107,7 +107,7 @@
         @auth
             <a href="{{ url('/home') }}">Home</a>
         @else
-            <a href="{{ route('login') }}">登录</a>
+            {{--<a href="{{ route('login') }}">登录</a>--}}
             {{--<a href="{{ route('register') }}">注册</a>--}}
         @endauth
     </div>
@@ -123,9 +123,9 @@
     {{--<a href="https://forge.laravel.com">Forge</a>--}}
     {{--<a href="https://github.com/laravel/laravel">GitHub</a>--}}
     {{--</div>--}}
-    <div class="jumbotron" style="background-color: #c7ddef;margin:0 auto ;position:relative;top:100px;width: 700px;height: 300px;opacity:0.8;">
+    <div class="jumbotron" style="background-color: #fff ;position:relative;top:100px;width: 900px;display:inline-block!important;margin-left: 500px">
         <h1 style="text-align: center">{{$title}}</h1>
-        <p style="float: right;margin-top: 20px">{{$content}}</p>
+        <p style="float: left;margin-left:20px;margin-top: 20px;color: black">{{$content}}</p>
         {{--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>--}}
     </div>
 </div>

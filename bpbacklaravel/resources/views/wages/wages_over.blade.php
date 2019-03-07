@@ -95,8 +95,8 @@
                 {{--</div>--}}
             {{--</div>--}}
         {{--</div>--}}
-        <div>
-            <div class="pull-right">
+        <div >
+            <div class="pull-left">
                 {{$wages->render()}}
             </div>
         </div>

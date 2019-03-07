@@ -45,13 +45,23 @@
                     项目名称
                 </div>
                 <div class="col-xs-2">
-                    项目预期成本
+                    项目进度
                 </div>
                 <div class="col-xs-1">
                     项目等级
                 </div>
                 <div class="col-xs-2">
                     项目状态
+                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="background-color: #e3e8ee;">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" >
+                        <li><a href="{{url('project/over')}}">ALL</a></li>
+                        <li><a href="{{url('project/over')}}?state=0">未启动</a></li>
+                        <li><a href="{{url('project/over')}}?state=2">其他</a></li>
+                        <li><a href="{{url('project/over')}}?state=3">结束</a></li>
+                        <li><a href="{{url('project/over')}}?state=1">已启动</a></li>
+                    </ul>
                 </div>
                 <div class="col-xs-2">
                     项目创建时间
@@ -72,12 +82,43 @@
                             {{$pro->name}}
                         </div>
                         <div class="col-xs-2" id="age">
-                            {{$pro->cost}}
+                            <div class="progress" style="margin-top: 25px">
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                     aria-valuenow="45" aria-valuemin="0" aria-valuemax="{{$pro->term}}" style="width: {{(((int)((strtotime('now')-strtotime($pro->created_at))/86400))/$pro->term)*100}}%">
+                                    <div class="progress-text" style="color: black">{{((int)((strtotime('now')-strtotime($pro->created_at))/86400))."/".$pro->term}}&nbsp;&nbsp;&nbsp;Day</div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-xs-1" id="sex">
+                            @if($pro->rank==0)
+                                <img src="{{asset('/img/等级-D.png')}}" style="width:21px;height: 21px">
+                            @else
+                                @if($pro->state==1)
+                                    <img src="{{asset('/img/等级-C.png')}}" style="width:21px;height: 21px">
+                                @else
+                                    @if($pro->state==2)
+                                        <img src="{{asset('/img/等级-B.png')}}" style="width:21px;height: 21px">
+                                    @else
+                                        <img src="{{asset('/img/等级-A.png')}}" style="width:21px;height: 21px">
+                                    @endif
+                                @endif
+                            @endif
                             {{$pro->rank}}
                         </div>
                         <div class="col-xs-2" id="position">
+                            @if($pro->state==0)
+                                <img src="{{asset('/img/其他-im.png')}}" style="width:21px;height: 21px">
+                            @else
+                                @if($pro->state==1)
+                                    <img src="{{asset('/img/正在进行.png')}}" style="width:21px;height: 21px">
+                                @else
+                                    @if($pro->state==2)
+                                        <img src="{{asset('/img/空闲-im.png')}}" style="width:21px;height: 21px">
+                                    @else
+                                        <img src="{{asset('/img/忙碌-im.png')}}" style="width:21px;height: 21px">
+                                    @endif
+                                @endif
+                            @endif
                             {{$pro->state($pro->state)}}
                         </div>
                         <div class="col-xs-2" >
@@ -97,8 +138,8 @@
 
         </div>
         <!--分页-->
-        <div>
-            <div class="pull-right">
+        <div >
+            <div class="pull-left">
                 {{$project->render()}}
             </div>
         </div>

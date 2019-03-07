@@ -151,6 +151,43 @@
                 <div class="panel panel-default">
 
                     <div class="panel-heading">
+                        <div class="panel-title">
+                            <a href="#collapseTwo" data-toggle="collapse" data-parent="#accoradion">项目经历</a>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <ul class="list-group">
+
+                                    <li class="list-group-item list-group-item-info">
+                                        <div class="row">
+                                            <div class="col-sm-4">项目ID</div>
+                                            <div class="col-sm-4">项目名称</div>
+                                            <div class="col-sm-4">项目等级</div>
+                                        </div>
+                                    </li>
+                                    @if(isset($projectArr))
+                                        @foreach($projectArr as $pro)
+                                            <li class="list-group-item list-group-item-success">
+                                                <div class="row">
+                                                    <div class="col-sm-4">{{$pro['pid']}}</div>
+                                                    <div class="col-sm-4">{{$pro['pName']}}</div>
+                                                    <div class="col-sm-4">{{$pro['prank']}}</div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <li class="list-group-item list-group-item-success">
+                                            <div class="row">
+                                                <div class="col-sm-12">无</div>
+                                            </div>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-heading">
                         <form class="form-horizontal" method="post" action="{{url('staff/save_detail/'.$staff->id)}}">
                         {{csrf_field()}} <!--生成隐藏input表单-->
                         <div class="panel-title">
@@ -193,44 +230,7 @@
                         </form>
                     </div>
 
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            <a href="#collapseTwo" data-toggle="collapse" data-parent="#accoradion">项目经历</a>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <ul class="list-group">
 
-                                    <li class="list-group-item list-group-item-info">
-                                        <div class="row">
-                                            <div class="col-sm-4">项目ID</div>
-                                            <div class="col-sm-4">项目名称</div>
-                                            <div class="col-sm-4">项目等级</div>
-                                        </div>
-                                    </li>
-                                    @if(isset($projectArr))
-                                    @foreach($projectArr as $pro)
-                                    <li class="list-group-item list-group-item-success">
-                                        <div class="row">
-                                            <div class="col-sm-4">{{$pro['pid']}}</div>
-                                            <div class="col-sm-4">{{$pro['pName']}}</div>
-                                            <div class="col-sm-4">{{$pro['prank']}}</div>
-                                        </div>
-                                    </li>
-                                    @endforeach
-                                        @else
-                                        <li class="list-group-item list-group-item-success">
-                                            <div class="row">
-                                                <div class="col-sm-12">无</div>
-                                            </div>
-                                        </li>
-                                    @endif
-
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="panel-heading">
                         <div class="panel-title">
@@ -239,29 +239,6 @@
                         <div id="collapseThree" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    {{--<li class="list-group-item list-group-item-success">--}}
-                                        {{--<div class="row">--}}
-                                            {{--<div class="col-sm-4">2015/3/1-至今</div>--}}
-                                            {{--<div class="col-sm-4">XXX公司</div>--}}
-                                            {{--<div class="col-sm-4">IOS开发工程师</div>--}}
-                                        {{--</div>--}}
-                                    {{--</li>--}}
-
-                                    {{--<li class="list-group-item list-group-item-warning">--}}
-                                        {{--<div class="row">--}}
-                                            {{--<div class="col-sm-4">2015/3/1-至今</div>--}}
-                                            {{--<div class="col-sm-4">XXX公司</div>--}}
-                                            {{--<div class="col-sm-4">IOS开发工程师</div>--}}
-                                        {{--</div>--}}
-                                    {{--</li>--}}
-
-                                    {{--<li class="list-group-item list-group-item-info">--}}
-                                        {{--<div class="row">--}}
-                                            {{--<div class="col-sm-4">2015/3/1-至今</div>--}}
-                                            {{--<div class="col-sm-4">XXX公司</div>--}}
-                                            {{--<div class="col-sm-4">IOS开发工程师</div>--}}
-                                        {{--</div>--}}
-                                    {{--</li>--}}
                                     <li class="list-group-item list-group-item-info">
                                         <div class="row">
                                             <div class="col-sm-4">院校名称</div>

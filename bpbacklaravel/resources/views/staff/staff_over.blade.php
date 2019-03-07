@@ -13,7 +13,7 @@
                 @endif
             </div>
             <div class="col-xs-3">
-                <input type="text" id="find_input" class="form-control input-sm" placeholder="输入文字搜索" >
+                <input type="text" id="find_input" class="form-control input-sm" placeholder="输入ID搜索" >
                 <button class="btn btn-white btn-xs " onclick="find_staff()">查 询 </button>
             </div>
             <div class="col-xs-2">
@@ -53,11 +53,30 @@
                 <div class="col-xs-2">
                     性别
                 </div>
-                <div class="col-xs-2">
+                <div class=" col-xs-2">
                     职位
+                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="background-color: #e3e8ee;">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" >
+                        <li><a href="{{url('staff/over')}}">ALL</a></li>
+                        @foreach($position as $pos)
+                            <li><a href="{{url('staff/over')}}?position={{$pos->position}}">{{$pos->position}}</a></li>
+                            @endforeach
+                    </ul>
                 </div>
                 <div class="col-xs-1">
                     状态
+                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="background-color: #e3e8ee;">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" >
+                        <li><a href="{{url('staff/over')}}">ALL</a></li>
+                        <li><a href="{{url('staff/over')}}?state=0">其他</a></li>
+                        <li><a href="{{url('staff/over')}}?state=2">空闲</a></li>
+                        <li><a href="{{url('staff/over')}}?state=3">忙碌</a></li>
+                        <li><a href="{{url('staff/over')}}?state=1">下班</a></li>
+                    </ul>
                 </div>
                 <div class="col-xs-2">
                     操作
@@ -113,8 +132,8 @@
 
         </div>
     <!--分页-->
-        <div>
-            <div class="pull-right">
+        <div >
+            <div class="pull-left" >
                 {{$staff->render()}}
             </div>
         </div>
@@ -238,27 +257,15 @@
                                         <input name="rStaff[position]" value=""  class="form-control input-sm duiqi" id="cPosition" placeholder="">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="sKnot" class="col-xs-3 control-label">地区：</label>
-                                    <div class="col-xs-8">
-                                        <input type="" value="" class="form-control input-sm duiqi" id="sKnot" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="sKnot" class="col-xs-3 control-label">权限：</label>
-                                    <div class="col-xs-8">
-                                        <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="situation" class="col-xs-3 control-label">状态：</label>
-                                    <div class="col-xs-8">
-                                        <label class="control-label" for="anniu">
-                                            <input type="radio" name="situation" id="normal">正常</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <label class="control-label" for="meun">
-                                            <input type="radio" name="situation" id="forbid"> 禁用</label>
-                                    </div>
-                                </div>
+                                {{--<div class="form-group">--}}
+                                    {{--<label for="situation" class="col-xs-3 control-label">状态：</label>--}}
+                                    {{--<div class="col-xs-8">--}}
+                                        {{--<label class="control-label" for="anniu">--}}
+                                            {{--<input type="radio" name="situation" id="normal">正常</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--}}
+                                        {{--<label class="control-label" for="meun">--}}
+                                            {{--<input type="radio" name="situation" id="forbid"> 禁用</label>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
 
                         </div>
                     </div>
@@ -331,9 +338,9 @@
                 $('#reviseStaff').modal('show');
             }
             function find_staff() {
-                var name=$('#find_input').val();
+                var id=$('#find_input').val();
                 // window.location.href='http://localhost/bpbacklaravel/public/staff/over?name='+name;
-                window.location.href="{{url('staff/over')}}?name="+name;
+                window.location.href="{{url('staff/over')}}?id="+id;
                 {{--$.get('{{url('staff/over')}}',{'name':name},function () {--}}
                     {{----}}
                 {{--});--}}
@@ -351,20 +358,11 @@
         // });
         var xhr;
         function im() {
-            // var len=env.files.length;
-            // for (var i = 0; i < len; i++) {
-            //     var temp = env.files[i].name;
-            //     console.log(temp);
-            // }
-            // var fileObj = document.getElementById("import").file[0]; // js 获取文件对象
-            // var file=$('#imBtnInput')[0].files[0];
-            // var reader=new FileReader;
-            // reader.readAsText(file,'gb2312');
-            // reader.onload=function(evt){
-            //     var data=evt.target.result;
-            // }
             document.getElementById("imSubmit").submit();
 
+        }
+        function position_drop() {
+            $('#dropdown-menu').dropdown();
         }
             // $('#reviseStaff').on('show.bs.modal',function (event) {
         // });

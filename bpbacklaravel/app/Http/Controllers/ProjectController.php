@@ -18,8 +18,14 @@ class ProjectController extends Controller
     //项目初始页面
     public function over()
     {
-        if (isset($_GET['name'])){
-            $project=Project::where('name',$_GET['name'])->paginate(9);
+        if (isset($_GET['name'])||isset($_GET['state'])){
+            if (isset($_GET['name'])){
+                $project=Project::where('name','like','%'.$_GET['name'].'%')->paginate(9);
+            }
+            if (isset($_GET['state'])){
+                $project=Project::where('state',$_GET['state'])->paginate(9);
+            }
+
         }else{
             $project=Project::paginate(9);
         }
@@ -90,12 +96,33 @@ class ProjectController extends Controller
         DB::connection()->enableQueryLog();
         $project=new Project();
         $pro=$request->input('Project');
+
+        $need=$pro['personnel'];
+        $num=0; //需求人数
+        for($i=0;$need!=null;$i++){
+            $str1= substr($need,0,strpos($need,';'));
+            $need=substr($need,strpos($need,';')+1);
+            $key=substr($str1,0,strpos($str1,'*'));
+            $value=substr($str1,strpos($str1,'*')+1);
+            $num+=$value;
+            $data[$key]=$value;     //['position1':'人数';'position2':'人数';..]
+        }
+        if ($num>=0&&$num<=10){
+            $project->rank=0;
+        }else if ($num>10&&$num<=50){
+            $project->rank=1;
+        }else if ($num>50&&$num<=100){
+            $project->rank=2;
+        }else if ($num>100){
+            $project->rank=3;
+        }
         $project->name=$pro['name'];
         //将项目内容中的html格式的换行符转换为可识别的换行符
         $project->pdfUrl=$pro['pdfUrl'];
         $project->content=str_replace("\r\n","<br>",$pro['content']);
         $project->personnel=$pro['personnel'];
         $project->cost=$pro['cost'];
+        $project->term=$pro['term'];
         $project->profit=$pro['profit'];
         if($project->save()){
             $record=new Record();
@@ -161,7 +188,7 @@ class ProjectController extends Controller
                 }
             }
         }
-        return redirect('project/detail/'.$id)->with('fail','未选择人员，请重新选择！');
+        return redirect('project/detail/'.$id)->with('none','未选择人员，请重新选择！');
 
     }
 

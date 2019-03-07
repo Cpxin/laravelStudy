@@ -54,6 +54,7 @@
                     </div>
                     <div id="personInfor">
                         <p id="userName">当前用户：{{ Auth::user()->name }}</p>
+                        <p id="userName">权限等级：{{ Auth::user()->rank }}</p>
                         <div class="sj">
                             <span></span>年
                             <span></span>月

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -24,6 +25,7 @@ class CreateStaffTable extends Migration
 //            $table->dateTime('created_at');
 //            $table->dateTime('updated_at');
         });
+        DB::statement("ALTER TABLE staff AUTO_INCREMENT = 1000;");
     }
 
     /**

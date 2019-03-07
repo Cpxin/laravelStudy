@@ -15,130 +15,44 @@
 
 @section('content')
     <div role="tabpanel" class="tab-pane active" id="user">
-        <div class="check-div form-inline">
-            <div class="col-xs-3">
-                <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addUser">添加用户 </button>
-            </div>
-            <div class="col-xs-4">
-                <input type="text" class="form-control input-sm" placeholder="输入文字搜索" >
-                <button class="btn btn-white btn-xs ">查 询 </button>
-            </div>
-            <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
-                <label for="paixu">排序:&nbsp;</label>
-                <select class=" form-control">
-                    <option>地区</option>
-                    <option>地区</option>
-                    <option>班期</option>
-                    <option>性别</option>
-                    <option>年龄</option>
-                    <option>份数</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row">
+        <div class="row" style="margin-top: 50px">
 
         <div class="data-div col-xs-8">
-            {{--{{csrf_field()}}--}}
-            {{--<div class="panel-body">--}}
-                {{--<div class="row">--}}
-                    {{--<div class="col-sm-1" style="margin-right: -20px"><strong >职位：</strong></div>--}}
-                    {{--<div class="col-sm-2">--}}
-                        {{--<ul class="list-inline" >--}}
-                            {{--<a class="btn btn-dark" onclick="edit('后端工程师')">后端工程师</a>--}}
-                            {{--<li>2</li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-            {{--<div class="row tableHeader">--}}
-                {{--<div class="col-xs-1 ">--}}
-                    {{--Id--}}
-                {{--</div>--}}
-                {{--<div class="col-xs-2">--}}
-                    {{--姓名--}}
-                {{--</div>--}}
-                {{--<div class="col-xs-1">--}}
-                    {{--性别--}}
-                {{--</div>--}}
-                {{--<div class="col-xs-3">--}}
-                    {{--职位--}}
-                {{--</div>--}}
-                {{--<div class="col-xs-1">--}}
-                    {{--状态--}}
-                {{--</div>--}}
-                {{--<div class="col-xs-2">--}}
-                    {{--操作--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--@include('common.vaildator')--}}
-            {{--@include('common.message')--}}
-            {{--<div class="tablebody" id="itable">--}}
-                {{--@foreach($staff as $sta)--}}
-                    {{--<div class="row">--}}
-                        {{--<div class="col-xs-1 " id="id">--}}
-                            {{--{{$sta->id}}--}}
-                        {{--</div>--}}
-                        {{--<div class="col-xs-2" id="name">--}}
-                            {{--{{$sta->name}}--}}
-                        {{--</div>--}}
-                        {{--<div class="col-xs-1" id="sex">--}}
-                            {{--{{$sta->sex}}--}}
-                        {{--</div>--}}
-                        {{--<div class="col-xs-3" id="position">--}}
-                            {{--{{$sta->position}}--}}
-                        {{--</div>--}}
-                        {{--<div class="col-xs-1" >--}}
-                            {{--{{$sta->state}}--}}
-                        {{--</div>--}}
-                        {{--<div class="col-xs-2">--}}
-                            {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">详情</button>--}}
-                            {{--<a class="btn btn-success btn-xs" href="{{url('staff/detail',['id'=>$sta->id])}}">详情</a>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--@endforeach--}}
-            {{--</div>--}}
 
             <table class="table" id="table1">
-                {{--<thead>--}}
-                    {{--<tr>--}}
-                        {{--<th >id</th>--}}
-                        {{--<th >姓名</th>--}}
-                        {{--<th >年龄</th>--}}
-                        {{--<th >性别</th>--}}
-                        {{--<th >职位</th>--}}
-                        {{--<th >状态</th>--}}
-                        {{--<th >创建时间</th>--}}
-                        {{--<th >更新时间</th>--}}
-                    {{--</tr>--}}
-                {{--</thead>--}}
                 <tbody>
                 @foreach($staff as $sta)
+                    {{--@if($sta->state==2)--}}
                     <tr>
                         <td>{{$sta->id}}</td>
                         <td>{{$sta->name}}</td>
                         <td>{{$sta->age}}</td>
                         <td>{{$sta->sex($sta->sex)}}</td>
                         <td>{{$sta->position}}</td>
-                        <td>{{$sta->state($sta->state)}}</td>
+                        <td>@if($sta->state==0)
+                                <img src="{{asset('/img/其他-im.png')}}" style="width:21px;height: 21px">
+                            @else
+                                @if($sta->state==1)
+                                    <img src="{{asset('/img/离线-im.png')}}" style="width:21px;height: 21px">
+                                @else
+                                    @if($sta->state==2)
+                                        <img src="{{asset('/img/空闲-im.png')}}" style="width:21px;height: 21px">
+                                    @else
+                                        <img src="{{asset('/img/忙碌-im.png')}}" style="width:21px;height: 21px">
+                                    @endif
+                                @endif
+                            @endif
+                            {{$sta->state($sta->state)}}
+                        </td>
                         <td>
                             <a class="btn btn-success btn-xs" href="{{url('staff/detail',['id'=>$sta->id])}}">详情</a>
-                            <a class="btn btn-info btn-xs">修改</a>
-                            <a class="btn btn-danger btn-xs" href="{{url('staff/delete',['id'=>$sta->id])}}" onclick="if(confirm('确定要删除吗?')==false) return false;">删除</a>
                         </td>
                     </tr>
+                    {{--@endif--}}
                 @endforeach
                 </tbody>
 
             </table>
-
-            <!--分页-->
-            {{--<div>--}}
-                {{--<div class="pull-right">--}}
-                    {{--{{$staff->render()}}--}}
-                {{--</div>--}}
-            {{--</div>--}}
 
         </div>
 
