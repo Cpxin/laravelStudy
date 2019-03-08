@@ -14,7 +14,7 @@
                     {{--<button class="btn-block col-sm-offset-4" style="width: 100px;">上传照片</button>--}}
                     <form method="post" enctype="multipart/form-data" id="file_upload" action="{{url('staff/save_img/'.$staff->id)}}">
                         {{ csrf_field() }}
-                            @if(isset($vitae->image)&&$vitae->image!=null)
+                            @if(isset($vitae->image)&&$vitae->image!=null&&$vitae->image!="无")
                         　　<img  src="{{asset('/storage')}}/{{$vitae->image}}" class="col-sm-offset-1 img-responsive img-rounded img-thumbnail" style="border: 2px solid #1f4ba5;border-radius: 150px;height: 300px;width: 300px;margin-right: 50px">
                         　　@else
                             <img src="{{asset('img/用户.png')}}" class="col-sm-offset-1 img-responsive img-rounded img-thumbnail" style="border: 2px solid #1f4ba5;border-radius: 150px;height: 300px;width: 300px;margin-right: 50px" alt="Me">
@@ -35,7 +35,7 @@
                         {{--<span class="glyphicon glyphicon-envelope" title="Email"><code>1610712512@qq.com</code></span>--}}
                     </address>
                         @if(Auth::user()->rank<=3)
-                    <button type="submit" class="col-sm-offset-5 btn btn-primary">保存</button>
+                    <button type="submit"  class="col-sm-offset-5 btn btn-primary">保存</button>
                             @endif
                     </form>
                 </div>

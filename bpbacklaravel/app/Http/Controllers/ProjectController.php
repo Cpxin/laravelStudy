@@ -207,6 +207,17 @@ class ProjectController extends Controller
                 $staff=Staff::find($sta);
                 $staff->state=3;
                 $staff->save();
+
+                $vitae=Vitae::where('staff_id',$sta)->get();
+                if(isset($vitae[0]->id)){           //如果该员工有详细信息（简历）
+                    $vitae[0]->now_project=$id;    //加入当前执行任务id
+                    $vitae[0]->save();
+                }else{                          //否则新建该员工的详细信息（只有员工id和项目经历）
+                    $vit=new Vitae();
+                    $vit->staff_id=$sta;
+                    $vit->now_project=$id;
+                    $vit->save();
+                }
             }
         }
         $project->state=1;
@@ -235,11 +246,13 @@ class ProjectController extends Controller
 //            dd($vitae[0]->experience,isset($vitae[0]->id));
             if(isset($vitae[0]->id)){           //如果该员工有详细信息（简历）
                 $vitae[0]->experience.=$id.";";
+                $vitae[0]->now_project=0;
                 $vitae[0]->save();
             }else{                          //否则新建该员工的详细信息（只有员工id和项目经历）
                 $vit=new Vitae();
                 $vit->staff_id=$staff->id;
                 $vit->experience.=$id.";";
+                $vit->now_project=0;
                 $vit->save();
             }
         }

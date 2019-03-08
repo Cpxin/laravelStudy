@@ -379,8 +379,45 @@ class StaffController extends Controller
             'name'=>$staff->name,
             'position'=>$staff->position,
             'state'=>$staff->state,
-            'updated_at'=>$staff->updated_at
+            'updated_at'=>$staff->updated_at,
+            'now_project'=>0,
+            'now_project_data'=>[
+                'now_project_name'=>null,
+                'now_project_term'=>null,
+            ],
+            'experience'=>[],
+            'information'=>'',
         );
+
+        $vitae=Vitae::where('staff_id',$id)->get();
+        if(isset($vitae[0]->id)){           //如果该员工有详细信息（简历）
+            $detail['now_project']=$vitae[0]->now_project;
+            if ($vitae[0]->now_project!=null&&$vitae[0]->now_project!=0){
+                $nowProject=Project::find($vitae[0]->now_project);
+                $detail['now_project_data']['now_project_name']=$nowProject->name;
+                $detail['now_project_data']['now_project_term']=(((int)((strtotime('now')-strtotime($nowProject->created_at))/86400))/$nowProject->term)*100;
+            }
+
+            if($vitae[0]->experience!=''){      //如果该员工有项目经历
+                $have=$vitae[0]->experience;
+                while($have!=null){
+                    $str1= substr($have,0,strpos($have,';'));
+                    $have=substr($have,strpos($have,';')+1);
+                    $proid[]=$str1;       //['projectId1';'projectId2';..]
+                }
+                foreach ($proid as $pid){
+                    $pro=Project::find($pid);
+                    $detail['experience'][$pid]['id']=$pid;
+                    $detail['experience'][$pid]['name']=$pro->name;
+                    $detail['experience'][$pid]['rank']=$pro->rank;
+                }
+            }
+
+            if ($vitae[0]->information!=''){
+                $detail['information']=$vitae[0]->information;
+            }
+        }
+
         echo json_encode($detail,JSON_UNESCAPED_UNICODE);
 //        dd($detail['name']);
     }
@@ -401,7 +438,7 @@ class StaffController extends Controller
         if (isset($vitae[0])){       //如果是已存在的员工数据则为更新操作
             $vit=Vitae::find($vitae[0]->id);
             $vitae[0]->information=$info['content'];
-            if($vitae->save()){
+            if($vitae[0]->save()){
                 return redirect('staff/detail/'.$info['id'])->with('success','发送信息成功!'.$vit->id);
             }else{
                 return redirect()->back()->with('fail','添加失败!');
