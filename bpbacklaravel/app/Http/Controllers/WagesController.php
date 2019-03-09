@@ -65,9 +65,21 @@ class WagesController extends Controller
         }
     }
 
-    public function update()
+    public function update(Request $request)
     {
-        $id=$_GET['id'];
+        $wag= $request->input('Wages');
+        $wages=Wages::find($wag['id']);
+        $wages->position=$wag['position'];
+        $wages->basic=$wag['basic'];
+        $wages->weekday=$wag['weekday'];
+        $wages->time=$wag['time'];
+        $wages->reward=$wag['reward'];
+        $wages->other=$wag['other'];
+        if ($wages->save()){
+            return redirect('wages/over')->with('success',$wages->position.'修改成功!');
+        }else{
+            return redirect()->back()->with('fail','修改失败失败!');
+        }
 
     }
 }

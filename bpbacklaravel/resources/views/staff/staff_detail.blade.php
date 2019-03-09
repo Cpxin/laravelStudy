@@ -152,6 +152,40 @@
 
                     <div class="panel-heading">
                         <div class="panel-title">
+                            <a href="#collapseThree" data-toggle="collapse" data-parent="#accoradion">当前执行任务</a>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item list-group-item-info">
+                                        <div class="row">
+                                            <div class="col-sm-4">项目ID</div>
+                                            <div class="col-sm-4">项目名称</div>
+                                            <div class="col-sm-4">项目进度</div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item list-group-item-success">
+                                        <div class="row">
+                                            <div class="col-sm-4">{{$now_project['now_project_id']}}</div>
+                                            <div class="col-sm-4">{{$now_project['now_project_name']}}</div>
+                                            <div class="col-sm-4">
+                                                <div class="progress" style="">
+                                                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                                         aria-valuenow="45" aria-valuemin="0" aria-valuemax="" style="width: {{$now_project['now_project_term']}}%">
+                                                        <div class="progress-text" style="color: black">{{$now_project['now_project_term']}}&nbsp;&nbsp;&nbsp;Day</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {{--@endif--}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-heading">
+                        <div class="panel-title">
                             <a href="#collapseTwo" data-toggle="collapse" data-parent="#accoradion">项目经历</a>
                         </div>
                         <div id="collapseTwo" class="panel-collapse collapse in">
@@ -192,7 +226,6 @@
                         {{csrf_field()}} <!--生成隐藏input表单-->
                         <div class="panel-title">
                             <a href="#collapseOne" data-toggle="collapse" data-parent="#accoradion">附加信息</a>
-
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse in">
                             <div class="panel-body">
@@ -230,43 +263,6 @@
                         </form>
                     </div>
 
-
-
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            <a href="#collapseThree" data-toggle="collapse" data-parent="#accoradion">教育经历</a>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <ul class="list-group">
-                                    <li class="list-group-item list-group-item-info">
-                                        <div class="row">
-                                            <div class="col-sm-4">院校名称</div>
-                                            <div class="col-sm-4">学历</div>
-                                            <div class="col-sm-4">教育时间</div>
-                                        </div>
-                                    </li>
-                                    {{--@if(isset($projectArr))--}}
-                                        {{--@foreach($projectArr as $pro)--}}
-                                            {{--<li class="list-group-item list-group-item-success">--}}
-                                                {{--<div class="row">--}}
-                                                    {{--<div class="col-sm-4">{{$pro['pid']}}</div>--}}
-                                                    {{--<div class="col-sm-4">{{$pro['pName']}}</div>--}}
-                                                    {{--<div class="col-sm-4">{{$pro['prank']}}</div>--}}
-                                                {{--</div>--}}
-                                            {{--</li>--}}
-                                        {{--@endforeach--}}
-                                    {{--@else--}}
-                                        <li class="list-group-item list-group-item-success">
-                                            <div class="row">
-                                                <div class="col-sm-12">无</div>
-                                            </div>
-                                        </li>
-                                    {{--@endif--}}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
         </div>
     </div>

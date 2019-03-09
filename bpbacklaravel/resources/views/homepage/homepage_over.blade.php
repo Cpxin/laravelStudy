@@ -7,13 +7,10 @@
         <div role="tabpanel" class="tab-pane active" id="user">
             <div class="check-div form-inline">
                 <div class="col-xs-3">
-                    @if(Auth::user()->rank<=3)
-                        <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addWages">添加 </button>
-                    @endif
+
                 </div>
                 <div class="col-xs-4">
-                    <input type="text" id="wagePosition" class="form-control input-sm" placeholder="输入职位搜索" >
-                    <button class="btn btn-white btn-xs " onclick="find_wages()">查 询 </button>
+
                 </div>
                 <div class="col-xs-5" style=" padding-right: 40px;text-align: right;">
                     <img id="toout" onclick="window.location.href='{{url('admin/logout')}}'" src="{{asset('img/退出.png')}}" style="height: 30px;width: 30px" >

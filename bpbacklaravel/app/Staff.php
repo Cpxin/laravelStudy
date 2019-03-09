@@ -19,6 +19,8 @@ class Staff extends Model
     protected $table='staff';
     public $timestamps=true;
 
+//    protected $fillable=['name','age','sex','position','state'];
+
     public function vitae()
     {
         return $this->hasOne('App\Vitae','staff_id','id');  //有一对一的关联表，关联表默认生成user_id

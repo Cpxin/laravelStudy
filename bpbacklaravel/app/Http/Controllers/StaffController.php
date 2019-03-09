@@ -35,6 +35,9 @@ class StaffController extends Controller
     {
 //        $staff=new Staff();
 //        dd(Auth::id());
+//        if (isset($_GET['page'])){
+//            dd($_GET['page']);
+//        }
         if (isset($_GET['id'])||isset($_GET['position'])||isset($_GET['state'])){
             if (isset($_GET['id'])){
                 $staff=Staff::where('id',$_GET['id'])->paginate(9);
@@ -48,6 +51,7 @@ class StaffController extends Controller
         }else{
             $staff=Staff::paginate(9);//每翻一次页执行一次,查找结果为一个模型，对其更改也会改变数据库
                                       //并且在翻页时由于重新渲染视图，搜索会被重置取消（get值被替换为page页数）
+
         }
         $h=date('h:i'); //小时:分钟
         $m=date('a');//am pm
@@ -69,20 +73,30 @@ class StaffController extends Controller
 //            dd($range);
         }
         foreach ($staff as $sta){
-            if ($sta->state==3){
-                continue;
-            }
+            $vit=Vitae::find($sta->id);
             if (isset($position[$sta->position])){      //如果有规定工作日
                 if (strstr($position[$sta->position],$w)!=false){   //如果该员工在工作日
                     $sta=$staff->find($sta->id);
                     if ($m='am'&&$h>=$range[$sta->position][0]&&$h<=$range[$sta->position][1]){
-                        $sta->state=2;        //在工作日且在上班时间，上班
-                        $sta->save();
-                        continue;
+                        if ($vit==null||$vit->now_project==0){
+                            $sta->state=2;        //在工作日且在上班时间，上班
+                            $sta->save();
+                            continue;
+                        }else{
+                            $sta->state=3;        //如果当前有任务，则为忙碌
+                            $sta->save();
+                            continue;
+                        }
                     }else if ($m='pm'&&$h>=$range[$sta->position][2]&&$h<=$range[$sta->position][3]){
-                        $sta->state=2;
-                        $sta->save();
-                        continue;
+                        if ($vit==null||$vit->now_project==0){
+                            $sta->state=2;
+                            $sta->save();
+                            continue;
+                        }else{
+                            $sta->state=3;
+                            $sta->save();
+                            continue;
+                        }
                     }
                     $sta->state=1;          //在工作日但是下班了，休息
                     $sta->save();
@@ -149,10 +163,21 @@ class StaffController extends Controller
     {
         $staff=Staff::find($id);
         $vitae=Vitae::where('staff_id',$id)->with('staff')->get();   //关联表查询
+        $now=array(
+            'now_project_id'=>'',
+            'now_project_name'=>'',
+            'now_project_term'=>''
+        );
         foreach ($vitae as $v){
             $vit=$v;        //通过循环才能读取？？
         }
         if (isset($vit)){           //如果员工有对应简历表
+            if ($vit->now_project!=null&&$vit->now_project!=0){
+                $nowProject=Project::find($vit->now_project);
+                $now['now_project_id']=$nowProject->id;
+                $now['now_project_name']=$nowProject->name;
+                $now['now_project_term']=(((int)((strtotime('now')-strtotime($nowProject->created_at))/86400))/$nowProject->term)*100;
+            }
             if($vit->experience!=''){      //如果该员工有项目经历
                 $have=$vit->experience;
                 while($have!=null){
@@ -168,12 +193,12 @@ class StaffController extends Controller
                         'prank'=>$pro->rank,
                     ];
                 }
-                return view('staff.staff_detail',['staff'=>$staff,'vitae'=>$vit,'projectArr'=>$project]);
+                return view('staff.staff_detail',['staff'=>$staff,'vitae'=>$vit,'now_project'=>$now,'projectArr'=>$project]);
             }else{
-                return view('staff.staff_detail',['staff'=>$staff,'vitae'=>$vit]);
+                return view('staff.staff_detail',['staff'=>$staff,'now_project'=>$now,'vitae'=>$vit]);
             }
         }else{
-            return view('staff.staff_detail',['staff'=>$staff]);
+            return view('staff.staff_detail',['staff'=>$staff,'now_project'=>$now]);
         }
 
 
@@ -379,6 +404,7 @@ class StaffController extends Controller
             'name'=>$staff->name,
             'position'=>$staff->position,
             'state'=>$staff->state,
+            'img'=>'',
             'updated_at'=>$staff->updated_at,
             'now_project'=>0,
             'now_project_data'=>[
@@ -392,12 +418,14 @@ class StaffController extends Controller
         $vitae=Vitae::where('staff_id',$id)->get();
         if(isset($vitae[0]->id)){           //如果该员工有详细信息（简历）
             $detail['now_project']=$vitae[0]->now_project;
-            if ($vitae[0]->now_project!=null&&$vitae[0]->now_project!=0){
+            if ($vitae[0]->now_project!=null&&$vitae[0]->now_project!=0){ //如果员工当前有执行的任务
                 $nowProject=Project::find($vitae[0]->now_project);
                 $detail['now_project_data']['now_project_name']=$nowProject->name;
                 $detail['now_project_data']['now_project_term']=(((int)((strtotime('now')-strtotime($nowProject->created_at))/86400))/$nowProject->term)*100;
             }
-
+            if ($vitae[0]->image!=''){
+                $detail['img']=$vitae[0]->image;
+            }
             if($vitae[0]->experience!=''){      //如果该员工有项目经历
                 $have=$vitae[0]->experience;
                 while($have!=null){

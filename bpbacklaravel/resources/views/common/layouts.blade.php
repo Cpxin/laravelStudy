@@ -76,35 +76,31 @@
                         {{--<a>退出登录</a>--}}
                         {{--</p>--}}
                     </div>
-                    <div id="Lstaff" class="meun-title btn"><img src="{{asset('img/员工信息.png')}}">员工管理</div>
+                    <div id="Lstaff" class="meun-title btn" style="font-size: 15px"><img style="width: 25px;height: 25px" src="{{asset('img/员工管理.png')}}">&nbsp;员工管理</div>
                     <br>
                     <a id="Lstaff1" class="meun-item btn-link" href="{{url('staff/over')}}" style="display: none"><img
-                                src="{{asset('img/组织管理.png')}}">员工管理</a>
-
-                    {{--<div id="Lstaff" class="meun-title btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">员工管理</div><br>--}}
-                    {{--<div class="collapse well" id="collapseExample">员工管理</div>--}}
-
-                    <div id="Lproject" class="meun-title btn"><img src="{{asset('img/项目.png')}}">项目管理</div>
+                                src="{{asset('img/选项.png')}}" style="width: 25px;height: 25px;margin-left: 47px">员工管理</a>
+                    <div id="Lproject" class="meun-title btn" style="font-size: 15px"><img style="width: 25px;height: 25px" src="{{asset('img/项目管理.png')}}">&nbsp;项目管理</div>
                     <br>
                     <a id="Lproject1" class="meun-item btn-link" href="{{url('project/over')}}"
-                       style="display: none"><img src="{{asset('img/组织管理.png')}}">项目管理</a>
+                       style="display: none"><img src="{{asset('img/选项.png')}}" style="width: 25px;height: 25px;margin-left: 47px">项目管理</a>
 
-                    <div id="Lwage" class="meun-title btn"><img src="{{asset('img/企业.png')}}">作业规划</div>
+                    <div id="Lwage" class="meun-title btn" style="font-size: 15px"><img style="width: 25px;height: 25px" src="{{asset('img/作业管理.png')}}">&nbsp;作业规划</div>
                     <br>
                     <a id="Lwage1" class="meun-item btn-link" href="{{url('wages/over')}}" style="display: none"><img
-                                src="{{asset('img/组织管理.png')}}">作业规划</a>
-                    <div id="Ladmin" class="meun-title btn"><img src="{{asset('img/管理员.png')}}">管理员</div>
+                                src="{{asset('img/选项.png')}}" style="width: 25px;height: 25px;margin-left: 47px">作业规划</a>
+                    <div id="Ladmin" class="meun-title btn" style="font-size: 15px"><img style="width: 25px;height: 25px" src="{{asset('img/管理员管理.png')}}">&nbsp;管理员</div>
                     <br>
                     <a id="Ladmin1" class="meun-item btn-link" href="{{url('admin/over')}}" style="display: none"><img
-                                src="{{asset('img/组织管理.png')}}">管理员规划</a>
-                    <div id="Lhomepage" class="meun-title btn"><img src="{{asset('img/管理员.png')}}">主页管理</div>
+                                src="{{asset('img/选项.png')}}" style="width: 25px;height: 25px;margin-left: 47px">管理员规划</a>
+                    <div id="Lhomepage" class="meun-title btn" style="font-size: 15px"><img style="width: 25px;height: 25px" src="{{asset('img/主页管理.png')}}">&nbsp;主页管理</div>
                     <br>
                     <a id="Lhomepage1" class="meun-item btn-link" href="{{url('homepage/over')}}" style="display: none"><img
-                                src="{{asset('img/组织管理.png')}}">主页管理</a>
-                    <div id="Lcord" class="meun-title btn"><img src="{{asset('img/操作管理.png')}}">操作记录</div>
+                                src="{{asset('img/选项.png')}}" style="width: 25px;height: 25px;margin-left: 47px">主页管理</a>
+                    <div id="Lcord" class="meun-title btn" style="font-size: 15px"><img style="width: 25px;height: 25px" src="{{asset('img/操作管理.png')}}">&nbsp;操作记录</div>
                     <br>
                     <a id="Lcord1" class="meun-item btn-link" href="{{url('record/over')}}" style="display: none"><img
-                                src="{{asset('img/组织管理.png')}}">操作记录</a>
+                                src="{{asset('img/选项.png')}}" style="width: 25px;height: 25px;margin-left: 47px">操作记录</a>
                 </div>
             @show
         <!--右侧内容区域-->

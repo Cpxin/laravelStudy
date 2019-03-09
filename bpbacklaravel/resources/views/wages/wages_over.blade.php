@@ -199,6 +199,8 @@
                         <div class="modal-body">
                             <div class="container-fluid">
                                 {{--@include('common.vaildator')--}}
+
+                                <input style="display: none" id="cId" name="Wages[id]">
                                 <div class="form-group ">
                                     <label for="sName" class="col-xs-3 control-label">职位：</label>
                                     <div class="col-xs-9 ">
@@ -228,7 +230,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="sKnot" class="col-xs-3 control-label">工作时间：</label>
-                                    <input name="Wages[time]" value="" class="form-control input-sm duiqi" id="sTime" style="display: none" placeholder="">
+                                    <input name="Wages[time]" value="" class="form-control input-sm duiqi" id="cTime" style="display: none" placeholder="">
 
                                     <div class="col-xs-5 col-xs-offset-1" style="margin-left: 5px">
                                         <p id="pTime"></p>
@@ -257,7 +259,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                            <button type="submit" class="btn btn-xs btn-green" onclick="time()">保 存</button>
+                            <button type="submit" class="btn btn-xs btn-green" onclick="time2()">保 存</button>
                         </div>
                     </form>
                 </div>
@@ -305,6 +307,14 @@
             var time4=$('#Time4').val();
             $('#sTime').val('上午'+time1+'至'+time2+'下午'+time3+'至'+time4);
         }
+        function time2() {
+
+            var time1=$('#cTime1').val();
+            var time2=$('#cTime2').val();
+            var time3=$('#cTime3').val();
+            var time4=$('#cTime4').val();
+            $('#cTime').val('上午'+time1+'至'+time2+'下午'+time3+'至'+time4);
+        }
         function week(val) {
             var week='week'+val;
             // console.log(document.getElementById(week).className.indexOf('active'));
@@ -322,10 +332,11 @@
             }
         }
         function change(id,position,basic,weekday,time,reword,other) {
+            $('#cId').val(id);
             $('#cName').val(position);
             $('#cBasic').val(basic);
             $('#cWeekDay').val(weekday);
-            $('#cReword').val(time);
+            $('#cReword').val(reword);
             $('#pTime').html(time);
             $('#cOther').val(other);
             $('#changeWages').modal('show');
