@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\DB;
 class WagesController extends Controller
 {
     //
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function over()
     {
         if (isset($_GET['position'])){
@@ -20,27 +23,12 @@ class WagesController extends Controller
         return view('wages.wages_over',['wages'=>$wages]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function save(Request $request)
     {
-//        $validator=\Validator::make($request->input(),[
-//            'Staff.name'=>'required|min:2|max:20',
-//            'Staff.age'=>'required|integer',
-//            'Staff.position'=>'required|min:2',
-//            'Staff.sex'=>'required|integer',
-//        ],[
-//            'required'=>':attribute 为必填项',
-//            'min'=>':attribute 长度不符合要求',
-//            'integer'=>':attribute 必须为整数',
-//        ],[
-//            'Staff.name'=>'姓名',
-//            'Staff.age'=>'年龄',
-//            'Staff.position'=>'职位',
-//            'Staff.sex'=>'性别',
-//        ]);
-//        if($validator->fails()){
-//            return redirect()->back()->withErrors($validator)->withInput();
-//        }
-
         DB::connection()->enableQueryLog();
         $wages=new Wages();
         $wag=$request->input('Wages');
@@ -65,6 +53,10 @@ class WagesController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request)
     {
         $wag= $request->input('Wages');

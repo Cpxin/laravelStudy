@@ -27,13 +27,13 @@ class ExcelController extends Controller
             case 'staff':
                 $staff=Staff::get();
                 $j=0;
-                $cellData[$j++]=['ID'=>'ID','name'=>'姓名','age'=>'年龄','sex'=>'性别','position'=>'职位','created_at'=>'创建时间'];
+                $cellData[$j++]=['ID'=>'ID','name'=>'name','age'=>'age','sex'=>'sex','position'=>'position','created_at'=>'created_at'];
                 foreach ($staff as $k=>$v){
                     $cellData[$j++]=[
                         'ID'=>$v->id,
                         'name'=>$v->name,
                         'age'=>$v->age,
-                        'sex'=>$v->sex($v->sex),
+                        'sex'=>$v->sex,
                         'position'=>$v->position,
                         'created_at'=>$v->created_at
                     ];

@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
-    //项目初始页面
+    /**
+     * 项目初始页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function over()
     {
         if (isset($_GET['name'])||isset($_GET['state'])){
@@ -31,7 +34,12 @@ class ProjectController extends Controller
         }
         return view('project.project_over',['project'=>$project]);
     }
-    //项目详情 在项目安排页面点击保存时，上传员工ID，并保存至数据库
+    /**
+     * 项目详情 在项目安排页面点击保存时，上传员工ID，并保存至数据库
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function detail(Request $request,$id)
     {
 
@@ -58,7 +66,10 @@ class ProjectController extends Controller
 
         return view('project.project_detail',['project'=>$project]);
     }
-    //项目添加页面
+    /**
+     * 项目添加页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function add()
     {
         $staff=new Staff();
@@ -66,6 +77,10 @@ class ProjectController extends Controller
 
         return view('project.project_add',['position1'=>$position]);
     }
+    /**
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function save(Request $request)
     {
         //对传递过来的信息进行验证
@@ -136,8 +151,11 @@ class ProjectController extends Controller
             return redirect()->back()->with('fail','添加失败');
         }
     }
-
-    //人员安排
+    /**
+     * 人员安排
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function arrange($id)
     {
         $staff=Staff::paginate(50);
@@ -155,8 +173,11 @@ class ProjectController extends Controller
         }
         return view('project.project_arrange',['staff'=>$staff,'personnel'=>$data,'projectId'=>$id]);
     }
-
-    //项目启动
+    /**
+     * 项目启动
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function start($id)
     {
         $project=Project::find($id);
@@ -192,6 +213,10 @@ class ProjectController extends Controller
 
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function assure($id)
     {
         $project=Project::find($id);
@@ -225,8 +250,11 @@ class ProjectController extends Controller
         return redirect('project/over')->with('success','项目启动成功');
 
     }
-
-    //项目结算
+    /**
+     * 项目结算
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function settle($id)
     {
         $project=Project::find($id);
@@ -259,6 +287,10 @@ class ProjectController extends Controller
         return redirect('project/over')->with('success','项目结算成功');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function update(Request $request)
     {
 
@@ -271,6 +303,10 @@ class ProjectController extends Controller
 
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id)
     {
         $project=Project::find($id);
@@ -282,7 +318,11 @@ class ProjectController extends Controller
             return redirect()->back()->with('fail','删除失败！'.$id);
         }
     }
-    //项目信息批量存储
+    /**
+     * 项目信息批量存储
+     * @param $obj
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function excel_save($obj){
         $arr=[];
         $arr2=[];
@@ -311,6 +351,9 @@ class ProjectController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     */
     public function word_save(Request $request)
     {
 //        $id=$_GET['id'];
@@ -344,23 +387,4 @@ class ProjectController extends Controller
             echo "fail";
         }
     }
-
-//    public function arrange_search()
-//    {
-//           $redis=new Redis();
-////        if($val!=null){
-////        $val=$_POST['id'];
-////        $sta=new Staff();
-//            $sta=Staff::paginate(10);
-//            $sta=$sta->items();
-//            foreach ($sta as $k=>$v){
-//                $arr[$k]=$v;
-//            }
-////        return response()->json($arr)->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-////            return view('project.project_arrange')->with(['sta'=>$arr]);
-//        return [csrf_token(),'sta'=>$arr];
-//
-//    }
-
-
 }

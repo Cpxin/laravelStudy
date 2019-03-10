@@ -83,18 +83,6 @@
             </div>
 
         </div>
-        <!--分页-->
-        {{--<div class="form-group">--}}
-            {{--<label for="sKnot" class="col-xs-3 control-label">其他：</label>--}}
-            {{--<div class="col-xs-8" style="display: flex;flex-direction: column">--}}
-                {{--<div style="display: flex;flex-direction: row">--}}
-                    {{--<p>上午</p><input type="time" style="width: 80px">至<input type="time" style="width: 80px">--}}
-                {{--</div>--}}
-                {{--<div style="display: flex;flex-direction: row">--}}
-                    {{--<p>下午</p><input type="time" style="width:80px">至<input type="time" style="width: 80px">--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
         <div >
             <div class="pull-left">
                 {{$wages->render()}}
@@ -129,15 +117,6 @@
                                     <label for="sOrd" class="col-xs-3 control-label">工作周期：</label>
                                     <div class="col-xs-9">
                                         <input name="Wages[weekday]" value="{{old('Wages')['weekday']}}" class="form-control input-sm duiqi" id="sWeekDay" placeholder="">
-                                        {{--<div class="btn-toolbar" role="toolbar" >--}}
-                                        {{--<div class="btn-group" role="group">一</div>--}}
-                                        {{--<div class="btn-group" role="group">二</div>--}}
-                                        {{--<div class="btn-group" role="group">三</div>--}}
-                                        {{--<div class="btn-group" role="group">四</div>--}}
-                                        {{--<div class="btn-group" role="group">五</div>--}}
-                                        {{--<div class="btn-group" role="group">六</div>--}}
-                                        {{--<div class="btn-group" role="group">七</div>--}}
-                                        {{--</div>--}}
                                         <div class="btn-group" style="margin-left: -50px" id="weekgroup">
                                             <button type="button" class="btn btn-default " id="week1" onclick="week(1)" >一</button>
                                             <button type="button" class="btn btn-default" id="week2" onclick="week(2)">二</button>
@@ -145,7 +124,7 @@
                                             <button type="button" class="btn btn-default" id="week4" onclick="week(4)">四</button>
                                             <button type="button" class="btn btn-default" id="week5" onclick="week(5)">五</button>
                                             <button type="button" class="btn btn-default" id="week6" onclick="week(6)">六</button>
-                                            <button type="button" class="btn btn-default" id="week7" onclick="week(7)">七</button>
+                                            <button type="button" class="btn btn-default" id="week7" onclick="week(0)">七</button>
                                         </div>
                                     </div>
                                 </div>
@@ -288,17 +267,6 @@
             var position=$('#wagePosition').val();
             window.location.href="{{url('wages/over')}}?position="+position;
         }
-        // $('#feedDay').datetimepicker({//选择年月日
-        //     language:  'zh-CN',
-        //     startView:0,
-        //     dateFormat: 'yyyy-mm-dd',//日期显示格式
-        //     timeFormat:'HH:mm:ss',//时间显示格式
-        //     todayBtn:  1,
-        //     autoclose: 1,
-        //     minView:0,  //0表示可以选择小时、分钟   1只可以选择小时
-        //     minuteStep:1,
-        // });
-        // $('#feedDay').val(new Date().format('yyyy-MM-dd HH:mm:ss'));
         function time() {
 
             var time1=$('#Time1').val();
@@ -342,8 +310,5 @@
             $('#changeWages').modal('show');
 
         }
-        // $('#week1,#week2,#week3,#week3,#week4,#week5,#week6，#week7 ').onclick(function () {
-        //     this.className='active';
-        // })
     </script>
 @stop

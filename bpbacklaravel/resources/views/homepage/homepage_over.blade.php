@@ -79,50 +79,6 @@
                 </div>
                 <!-- /.modal -->
 
-                {{--<div class="container">--}}
-                    {{--<div class="row">--}}
-                        {{--<div class="col-md-9 col-lg-9 col-sm-9 col-xs-12 ">--}}
-                            {{--<h2 class="text-primary text-center">日本女孩研发狗狗机器人,告诉你今天体味如何?</h2>--}}
-                            {{--<div>--}}
-                                {{--<p class="text-muted ">--}}
-                                    {{--或许纯粹用机器测定你身上有无臭味，还不能激发人的耻度，但日本一家建设公司旗下的「CrazyLabo」疯狂实验室与北九州工业高等专门学校合作推出的人形与狗形气味探测机器人，将激发你内心最深处的羞耻感（或挫败感）！--}}
-                                {{--</p>--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 text-center">--}}
-                                        {{--<img src="img/sample-image.jpg" class="img-thumbnail" />--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<p class="text-muted">--}}
-                                    {{--图中的这位可爱的女孩叫做「香织」，--}}
-                                    {{--虽然被她眼睛直视感觉怪恐怖的，但微启的双唇，其实内部藏有气味探测装置。对她的双唇间吹气后，香织会从好到坏四个层次中归类你的口气。若你是香织的菜，她会告诉你：「柑橘般的酸甜滋味」（恋爱了？）；但太糟糕也会实话实说，毕竟她还不会说谎啊！--}}
-                                {{--</p>--}}
-                                {{--<p class="text-muted">--}}
-                                    {{--相对于异常恐怖的香织，狗形气味机器人就可爱多啦。主要的功用是闻闻你的脚味，虽然它不会说话，但会以肢体语言表达感受。当刚穿上袜子给它嗅嗅，通常会开心地对你叫几声。但最糟的情况下，它会直接气绝身亡，背景音乐将拨放萧邦的送葬进行曲。虽然表达形式有种恶搞的感觉，但点击来源连结观看朝日新闻的视频，你应该会笑出来！--}}
-                                {{--</p>--}}
-                            {{--</div>--}}
-                            {{--<div>--}}
-                                {{--<h4 class="text-muted">文章导航</h4>--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">--}}
-                                        {{--<img src="img/1.jpg" class="img-thumbnail" />--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">--}}
-                                        {{--<img src="img/2.jpg" class="img-thumbnail" />--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">--}}
-                                        {{--<img src="img/3.jpg" class="img-thumbnail" />--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-md-2 col-lg-2 col-sm-2 col-xs-12 col-lg-offset-1  a">--}}
-                            {{--<h4 class="text-muted text-center">随手文章 </h4>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-
         </div>
             <!--弹出添加用户窗口-->
             <div class="modal fade" id="addArticle_modal" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true" style="display: none;">

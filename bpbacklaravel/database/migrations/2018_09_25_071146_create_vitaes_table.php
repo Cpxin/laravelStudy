@@ -13,7 +13,7 @@ class CreateVitaesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vitae', function (Blueprint $table) {
+        Schema::create('vitaes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('staff_id');
             $table->string('image')->default('');

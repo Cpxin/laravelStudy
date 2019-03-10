@@ -25,42 +25,44 @@ use function PHPSTORM_META\map;
 
 class StaffController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $admin=User::find(Auth::user()->id);
 
         return view('common.layouts',['admin'=>$admin]);
     }
+
+    /**
+     * 该方法用来处理员工数据的展示，包括全部员工显示、员工筛选显示
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function over()
     {
-//        $staff=new Staff();
-//        dd(Auth::id());
-//        if (isset($_GET['page'])){
-//            dd($_GET['page']);
-//        }
+        //如果需要进行员工id查找、职位查找、员工状态查找，则从数据库中查找相应数据，否则查找全部员工信息。
         if (isset($_GET['id'])||isset($_GET['position'])||isset($_GET['state'])){
-            if (isset($_GET['id'])){
+            if (isset($_GET['id'])){  //如果是id搜索
                 $staff=Staff::where('id',$_GET['id'])->paginate(9);
             }
-            if (isset($_GET['position'])){
+            if (isset($_GET['position'])){ //如果是职位搜索
                 $staff=Staff::where('position',$_GET['position'])->paginate(9);
             }
-            if (isset($_GET['state'])){
+            if (isset($_GET['state'])){   //如果是员工状态搜索
                 $staff=Staff::where('state',$_GET['state'])->paginate(9);
             }
         }else{
             $staff=Staff::paginate(9);//每翻一次页执行一次,查找结果为一个模型，对其更改也会改变数据库
                                       //并且在翻页时由于重新渲染视图，搜索会被重置取消（get值被替换为page页数）
-
         }
         $h=date('h:i'); //小时:分钟
-        $m=date('a');//am pm
-        $w=date("w");//星期
-        $wages=Wages::all();
-        $time=$wages->pluck('time','position');
+        $m=date('a');//am pm 获取上午还是下午
+        $w=date("w");//星期几
+        $wages=Wages::all();   //获取全部作业表，用来对员工当前状态进行对照、更改
+        $time=$wages->pluck('time','position');  //职位 =>工作周期 例：上午8:00至12:00下午2:00至6:00
         $position=$wages->pluck('weekday',"position");   //职位 =>工作日
-//        dd($position,$time);
-        $range=[];
+        $range=[];  //用来存放工作时间范围
         foreach ($time as $pos=>$t ){
             $str1= substr($t,strpos($t,":")-2,5);  //8:00
             $letter=substr($t,strpos($t,':')+3);   //至12：00；下午2:00至06:00
@@ -69,25 +71,23 @@ class StaffController extends Controller
             $str3=substr($letter,strpos($letter,":")-2,5);//2:00
             $letter=substr($letter,strpos($letter,'至'));  //至06:00
             $str4=substr($letter,strpos($letter,":")-2,5);//6:00
-            $range[$pos]=array($str1,$str2,$str3,$str4);
-//            dd($range);
+            $range[$pos]=array($str1,$str2,$str3,$str4);   //['8:00','12:00','2:00','6:00']
         }
-        foreach ($staff as $sta){
-            $vit=Vitae::find($sta->id);
-            if (isset($position[$sta->position])){      //如果有规定工作日
-                if (strstr($position[$sta->position],$w)!=false){   //如果该员工在工作日
-                    $sta=$staff->find($sta->id);
-                    if ($m='am'&&$h>=$range[$sta->position][0]&&$h<=$range[$sta->position][1]){
-                        if ($vit==null||$vit->now_project==0){
-                            $sta->state=2;        //在工作日且在上班时间，上班
+        foreach ($staff as $sta){ //循环并处理每个查找的员工状态
+            $vit=Vitae::find($sta->id);   //当前员工的详细信息
+            if (isset($position[$sta->position])){      //如果该员工的职位有规定工作日
+                if (strstr($position[$sta->position],(string)$w)!=''){   //如果该员工在工作日
+                    if ($m='am'&&$h>=$range[$sta->position][0]&&$h<=$range[$sta->position][1]){//在工作日上午且在上班时间
+                        if ($vit==null||$vit->now_project==0){ //当前员工没有详细信息，或没有执行中的任务
+                            $sta->state=2;        //改为空闲状态
                             $sta->save();
                             continue;
                         }else{
-                            $sta->state=3;        //如果当前有任务，则为忙碌
+                            $sta->state=3;        //否则为忙碌状态
                             $sta->save();
                             continue;
                         }
-                    }else if ($m='pm'&&$h>=$range[$sta->position][2]&&$h<=$range[$sta->position][3]){
+                    }else if ($m='pm'&&$h>=$range[$sta->position][2]&&$h<=$range[$sta->position][3]){//在工作日下午且在上班时间
                         if ($vit==null||$vit->now_project==0){
                             $sta->state=2;
                             $sta->save();
@@ -98,22 +98,35 @@ class StaffController extends Controller
                             continue;
                         }
                     }
-                    $sta->state=1;          //在工作日但是下班了，休息
+                    $sta->state=1;          //在工作日但是下班了，改为休息状态
                     $sta->save();
                 }else{
-                    $sta->state=1;   //不在工作日，休息
+                    $sta->state=1;   //不在工作日，改为休息状态
                     $sta->save();
                 }
             }else{
-                $sta->state=0;    //未设置工作日，其他
+                $sta->state=0;    //未设置工作日(即使当前有任务)，改为其他状态
                 $sta->save();
             }
         }
         $positionnel=new Staff();
-        $position=$positionnel->distinct()->get(['position']);
-        return view('staff.staff_over',['staff'=>$staff,'position'=>$position,'adminId'=>Auth::id()]);
+        $position=$positionnel->distinct()->get(['position']);  //根据所有员工的职位获得职位列表
+        if (isset($_GET['position'])){
+            //返回员工总览视图，并携带：相关员工表、职位表、当前管理员ID、当前要查找的职位名 信息
+            return view('staff.staff_over',['staff'=>$staff,'position'=>$position,'adminId'=>Auth::id(),'now_position'=>$_GET['position']]);
+        }else if (isset($_GET['state'])){
+            //携带相应员工状态的数据
+            return view('staff.staff_over',['staff'=>$staff,'position'=>$position,'adminId'=>Auth::id(),'now_state'=>$_GET['state']]);
+        }else{
+            return view('staff.staff_over',['staff'=>$staff,'position'=>$position,'adminId'=>Auth::id()]);
+        }
     }
 
+    /**
+     *获取表单上传的值保存至数据库
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function save(Request $request)
     {
         //对传递过来的信息进行验证
@@ -159,6 +172,10 @@ class StaffController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function detail($id)
     {
         $staff=Staff::find($id);
@@ -204,26 +221,13 @@ class StaffController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function save_detail(Request $request,$id)
     {
-//        $validator=\Validator::make($request->input(),[
-//            'Staff.name'=>'required|min:2|max:20',
-//            'Staff.age'=>'required|integer',
-//            'Staff.position'=>'required|min:2',
-//            'Staff.sex'=>'required|integer',
-//        ],[
-//            'required'=>':attribute 为必填项',
-//            'min'=>':attribute 长度不符合要求',
-//            'integer'=>':attribute 必须为整数',
-//        ],[
-//            'Staff.name'=>'姓名',
-//            'Staff.age'=>'年龄',
-//            'Staff.position'=>'职位',
-//            'Staff.sex'=>'性别',
-//        ]);
-//        if($validator->fails()){
-//            return redirect()->back()->withErrors($validator)->withInput();
-//        }
         $vitae=Vitae::where('staff_id',$id)->with('staff')->get();   //关联表查询
         foreach ($vitae as $v){
             $vit=$v;        //通过循环才能读取？？
@@ -259,6 +263,11 @@ class StaffController extends Controller
 //        return redirect('staff/detail/'.$id)->with('success','添加成功!'.$vitae->id);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function save_img(Request $request,$id)
     {
         $vitae=Vitae::where('staff_id',$id)->with('staff')->get();   //关联表查询
@@ -301,6 +310,10 @@ class StaffController extends Controller
 
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id)
     {
         $staff=Staff::find($id);   //通过点击获取的id查找数据
@@ -314,6 +327,10 @@ class StaffController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request)
     {
         DB::connection()->enableQueryLog();   //开启QueryLog数据库日志
@@ -336,7 +353,9 @@ class StaffController extends Controller
             return redirect()->back()->with('fail','修改失败！'.$id);
         }
     }
-    //微信登录
+    /**
+     * 微信登录
+     */
     public function wx_staff_login(){
         $id=$_POST["id"];
         $pwd=$_POST["pwd"];
@@ -369,13 +388,10 @@ class StaffController extends Controller
             echo "员工ID不存在";
             exit;
         }
-//        if ($staff->state==0){
-//            $staff->state=4;
-//            $staff->save();
-//        }
-//        echo $id;
     }
-    //微信密码注册
+    /**
+     * 微信密码注册
+     */
     public function wx_staff_pwd(){
         $id=$_POST["id"];
         $pwd=$_POST["pwd"];
@@ -395,10 +411,14 @@ class StaffController extends Controller
             echo "员工ID不存在";
         }
     }
+
+    /**
+     * 微信获取员工信息接口
+     */
     public function wx_staff_detail(){
         $id=$_GET['id'];
         $staff=Staff::find($id);
-
+        //返回json数据内容
         $detail=array(
             'id'=>$staff->id,
             'name'=>$staff->name,
@@ -414,9 +434,8 @@ class StaffController extends Controller
             'experience'=>[],
             'information'=>'',
         );
-
         $vitae=Vitae::where('staff_id',$id)->get();
-        if(isset($vitae[0]->id)){           //如果该员工有详细信息（简历）
+        if(isset($vitae[0]->id)){           //如果该员工有详细信息
             $detail['now_project']=$vitae[0]->now_project;
             if ($vitae[0]->now_project!=null&&$vitae[0]->now_project!=0){ //如果员工当前有执行的任务
                 $nowProject=Project::find($vitae[0]->now_project);
@@ -424,7 +443,7 @@ class StaffController extends Controller
                 $detail['now_project_data']['now_project_term']=(((int)((strtotime('now')-strtotime($nowProject->created_at))/86400))/$nowProject->term)*100;
             }
             if ($vitae[0]->image!=''){
-                $detail['img']=$vitae[0]->image;
+                $detail['img']=$vitae[0]->image;  //员工照片名
             }
             if($vitae[0]->experience!=''){      //如果该员工有项目经历
                 $have=$vitae[0]->experience;
@@ -433,23 +452,23 @@ class StaffController extends Controller
                     $have=substr($have,strpos($have,';')+1);
                     $proid[]=$str1;       //['projectId1';'projectId2';..]
                 }
-                foreach ($proid as $pid){
+                foreach ($proid as $pid){  //循环每个员工项目经历
                     $pro=Project::find($pid);
                     $detail['experience'][$pid]['id']=$pid;
                     $detail['experience'][$pid]['name']=$pro->name;
                     $detail['experience'][$pid]['rank']=$pro->rank;
                 }
             }
-
             if ($vitae[0]->information!=''){
-                $detail['information']=$vitae[0]->information;
+                $detail['information']=$vitae[0]->information; //发给员工的短消息
             }
         }
-
+        //将数组转换为json格式
         echo json_encode($detail,JSON_UNESCAPED_UNICODE);
-//        dd($detail['name']);
     }
-    //微信签到
+    /**
+     * 微信签到
+     */
     public function wx_staff_sign(){
         $id=$_GET['id'];
         $staff=Staff::find($id);
@@ -459,7 +478,11 @@ class StaffController extends Controller
         }
         echo $staff->updated_at;
     }
-    //向员工发送信息
+    /**
+     * 向员工发送信息
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function wx_information(Request $request){
         $info=$request->input('Info');
         $vitae=Vitae::where('staff_id',$info['id'])->with('staff')->get();   //关联表查询
@@ -481,7 +504,11 @@ class StaffController extends Controller
             return redirect()->back()->with('fail','添加失败!');
         }
     }
-    //excel文件内容批量保存
+    /**
+     * excel文件内容批量保存
+     * @param $obj
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function excel_save($obj){
         $arr=[];
         $arr2=[];
@@ -498,6 +525,8 @@ class StaffController extends Controller
         foreach ($v as $k=>$val){
             $arr3[$i++]=$k;                //数据源字段名数组
         }
+//        dd($arr2,$arr3);
+//        dd($arr);
         if (count(array_diff($arr3,$arr2))==0){
             $bool=DB::table('staff')->insert($arr);
             if ($bool){

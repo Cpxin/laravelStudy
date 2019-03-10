@@ -134,7 +134,13 @@
     <!--分页-->
         <div >
             <div class="pull-left" >
-                {{$staff->render()}}
+                @if(isset($now_position))
+                {{$staff->appends(['position'=>$now_position])->render() }}
+                    @elseif(isset($now_state))
+                    {{$staff->appends(['state'=>$now_state])->render()}}
+                    @else
+                    {{$staff->render()}}
+                @endif
             </div>
         </div>
 
@@ -181,26 +187,6 @@
                                         <input name="Staff[position]" value="{{old('Staff')['position']}}" class="form-control input-sm duiqi" id="sKnot" placeholder="">
                                     </div>
                                 </div>
-
-                                {{--<div class="form-group">--}}
-                                    {{--<label for="sKnot" class="col-xs-3 control-label">权限：</label>--}}
-                                    {{--<div class="col-xs-8">--}}
-                                        {{--<select class=" form-control select-duiqi">--}}
-                                            {{--<option value="">管理员</option>--}}
-                                            {{--<option value="">普通用户</option>--}}
-                                            {{--<option value="">游客</option>--}}
-                                        {{--</select>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="form-group">--}}
-                                    {{--<label for="situation" class="col-xs-3 control-label">状态：</label>--}}
-                                    {{--<div class="col-xs-8">--}}
-                                        {{--<label class="control-label" for="anniu">--}}
-                                            {{--<input type="radio" name="situation" id="normal">正常</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--}}
-                                        {{--<label class="control-label" for="meun">--}}
-                                            {{--<input type="radio" name="situation" id="forbid"> 禁用</label>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -257,16 +243,6 @@
                                         <input name="rStaff[position]" value=""  class="form-control input-sm duiqi" id="cPosition" placeholder="">
                                     </div>
                                 </div>
-                                {{--<div class="form-group">--}}
-                                    {{--<label for="situation" class="col-xs-3 control-label">状态：</label>--}}
-                                    {{--<div class="col-xs-8">--}}
-                                        {{--<label class="control-label" for="anniu">--}}
-                                            {{--<input type="radio" name="situation" id="normal">正常</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--}}
-                                        {{--<label class="control-label" for="meun">--}}
-                                            {{--<input type="radio" name="situation" id="forbid"> 禁用</label>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -281,41 +257,9 @@
         </div>
         <!-- /.modal -->
 
-        <!--弹出删除用户警告窗口-->
-        {{--<div class="modal fade" id="deleteUser" role="dialog" aria-labelledby="gridSystemModalLabel">--}}
-            {{--<div class="modal-dialog" role="document">--}}
-                {{--<div class="modal-content">--}}
-                    {{--<div class="modal-header">--}}
-                        {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>--}}
-                        {{--<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>--}}
-                    {{--</div>--}}
-                    {{--<div class="modal-body">--}}
-                        {{--<div class="container-fluid">--}}
-                            {{--确定要删除该用户？删除后不可恢复！--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="modal-footer">--}}
-                        {{--<button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>--}}
-                        {{--<button type="button" class="btn  btn-xs btn-danger">保 存</button>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<!-- /.modal-content -->--}}
-            {{--</div>--}}
-            {{--<!-- /.modal-dialog -->--}}
-        {{--</div>--}}
-        <!-- /.modal -->
-
     </div>
         @else
-        {{--<div class="panel col-lg-4 col-lg-offset-4" style="margin-top: 50px">--}}
-            {{--<div class="panel-heading">--}}
-                {{--当前用户：{{ Auth::user()->name }}--}}
-            {{--</div>--}}
-            {{--<div class="panel-body" style="padding:10px 50px ">--}}
-                {{--权限等级：{{Auth::user()->rank}}--}}
-                {{--<ul class="nav nav-list"><li class="divider"></li></ul>--}}
-            {{--</div>--}}
-        {{--</div>--}}
+
         @include('common.jurisdiction')
     @endif
 @stop
@@ -339,11 +283,7 @@
             }
             function find_staff() {
                 var id=$('#find_input').val();
-                // window.location.href='http://localhost/bpbacklaravel/public/staff/over?name='+name;
                 window.location.href="{{url('staff/over')}}?id="+id;
-                {{--$.get('{{url('staff/over')}}',{'name':name},function () {--}}
-                    {{----}}
-                {{--});--}}
             }
         $('#exBtn').on('click',function () {
             $('#exBtnInput').click();
@@ -351,11 +291,6 @@
         $('#imBtn').on('click',function () {
             $('#imBtnInput').click();
         });
-        // $('#imBtnInput').change(function(){
-        //     // var file = this.files[0];
-        //     // var url = getObjectURL(file);
-        //     console.log(url);
-        // });
         var xhr;
         function im() {
             document.getElementById("imSubmit").submit();
@@ -364,7 +299,5 @@
         function position_drop() {
             $('#dropdown-menu').dropdown();
         }
-            // $('#reviseStaff').on('show.bs.modal',function (event) {
-        // });
     </script>
 @stop

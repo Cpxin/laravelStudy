@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     //
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function over()
     {
         if (isset($_GET['name'])){
@@ -22,6 +25,11 @@ class AdminController extends Controller
         }
         return view('admin.admin_over',['admin'=>$admin]);
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function save(Request $request)
     {
         $strs="QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm";
@@ -52,6 +60,10 @@ class AdminController extends Controller
             return redirect()->back()->with('fail','添加失败!');
         }
     }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete(){
         $id=$_GET['id'];
         $admin=User::find($id);
@@ -62,6 +74,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function logout(){
         Auth::logout();
         return redirect('/');

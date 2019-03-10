@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 class FrontController extends Controller
 {
     //
+    /**
+     * @return $this
+     */
     public function index()
     {
 

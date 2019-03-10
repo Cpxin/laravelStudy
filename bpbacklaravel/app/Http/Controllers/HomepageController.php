@@ -10,6 +10,9 @@ use PhpParser\Node\Scalar\MagicConstTest;
 class HomepageController extends Controller
 {
     //
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function over(){
         $article=Article::select('z_title','title')->get();
         $art=[];
@@ -19,7 +22,9 @@ class HomepageController extends Controller
         $message=Message::select('content','id')->get();
         return view('homepage.homepage_over',['article'=>$art,'message'=>$message]);
     }
-    //文章查找
+    /**
+     * 文章查找
+     */
     public function article(){
 //        dd($_GET['title']);
         $article=Article::where('title',$_GET['title'])->get();
@@ -33,6 +38,11 @@ class HomepageController extends Controller
             echo "无";
         };
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request){
         $article=$request->input('Article');
         $art=Article::where('title',$article['title'])->get();
@@ -44,7 +54,9 @@ class HomepageController extends Controller
             return redirect()->back()->with('fail','文章'.$article['title'].'修改失败');
         }
     }
-    //添加标题
+    /**
+     * 添加标题
+     */
     public function add_title(){
         $ztitle=$_GET['z_title'];
         $title= $_GET['title'];
@@ -57,7 +69,11 @@ class HomepageController extends Controller
             echo "添加失败";
         }
     }
-    //添加总标题
+    /**
+     * 添加总标题
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function add_ztitle(Request $request)
     {
         $t=$request->input('title');
@@ -76,8 +92,10 @@ class HomepageController extends Controller
                 return redirect('homepage/over')->with('fail',$ztitle.'标题添加失败!');
             }
         }
-
     }
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete()
     {
         $ztitle=$_GET['ztitle'];
@@ -88,6 +106,9 @@ class HomepageController extends Controller
             return redirect('homepage/over')->with('fail',$ztitle.'标题删除失败!');
         }
     }
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function message()
     {
         $content=$_POST['content'];
@@ -96,6 +117,9 @@ class HomepageController extends Controller
         $message->save();
         return redirect('/');
     }
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function message_delete()
     {
         $id=$_GET['id'];
@@ -106,6 +130,10 @@ class HomepageController extends Controller
             return redirect('homepage/over')->with('fail','留言-'.$id.'删除失败!');
         }
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function front(){
         $title=$_GET['title'];
         $article=Article::select('content')->where('title',$title)->get();

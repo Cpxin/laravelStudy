@@ -17,16 +17,16 @@ class StaffTableSeeder extends Seeder
         Staff::truncate();
 
         $faker = \Faker\Factory::create('zh_CN');
-        $position=array('程序员','后端工程师','前端工程师');
+        $position=array('后端工程师','前端工程师','总监','主任','项目组长');
         $sex=array(10,20,30);
         // And now, let's create a few articles in our database:
         DB::statement("ALTER TABLE staff AUTO_INCREMENT = 1000;");
-        for ($i = 0; $i < 10000; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             Staff::insert([
 //                'name' => $faker->addProvider(new \Faker\Provider\zh_CN\Person($faker)),
 //                'name'=>$faker->addProvider(new \Faker\Provider\zh_CN\Person()),
                 'name'=>$faker->name,
-                'age' => array_random([20,22,25,26]),
+                'age' => array_random([20,22,25,26,30,28,33,31,30,29,27,38,40,39]),
                 'sex'=>array_random($sex),
                 'position'=>array_random($position),
                 'state'=>0,

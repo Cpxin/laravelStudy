@@ -23,9 +23,6 @@
                             　　　　<input type="file" id="test-image-file" name="img" accept="image/gif, image/jpeg, image/png, image/jpg" value="选择头像">
 
                             　　</p>
-                        {{--<p id="test-file-info"></p>--}}
-
-
                     <p  class=" col-sm-offset-1" style="width: 100px">姓名：{{$staff->name}}</p>
                     <address>
                         {{--<strong>中国</strong><br>--}}
@@ -41,80 +38,12 @@
                 </div>
             </div>
 
-        {{--<div class="panel panel-info">--}}
-            {{--<div class="panel panel-heading">技能</div>--}}
-            {{--<div class="panel-body">--}}
-                {{--<div class="row">--}}
-                    {{--<div class="col-sm-3">--}}
-                        {{--<span class="text-muted">HTML5</span>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-sm-9">--}}
-                        {{--<div class="progress">--}}
-                            {{--<div class="progress-bar progress-bar-striped active" style="width: 85%"></div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
 
-                {{--<div class="row">--}}
-                    {{--<div class="col-sm-3">--}}
-                        {{--<span class="text-success">IOS</span>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-sm-9">--}}
-                        {{--<div class="progress">--}}
-                            {{--<div class="progress-bar progress-bar-striped progress-bar-success active" style="width: 85%"></div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-                {{--<div class="row">--}}
-                    {{--<div class="col-sm-3">--}}
-                        {{--<span class="text-info">PHP</span>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-sm-9">--}}
-                        {{--<div class="progress">--}}
-                            {{--<div class="progress-bar progress-bar-striped progress-bar-info active" style="width: 70%"></div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="row">--}}
-                    {{--<div class="col-sm-3">--}}
-                        {{--<span class="text-warning">JQuery</span>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-sm-9">--}}
-                        {{--<div class="progress">--}}
-                            {{--<div class="progress-bar progress-bar-striped progress-bar-warning active" style="width: 65%"></div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-                {{--<div class="row">--}}
-                    {{--<div class="col-sm-3">--}}
-                        {{--<span class="text-danger">CSS</span>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-sm-9">--}}
-                        {{--<div class="progress">--}}
-                            {{--<div class="progress-bar progress-bar-striped progress-bar-danger active" style="width: 50%"></div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
         <div class="panel panel-primary">
             <div class="panel panel-heading">发送消息</div>
             <div class="panel-body">
                 <form class="form-horizontal" method="post" action="{{url('staff/wx_information')}}">
                     {{ csrf_field() }}
-                    {{--<div class="form-group">--}}
-                        {{--<label for="email" class="col-sm-2 control-label">Email</label>--}}
-                        {{--<div class="col-sm-8">--}}
-                            {{--<input type="email" id="email" class="form-control" placeholder="Email">--}}
-                            {{--@if($vitae->email!=null)--}}
-                                {{--<p style="margin-top: 7px">{{$vitae->email}}</p>--}}
-                                {{--@else--}}
-                                {{--<p style="margin-top: 7px">未填写邮箱</p>--}}
-                            {{--@endif--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
                     <input type="text" name="Info[id]" style="display: none" value="{{$staff->id}}">
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">消息</label>

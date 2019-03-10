@@ -122,32 +122,7 @@
                             </div>
                         </div>
 
-                        {{--<div class="row">--}}
-                            {{--<div class="col-sm-3 ">--}}
-                                {{--<div class="form-inline">--}}
-                                    {{--<p>职位：--}}
-                                    {{--<select class="form-control">--}}
-                                        {{--<option>程序员</option>--}}
-                                        {{--<option>项目主管</option>--}}
-                                        {{--<option>项目经理</option>--}}
-                                    {{--</select>--}}
-                                    {{--</p>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="form-group  col-sm-4">--}}
-                                {{--<div class="input-group">--}}
-                                    {{--<div class="input-group-addon" >人数：</div>--}}
-                                    {{--<input type="text" style="width: 50px" id="num" name="Project[personnel]" value="{{old('Project')['personnel']?old('Project')['personnel']:''}}" class="form-control" placeholder="0">--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="col-sm-2">--}}
-                                {{--<button class="btn btn-green">--}}
-                                    {{--<strong>+</strong>--}}
-                                {{--</button>--}}
-                            {{--</div>--}}
-
                             <div class="col-sm-7" style="margin-left: -13px;margin-top: 10px"><p style="font-size: 15px">已选员工ID：{{$project->staffId}}</p></div>
-
 
                         {{--</div>--}}
 
@@ -170,10 +145,6 @@
                     </div>
                 </div>
 
-                {{--<div class="panel">--}}
-                    {{--<button type="submit" class="btn btn-xs btn-green">保 存</button>--}}
-                {{--</div>--}}
-
             {{--</form>--}}
             @if($project->state==0)         <!--如果项目未启动-->
             <div  style="text-align: center">
@@ -186,9 +157,6 @@
                 </div>
                         @endif
                 @endif
-
-
-
         </div>
 
         <!--弹出修改项目内容窗口-->
@@ -233,53 +201,6 @@
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
-
-        <!--右边-->
-        {{--<div class="col-sm-9">--}}
-        {{--<div class="jumbotron">--}}
-        {{--<p class="text-left small">--}}
-        {{--爱学习、爱编程、爱咖啡可乐、爱挑战、爱专研、爱打游戏、爱晚起、也爱工作到深夜.我擅长技术、崇尚简单和懒惰。我神秘而孤僻，沉默而爱憎分明。--}}
-        {{--<br>Don't panic I‘m a programmer--}}
-        {{--</p>--}}
-        {{--<div class="panel-default">--}}
-        {{--@include('common.message')--}}
-        {{--<div class="panel-heading">附加信息</div>--}}
-        {{--<div class="panel-body">--}}
-        {{--<form class="form-horizontal" method="post" action="{{url('staff/save_detail/'.$staff->id)}}">--}}
-        {{--{{csrf_field()}} <!--生成隐藏input表单-->--}}
-
-        {{--<div class="form-group">--}}
-        {{--<div class="col-sm-5">--}}
-        {{--<label for="hobby">爱好:</label>--}}
-        {{--<textarea id="hobby" name="Vitae[hobby]" value="{{old('Vitae')['hobby']?old('Vitae')['hobby']:''}}" class="form-control" rows="3"></textarea>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-
-        {{--<div class="form-group">--}}
-        {{--<div class="input-group col-sm-5">--}}
-        {{--<div class="input-group-addon" >邮箱</div>--}}
-        {{--<input type="text" name="Vitae[email]" value="{{old('Vitae')['email']?old('Vitae')['email']:''}}" class="form-control " id="email" placeholder="未填写..">--}}
-        {{--</div>--}}
-        {{--</div>--}}
-
-        {{--<div class="form-group">--}}
-        {{--<div class="input-group col-sm-5">--}}
-        {{--<div class="input-group-addon" >住址</div>--}}
-        {{--<input type="text" name="Vitae[adress]" value="{{old('Vitae')['adrss']?old('Vitae')['adress']:''}}" class="form-control " id="adress" placeholder="未填写..">--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{----}}
-        {{--<div class="form-group">--}}
-        {{--<div class="col-sm-offset-2 col-sm-10">--}}
-        {{--<button type="submit" class="btn btn-primary" >保存</button>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</form>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{----}}
-        {{--</div>--}}
     </div>
 @stop
 

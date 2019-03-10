@@ -58,10 +58,6 @@
 
         <div class="col-xs-4">
             <div class="panel-body">
-                    {{--<select multiple class="selectpicker show-tick" id="select1" data-style="btn-success">--}}
-                    {{--<option>1</option>--}}
-                {{--</select>--}}
-                {{--$personnel ： 职位：人数--}}
                 @foreach($personnel as $k=>$v)
                     <ul class="list-group" id="{{$k}}">
                         <li class="list-group-item list-group-item-success" id="i{{$k}}" value="{{$v}}">职位：{{$k}}    剩余可选人数：{{$v}}</li>
@@ -240,16 +236,6 @@
                     return false
                 }
             }
-            // console.log(r);
         }
-        // function confirm() {
-        //     if (r===0){
-        //         return false;
-        //     }else {
-        //         return true;
-        //     }
-        // }
-
-
     </script>
 @stop

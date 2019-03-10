@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 class RecordController extends Controller
 {
     //
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function over()
     {
         if (isset($_GET['text'])){
@@ -18,6 +21,10 @@ class RecordController extends Controller
         return view('record.record_over',['record'=>$record]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id)
     {
         $record=Record::find($id);

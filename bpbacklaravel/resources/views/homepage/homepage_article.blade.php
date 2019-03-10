@@ -112,36 +112,15 @@
         @endauth
     </div>
 @endif
-
-{{--<block  style="width:100%;height:500px;position: absolute;top: 50px">--}}
-
 <div style="background:url({{asset('img/chicago_large_change.jpg')}}) center center / cover no-repeat;width:100%;height:500px;margin-top: 50px">
-    {{--<div class="links">--}}
-    {{--<a href="https://laravel.com/docs">Documentation</a>--}}
-    {{--<a href="https://laracasts.com">Laracasts</a>--}}
-    {{--<a href="https://laravel-news.com">News</a>--}}
-    {{--<a href="https://forge.laravel.com">Forge</a>--}}
-    {{--<a href="https://github.com/laravel/laravel">GitHub</a>--}}
-    {{--</div>--}}
     <div class="jumbotron" style="background-color: #fff ;position:relative;top:100px;width: 900px;display:inline-block!important;margin-left: 500px">
         <h1 style="text-align: center">{{$title}}</h1>
         <p style="float: left;margin-left:20px;margin-top: 20px;color: black">{{$content}}</p>
-        {{--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>--}}
     </div>
 </div>
 {{--</block>--}}
 <div class="content" style="background-color:#23272b;height:500px;width: 100%;">
     <div class="container">
-        {{--@foreach($article as $zt=>$t)--}}
-            {{--<div class="container-item">--}}
-                {{--<div class="nav-title">{{$zt}}</div>--}}
-                {{--<ul class="nav">--}}
-                    {{--@foreach($t as $k=>$v)--}}
-                        {{--<li class="nav-item" onclick="" ><p>{{$v}}</p></li>--}}
-                    {{--@endforeach--}}
-                {{--</ul>--}}
-            {{--</div>--}}
-        {{--@endforeach--}}
     </div>
 
 </div>
