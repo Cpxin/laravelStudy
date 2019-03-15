@@ -15,12 +15,18 @@
             </div>
             <div class="col-xs-2">
                 @if(Auth::user()->rank<=3)
-                <form id="imSubmit" method="post" action="{{url('excel/import')}}?type=project" enctype="multipart/form-data">
+                {{--<form id="imSubmit" method="post" action="{{url('excel/import')}}?type=project" enctype="multipart/form-data">--}}
+                {{--<span class="btn btn-danger fileinput-button">--}}
+                    {{--<span id="imBtn">导入Excel文件</span>--}}
+                    {{--<input type="file" name="import" style="display: none" onchange="im()"   id="imBtnInput" />--}}
+                {{--</span>--}}
+                {{--</form>--}}
+                    <form id="imSubmit" method="post" action="{{url('excel/import')}}?type=project" enctype="multipart/form-data">
                 <span class="btn btn-danger fileinput-button">
                     <span id="imBtn">导入Excel文件</span>
                     <input type="file" name="import" style="display: none" onchange="im()"   id="imBtnInput" >
                 </span>
-                </form>
+                    </form>
                     @endif
             </div>
             <div class="col-xs-2  " >
@@ -162,6 +168,12 @@
             var name=$('#projectName').val();
             window.location.href="{{url('project/over')}}?name="+name;
         }
+        $('#exBtn').on('click',function () {
+            $('#exBtnInput').click();
+        });
+        $('#imBtn').on('click',function () {
+            $('#imBtnInput').click();
+        });
         function im() {
             document.getElementById("imSubmit").submit();
         }

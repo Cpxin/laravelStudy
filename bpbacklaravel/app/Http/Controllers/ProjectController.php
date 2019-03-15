@@ -8,6 +8,7 @@ use App\Staff;
 use App\Vitae;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 //use Illuminate\Support\Facades\Redis;
@@ -327,7 +328,7 @@ class ProjectController extends Controller
         $arr=[];
         $arr2=[];
         $arr3=[];
-        $columns = Schema::getColumnListing('project');  //获取表中所有字段名
+        $columns = Schema::getColumnListing('projects');  //获取表中所有字段名
         foreach ($columns as $k=>$v){
             $arr2[$k]=$v;                       //表格字段数组
         }
@@ -339,8 +340,9 @@ class ProjectController extends Controller
         foreach ($v as $k=>$val){
             $arr3[$i++]=$k;                //数据源字段名数组
         }
+//        dd(array_diff($arr3,$arr2));
         if (count(array_diff($arr3,$arr2))==0){
-            $bool=DB::table('project')->insert($arr);
+            $bool=DB::table('projects')->insert($arr);
             if ($bool){
                 return redirect()->back()->with('success','批量保存成功!');
             }else{
